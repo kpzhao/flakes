@@ -3,6 +3,7 @@
 {
     imports = [
         ./swayidle.nix
+        ./swaybg.nix
     ];
     home = {
         packages = with pkgs; [

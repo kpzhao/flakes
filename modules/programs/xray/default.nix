@@ -14,7 +14,7 @@
             Unit = {
                 Description = "xray is a proxy tool";
             };
-            # enable = true;
+            Install.WantedBy = [ "default.target" ];
             Service = {
                 Type = "simple";
                 ExecStart = ''

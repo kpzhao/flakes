@@ -11,7 +11,7 @@
             Unit = {
                 Description = "aria2 daemon";
             };
-            #enable = true;
+            Install.WantedBy = [ "default.target" ];
             Service = {
                 Type = "simple";
                 ExecStart = ''

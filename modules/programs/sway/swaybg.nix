@@ -15,7 +15,6 @@
                 Description = "default wallpaper";
                 PartOf = [ "graphical-session.target" ];
             };
-            enable = true;
             Install.WantedBy = [ "sway-session.target" ];
             Service = {
                 ExecStart = ''
