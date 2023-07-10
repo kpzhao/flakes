@@ -11,6 +11,7 @@
             Unit = {
                 Description = "aria2 daemon";
             };
+            #enable = true;
             Service = {
                 Type = "simple";
                 ExecStart = ''

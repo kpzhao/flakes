@@ -167,10 +167,17 @@ programs.adb.enable = true;
 # Enable the OpenSSH daemon.
     services.openssh.enable = true;
 
+        # Automatic Garbage Collection
+    nix.gc = {
+                    automatic = true;
+                    dates = "weekly";
+                    options = "--delete-older-than 7d";
+            };
+            
+    nixpkgs.config.allowUnfree = true;
+
 
     system.stateVersion = "23.05";
 
-
-    nixpkgs.config.allowUnfree = true;
 }
 

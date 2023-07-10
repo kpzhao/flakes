@@ -14,6 +14,7 @@
             Unit = {
                 Description = "xray is a proxy tool";
             };
+            # enable = true;
             Service = {
                 Type = "simple";
                 ExecStart = ''
