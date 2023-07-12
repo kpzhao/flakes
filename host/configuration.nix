@@ -10,11 +10,15 @@
     imports =
         [ # Include the results of the hardware scan.
         ./hardware-configuration.nix
-        # ../pkgs/fcitx5-pinyin-zhwiki
+# ../pkgs/fcitx5-pinyin-zhwiki
         ];
+
+    nixpkgs.overlays = import ../overlays args;
 
 # Use the systemd-boot EFI boot loader.
     boot.loader.systemd-boot.enable = true;
+# do not need to keep too much generations
+    boot.loader.systemd-boot.configurationLimit = 10;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.kernelParams = [ "i915.enable_psr=0" ];
 
@@ -118,7 +122,7 @@
 #   ];
 # };
 
-programs.adb.enable = true;
+    programs.adb.enable = true;
 # List packages installed in system profile. To search, run:
 # $ nix search wget
     environment.systemPackages = with pkgs; [
@@ -129,6 +133,7 @@ programs.adb.enable = true;
             firefox
             gcc
             llvmPackages_16.libllvm
+            gnumake
             p7zip
 
     ];
@@ -167,14 +172,15 @@ programs.adb.enable = true;
 # Enable the OpenSSH daemon.
     services.openssh.enable = true;
 
-        # Automatic Garbage Collection
+# Automatic Garbage Collection
     nix.gc = {
-                    automatic = true;
-                    dates = "weekly";
-                    options = "--delete-older-than 7d";
-            };
-            
+        automatic = true;
+        dates = "weekly";
+        options = "--delete-older-than 7d";
+    };
+
     nixpkgs.config.allowUnfree = true;
+
 
 
     system.stateVersion = "23.05";
