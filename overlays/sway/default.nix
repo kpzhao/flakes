@@ -4,7 +4,7 @@
   sway-unwrapped = prev.sway-unwrapped.overrideAttrs (self:
     {
       patches = self.patches or [ ] ++ [
-        ./7226.patch
+        ./7227.patch
       ];
     });
 })
