@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 
-{ config, pkgs, helix, ... }:
+{ config, pkgs, helix, ... } @ args:
 
 {
     nix.settings.experimental-features = [ "nix-command" "flakes" "ca-derivations" "auto-allocate-uids" "cgroups" ];
@@ -13,7 +13,8 @@
 # ../pkgs/fcitx5-pinyin-zhwiki
         ];
 
-    nixpkgs.overlays = import ../overlays args;
+    # nixpkgs.overlays = import ../overlays args;
+    nixpkgs.overlays = import ../overlays/sway;
 
 # Use the systemd-boot EFI boot loader.
     boot.loader.systemd-boot.enable = true;
