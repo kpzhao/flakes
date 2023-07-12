@@ -13,8 +13,8 @@
 # ../pkgs/fcitx5-pinyin-zhwiki
         ];
 
-    # nixpkgs.overlays = import ../overlays args;
-    nixpkgs.overlays = import ../overlays/sway;
+    nixpkgs.overlays = import ../overlays args;
+    # nixpkgs.overlays = import ../overlays/sway;
 
 # Use the systemd-boot EFI boot loader.
     boot.loader.systemd-boot.enable = true;
