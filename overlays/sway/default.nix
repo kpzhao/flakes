@@ -1,10 +1,9 @@
  { ... }:
- 
- (final: prev: {
-  sway = prev.sway.overrideAttrs (self:
-    {
-      patches = self.patches or [ ] ++ [
-        ./7226.patch
-      ];
-    });
+
+(final: prev: {
+  sway = prev.sway.overrideAttrs (old: {
+    patches = (old.patches or []) ++ [
+      ./7226.patch
+    ];
+  });
 })
