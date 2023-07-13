@@ -1,7 +1,7 @@
  { ... }:
 
 (final: prev: {
-  sway = prev.sway.overrideAttrs (old: {
+  sway-unwrapped = prev.sway.overrideAttrs (old: {
     patches = (old.patches or []) ++ [
       ./7226.patch
     ];
