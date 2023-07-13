@@ -1,4 +1,4 @@
-{...}
+{...}:
 (final: prev: rec {
   xwayland = prev.xwayland.overrideAttrs (_: {
     patches = [
