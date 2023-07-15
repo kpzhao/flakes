@@ -43,7 +43,7 @@
       };
 
       buildInputs = oa.buildInputs ++ [ prev.pcre2 prev.xorg.xcbutilwm ];
-    })).override { wlroots_0_16 = wlroots-hidpi; };
+    })).override { wlroots_0_17 = wlroots-hidpi; };
 
   sway-hidpi = prev.sway.override {
     inherit sway-unwrapped;
