@@ -10,6 +10,9 @@
         nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
         nur.url = "github:nix-community/NUR";
 
+        # overlays
+        nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
+
         home-manager = {
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -17,7 +20,7 @@
 
         impermanence.url = "github:nix-community/impermanence";
 
-# zathura and vim templates to the flake inputs.
+        # theme
         base16.url = github:SenchoPens/base16.nix;
 
         base16-schemes = {

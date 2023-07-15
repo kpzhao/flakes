@@ -10,10 +10,11 @@
     imports =
         [ # Include the results of the hardware scan.
         ./hardware-configuration.nix
+        ../overlays/sway-hidpi.nix
 # ../pkgs/fcitx5-pinyin-zhwiki
         ];
 
-    nixpkgs.overlays = import ../overlays args;
+    # nixpkgs.overlays = import ../overlays args;
     # nixpkgs.overlays = import ../overlays/sway;
 
 # Use the systemd-boot EFI boot loader.

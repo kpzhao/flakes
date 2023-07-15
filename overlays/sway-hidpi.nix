@@ -1,9 +1,12 @@
-{lib, ...}:
+{ config, pkgs, lib, ... }:
+
+{
+    nixpkgs.overlays = [
 (final: prev: rec {
   xwayland = prev.xwayland.overrideAttrs (_: {
     patches = [
-      ../patches/xwayland-vsync.patch
-      ../patches/xwayland-hidpi.patch
+      ./patches/xwayland-vsync.patch
+      # ../patches/xwayland-hidpi.patch
     ];
   });
 
@@ -47,3 +50,5 @@
     withGtkWrapper = true;
   };
 })
+];
+}
