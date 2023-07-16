@@ -5,7 +5,7 @@
 (final: prev: rec {
   xwayland = prev.xwayland.overrideAttrs (_: {
     patches = [
-      ./xwayland-vsync.patch
+      # ./xwayland-vsync.patch
       ./xwayland-hidpi.patch
     ];
   });
