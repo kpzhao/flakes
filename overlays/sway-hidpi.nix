@@ -9,7 +9,6 @@
       # ../patches/xwayland-hidpi.patch
     ];
   });
-nixpkgs-wayland.overlay;
   wlroots-hidpi =
     (prev.wlroots.overrideAttrs (_: {
       src = prev.fetchFromGitLab {
