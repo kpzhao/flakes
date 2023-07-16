@@ -48,6 +48,22 @@
         }: 
     let system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
+
+          ### --- add overlays
+      overlays = with inputs;
+        [
+          (final: prev:
+            let
+              inherit (final) system;
+            in
+            {
+              eww-wayland-git = eww.packages.${system}.eww-wayland;
+            })
+
+          nixpkgs-wayland.overlay
+        ]
+        ++ (importNixFiles ./overlays);
+
     in {
         nixosConfigurations = {
             test = nixpkgs.lib.nixosSystem {
