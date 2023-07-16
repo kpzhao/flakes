@@ -10,7 +10,7 @@
     imports =
         [ # Include the results of the hardware scan.
         ./hardware-configuration.nix
-        ../overlays/sway-hidpi.nix
+        # ../overlays/sway-hidpi.nix
 # ../pkgs/fcitx5-pinyin-zhwiki
         ];
 
