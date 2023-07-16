@@ -41,6 +41,7 @@
     wpsoffice
     xfce.thunar
     xorg.xprop
+    xorg.xrdb
     xray
   ];
   services.udiskie = {
