@@ -34,7 +34,7 @@
 
     wayland.windowManager.sway = {
         enable = true;
-        # package = pkgs.sway-hidpi;
+        package = pkgs.sway-unwrapped;
         systemd = {
             enable = true;
             xdgAutostart = true;

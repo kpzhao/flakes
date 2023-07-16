@@ -137,7 +137,7 @@
             llvmPackages_16.libllvm
             gnumake
             p7zip
-            sway-1
+            # sway-1
 
     ];
 

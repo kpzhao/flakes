@@ -34,7 +34,7 @@
       buildInputs = oa.buildInputs ++ [ prev.pcre2 prev.xorg.xcbutilwm ];
     })).override { wlroots = wlroots-hidpi; };
 
-  sway-1 = prev.sway-unwrapped.override {
+  sway-unwrapped = prev.sway-unwrapped.override {
     inherit sway-unwrapped;
     withGtkWrapper = true;
   };
