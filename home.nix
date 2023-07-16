@@ -40,6 +40,7 @@
     vulkan-validation-layers
     wpsoffice
     xfce.thunar
+    xorg.xprop
     xray
   ];
   services.udiskie = {
