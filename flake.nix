@@ -49,12 +49,12 @@
     let system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
 
-          ### --- add overlays
-      # overlays = with inputs;
-      #   [
-      #     nixpkgs-wayland.overlay
-      #   ]
-      #   ++ (importNixFiles ./overlays);
+          ## --- add overlays
+      overlays = with inputs;
+        [
+          nixpkgs-wayland.overlay
+        ]
+        ++ (importNixFiles ./overlays);
 
     in {
         nixosConfigurations = {

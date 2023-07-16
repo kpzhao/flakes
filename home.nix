@@ -21,6 +21,7 @@
     # fcitx5-pinyin-zhwiki
     imv
     intel-gpu-tools
+    helix
     neofetch
     slurp
     lf
