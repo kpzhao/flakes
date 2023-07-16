@@ -5,8 +5,8 @@
 (final: prev: rec {
   xwayland = prev.xwayland.overrideAttrs (_: {
     patches = [
-      ./patches/xwayland-vsync.patch
-      # ../patches/xwayland-hidpi.patch
+      # ./patches/xwayland-vsync.patch
+      # ./xwayland-hidpi.patch
     ];
   });
   wlroots-hidpi =
