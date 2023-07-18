@@ -30,7 +30,7 @@
       src = prev.fetchFromGitHub {
         owner = "swaywm";
         repo = "sway";
-        rev = "v1.81";
+        rev = "v1.8.1";
       };
 
       buildInputs = oa.buildInputs ++ [ prev.pcre2 prev.xorg.xcbutilwm ];
