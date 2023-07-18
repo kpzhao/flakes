@@ -90,7 +90,7 @@
                     ({ config, ... }: {
                      environment.systemPackages = [ 
                      config.nur.repos.YisuiMilena.hyfetch
-                     config.nur.repos.ruixi-rebirth.fcitx5-pinyin-zhwiki
+                     # config.nur.repos.ruixi-rebirth.fcitx5-pinyin-zhwiki
                      ];
                      })
 

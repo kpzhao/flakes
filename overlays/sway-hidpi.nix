@@ -16,7 +16,8 @@
         domain = "gitlab.freedesktop.org";
         owner = "wlroots";
         repo = "wlroots";
-        rev = "v0.16.2";
+        rev = "7791ffe0";
+        sha256 = "sha256-3RTOlQabkNetQ4O4UzSf57JPco9VGVHhSU1ls5uKBeE=";
       };
 
       patches = [
@@ -30,7 +31,8 @@
       src = prev.fetchFromGitHub {
         owner = "swaywm";
         repo = "sway";
-        rev = "v1.8.1";
+        rev = "a34d785a26c9180de62530593b6693ca4c0b3615";
+        sha256 = "sha256-w9Aq+h1p2cssDTskXmNa3wGXSxDWthRm179II5U+gpg=";
       };
 
       buildInputs = oa.buildInputs ++ [ prev.pcre2 prev.xorg.xcbutilwm ];
