@@ -16,6 +16,7 @@
         domain = "gitlab.freedesktop.org";
         owner = "wlroots";
         repo = "wlroots";
+        rev = "v0.16.2";
       };
 
       patches = [
@@ -29,6 +30,7 @@
       src = prev.fetchFromGitHub {
         owner = "swaywm";
         repo = "sway";
+        rev = "v1.81";
       };
 
       buildInputs = oa.buildInputs ++ [ prev.pcre2 prev.xorg.xcbutilwm ];
