@@ -49,12 +49,12 @@
     let system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
 
-          ## --- add overlays
-      overlays = with inputs;
-        [
-          nixpkgs-wayland.overlay
-        ]
-        ++ (importNixFiles ./overlays);
+      #     ## --- add overlays
+      # overlays = with inputs;
+      #   [
+      #     nixpkgs-wayland.overlay
+      #   ]
+      #   ++ (importNixFiles ./overlays);
 
     in {
         nixosConfigurations = {
@@ -64,6 +64,7 @@
                     ./host/configuration.nix
                         ./host/hardware-configuration.nix
                         ./persistence.nix
+                        ./overlays/sway-hidpi.nix
 
                         inputs.impermanence.nixosModules.impermanence
 # ./nur.nix
