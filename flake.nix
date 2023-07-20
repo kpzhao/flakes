@@ -70,23 +70,6 @@
                                 neovim
                                 sbctl
                         ];
-                        inputsFrom = [
-                            config.flake-root.devShell
-                                config.mission-control.devShell
-                        ];
-                    };
-#run by `nix develop .#<name>`
-                    secret = with pkgs; mkShell {
-                        name = "secret";
-                        nativeBuildInputs = [
-                            sops
-                                age
-                                ssh-to-age
-                                ssh-to-pgp
-                        ];
-                        shellHook = ''
-                            export PS1="\e[0;31m(Secret)\$ \e[m" 
-                            '';
                     };
                 };
 
