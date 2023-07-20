@@ -58,7 +58,7 @@
 
     in {
 
-        packages.x86_64-linux.sway = pkgs.sway;
+        packages.x86_64-linux.sway-1 = pkgs.sway-1;
 
                         devsShell = {
 #run by `nix devlop` or `nix-shell`(legacy)
@@ -83,7 +83,7 @@
                     ./host/configuration.nix
                         ./host/hardware-configuration.nix
                         ./persistence.nix
-                        # ./overlays/sway-hidpi.nix
+                        ./overlays/sway-hidpi.nix
 
                         inputs.impermanence.nixosModules.impermanence
 # ./nur.nix
