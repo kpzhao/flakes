@@ -57,10 +57,7 @@
 #   ++ (importNixFiles ./overlays);
 
     in {
-        nixosConfigurations = {
-            test = nixpkgs.lib.nixosSystem {
-                inherit system;
-                devShells = {
+                        devsShell = {
 #run by `nix devlop` or `nix-shell`(legacy)
 #Temporarily enable experimental features, run by`nix develop --extra-experimental-features nix-command --extra-experimental-features flakes`
 # default = import ./shell.nix { inherit pkgs; };
@@ -69,15 +66,21 @@
                             git
                                 neovim
                                 sbctl
+                                wlroots
                         ];
                     };
                 };
+
+        nixosConfigurations = {
+            test = nixpkgs.lib.nixosSystem {
+                inherit system;
+
 
                 modules = [
                     ./host/configuration.nix
                         ./host/hardware-configuration.nix
                         ./persistence.nix
-                        ./overlays/sway-hidpi.nix
+                        # ./overlays/sway-hidpi.nix
 
                         inputs.impermanence.nixosModules.impermanence
 # ./nur.nix

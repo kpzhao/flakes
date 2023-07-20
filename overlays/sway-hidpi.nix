@@ -26,7 +26,7 @@
       ];
     })).override { inherit xwayland; };
 
-  sway-unwrapped =
+  sway-2 =
     (prev.sway-unwrapped.overrideAttrs (oa: {
       src = prev.fetchFromGitHub {
         owner = "swaywm";
@@ -35,11 +35,11 @@
         sha256 = "sha256-w9Aq+h1p2cssDTskXmNa3wGXSxDWthRm179II5U+gpg=";
       };
 
-      buildInputs = oa.buildInputs ++ [ prev.pcre2 prev.xorg.xcbutilwm ];
+      # buildInputs = oa.buildInputs ++ [ prev.pcre2 prev.xorg.xcbutilwm ];
     })).override { wlroots = wlroots-hidpi; };
 
   sway-1 = prev.sway.override {
-    inherit sway-unwrapped;
+    inherit sway-2;
     withGtkWrapper = true;
   };
 })

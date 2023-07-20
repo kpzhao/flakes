@@ -3,6 +3,7 @@
 {
   imports = [ 
         ./modules/programs
+        ./overlays
         # ./pkgs/fcitx5-pinyin-zhwiki
 	    #./theming.nix
         #./modules/programs/sway
