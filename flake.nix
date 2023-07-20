@@ -57,6 +57,9 @@
 #   ++ (importNixFiles ./overlays);
 
     in {
+
+        packages.x86_64-linux.sway = pkgs.sway;
+
                         devsShell = {
 #run by `nix devlop` or `nix-shell`(legacy)
 #Temporarily enable experimental features, run by`nix develop --extra-experimental-features nix-command --extra-experimental-features flakes`
