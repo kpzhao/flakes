@@ -39,7 +39,6 @@
     })).override { wlroots = wlroots-hidpi; };
 
   sway-1 = prev.sway.override {
-    inherit pkgs.sway-2;
     withGtkWrapper = true;
   };
 })

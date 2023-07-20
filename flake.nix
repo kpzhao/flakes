@@ -58,7 +58,6 @@
 
     in {
 
-        packages.x86_64-linux.sway-1 = pkgs.sway-1;
 
                         devsShell = {
 #run by `nix devlop` or `nix-shell`(legacy)
@@ -121,7 +120,9 @@
                     home-manager.extraSpecialArgs = inputs;
                 }
                 ];
+
             };
         };
+                        packages.x86_64-linux.sway-1 = pkgs.sway-1;
     };
 }
