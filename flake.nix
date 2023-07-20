@@ -10,7 +10,7 @@
         nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
         nur.url = "github:nix-community/NUR";
 
-        # overlays
+# overlays
         nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
 
         home-manager = {
@@ -20,7 +20,7 @@
 
         impermanence.url = "github:nix-community/impermanence";
 
-        # theme
+# theme
         base16.url = github:SenchoPens/base16.nix;
 
         base16-schemes = {
@@ -49,17 +49,47 @@
     let system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
 
-      #     ## --- add overlays
-      # overlays = with inputs;
-      #   [
-      #     nixpkgs-wayland.overlay
-      #   ]
-      #   ++ (importNixFiles ./overlays);
+#     ## --- add overlays
+# overlays = with inputs;
+#   [
+#     nixpkgs-wayland.overlay
+#   ]
+#   ++ (importNixFiles ./overlays);
 
     in {
         nixosConfigurations = {
             test = nixpkgs.lib.nixosSystem {
                 inherit system;
+                devShells = {
+#run by `nix devlop` or `nix-shell`(legacy)
+#Temporarily enable experimental features, run by`nix develop --extra-experimental-features nix-command --extra-experimental-features flakes`
+# default = import ./shell.nix { inherit pkgs; };
+                    default = pkgs.mkShell {
+                        nativeBuildInputs = with pkgs; [
+                            git
+                                neovim
+                                sbctl
+                        ];
+                        inputsFrom = [
+                            config.flake-root.devShell
+                                config.mission-control.devShell
+                        ];
+                    };
+#run by `nix develop .#<name>`
+                    secret = with pkgs; mkShell {
+                        name = "secret";
+                        nativeBuildInputs = [
+                            sops
+                                age
+                                ssh-to-age
+                                ssh-to-pgp
+                        ];
+                        shellHook = ''
+                            export PS1="\e[0;31m(Secret)\$ \e[m" 
+                            '';
+                    };
+                };
+
                 modules = [
                     ./host/configuration.nix
                         ./host/hardware-configuration.nix
@@ -90,7 +120,7 @@
                     ({ config, ... }: {
                      environment.systemPackages = [ 
                      config.nur.repos.YisuiMilena.hyfetch
-                     # config.nur.repos.ruixi-rebirth.fcitx5-pinyin-zhwiki
+# config.nur.repos.ruixi-rebirth.fcitx5-pinyin-zhwiki
                      ];
                      })
 
