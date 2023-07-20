@@ -18,6 +18,11 @@
 
     at-spi2-core
     brightnessctl
+    meson
+    ninja
+    pkg-config
+    wayland
+    wayland-protocols
     # fcitx5-pinyin-zhwiki
     imv
     intel-gpu-tools
