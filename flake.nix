@@ -49,29 +49,18 @@
     let system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
 
-#     ## --- add overlays
-# overlays = with inputs;
-#   [
-#     nixpkgs-wayland.overlay
-#   ]
-#   ++ (importNixFiles ./overlays);
-
     in {
-
-
-                        devsShell = {
-#run by `nix devlop` or `nix-shell`(legacy)
-#Temporarily enable experimental features, run by`nix develop --extra-experimental-features nix-command --extra-experimental-features flakes`
-# default = import ./shell.nix { inherit pkgs; };
-                    default = pkgs.mkShell {
-                        nativeBuildInputs = with pkgs; [
-                            git
-                                neovim
-                                sbctl
-                                wlroots
-                        ];
-                    };
-                };
+        nixpkgs.overlays = import ./overlays/sway-hidpi.nix;
+        devsShell = {
+            default = pkgs.mkShell {
+                nativeBuildInputs = with pkgs; [
+                    git
+                        neovim
+                        sbctl
+                        wlroots
+                ];
+            };
+        };
 
         nixosConfigurations = {
             test = nixpkgs.lib.nixosSystem {
@@ -82,7 +71,7 @@
                     ./host/configuration.nix
                         ./host/hardware-configuration.nix
                         ./persistence.nix
-                        ./overlays/sway-hidpi.nix
+                        # ./overlays/sway-hidpi.nix
 
                         inputs.impermanence.nixosModules.impermanence
 # ./nur.nix
@@ -123,6 +112,5 @@
 
             };
         };
-                        packages.x86_64-linux.sway-1 = pkgs.sway-1;
     };
 }
