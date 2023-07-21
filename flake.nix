@@ -50,7 +50,10 @@
     pkgs = nixpkgs.legacyPackages.${system};
 
     in {
-        nixpkgs.overlays = import ./overlays/sway-hidpi.nix;
+        nixpkgs.overlays = [
+         (import ./overlays/sway-hidpi.nix)
+        ];
+
         devsShell = {
             default = pkgs.mkShell {
                 nativeBuildInputs = with pkgs; [
@@ -83,6 +86,7 @@
                     ({ ... }: {
                      environment.systemPackages =
                      [
+                     sway-1
 
                      ];
                      nix.settings.substituters = [
