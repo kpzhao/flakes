@@ -38,14 +38,14 @@
     mpv
     ncmpcpp
     nodejs
-    qq
+    # qq
     swappy
     sway-contrib.grimshot
     telegram-desktop
     trash-cli
     vulkan-tools
     vulkan-validation-layers
-    wpsoffice
+    # wpsoffice
     xfce.thunar
     xorg.xprop
     xorg.xrdb

@@ -47,74 +47,85 @@
                 , ...
         }: 
     let system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
-
+    overlays = [ (import ./overlays/sway-hidpi.nix) ];
+            pkgs = import nixpkgs {
+            inherit system overlays;
+        };
     in {
         nixpkgs.overlays = [
-         (import ./overlays/sway-hidpi.nix)
+            (final: prev: rec {
+             xwayland-1 = prev.xwayland.overrideAttrs (_: {
+                     patches = [
+                     ./overlays/hidpi.patch
+                     ];
+                     });
+            }
+            )
+#(import ./overlays/sway-hidpi.nix)
         ];
 
-        devsShell = {
-            default = pkgs.mkShell {
-                nativeBuildInputs = with pkgs; [
-                    git
-                        neovim
-                        sbctl
-                        wlroots
-                ];
+
+            devsShell = {
+                default = pkgs.mkShell {
+                    nativeBuildInputs = with pkgs; [
+                        git
+                            neovim
+                            sbctl
+                            wlroots
+                    ];
+                };
             };
-        };
 
-        nixosConfigurations = {
-            test = nixpkgs.lib.nixosSystem {
-                inherit system;
+            nixosConfigurations = {
+                test = nixpkgs.lib.nixosSystem {
+                    inherit system;
+                    inherit pkgs;
 
 
-                modules = [
-                    ./host/configuration.nix
-                        ./host/hardware-configuration.nix
-                        ./persistence.nix
-                        # ./overlays/sway-hidpi.nix
+                    modules = [
+                        ./host/configuration.nix
+                            ./host/hardware-configuration.nix
+                            ./persistence.nix
+# ./overlays/sway-hidpi.nix
 
-                        inputs.impermanence.nixosModules.impermanence
+                            inputs.impermanence.nixosModules.impermanence
 # ./nur.nix
 
-                        base16.nixosModule
-                        { scheme = "${inputs.base16-schemes}/nord.yaml"; }
-                ./theming.nix				
+                            base16.nixosModule
+                            { scheme = "${inputs.base16-schemes}/nord.yaml"; }
+                    ./theming.nix				
 
-                    ({ ... }: {
-                     environment.systemPackages =
-                     [
-                     sway-1
+                        ({ ... }: {
+                         environment.systemPackages =
+                         [
+                         pkgs.xwayland-1
 
-                     ];
-                     nix.settings.substituters = [
-                     "https://mirror.sjtu.edu.cn/nix-channels/store"
-                     ];
-                     nix.settings.trusted-public-keys = [
-                     ];
-                     })
+                         ];
+                         nix.settings.substituters = [
+                         "https://mirror.sjtu.edu.cn/nix-channels/store"
+                         ];
+                         nix.settings.trusted-public-keys = [
+                         ];
+                         })
 
-                nur.nixosModules.nur
+                    nur.nixosModules.nur
 
-                    ({ config, ... }: {
-                     environment.systemPackages = [ 
-                     config.nur.repos.YisuiMilena.hyfetch
-# config.nur.repos.ruixi-rebirth.fcitx5-pinyin-zhwiki
-                     ];
-                     })
+                        ({ config, ... }: {
+                         environment.systemPackages = [ 
+                         config.nur.repos.YisuiMilena.hyfetch
+                         ];
+                         })
 
-                home-manager.nixosModules.home-manager
-                {
-                    home-manager.useGlobalPkgs = true;
-                    home-manager.useUserPackages = true;
-                    home-manager.users.Tim = import ./home.nix;
-                    home-manager.extraSpecialArgs = inputs;
-                }
-                ];
+                    home-manager.nixosModules.home-manager
+                    {
+                        home-manager.useGlobalPkgs = true;
+                        home-manager.useUserPackages = true;
+                        home-manager.users.Tim = import ./home.nix;
+                        home-manager.extraSpecialArgs = inputs;
+                    }
+                    ];
 
+                };
             };
-        };
-    };
-}
+            };
+    }
