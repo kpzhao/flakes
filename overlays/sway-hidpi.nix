@@ -1,7 +1,7 @@
-{ config, pkgs, lib, ... }:
-
+# { config, pkgs, lib, ... }:
+{ ... }:
 {
-    nixpkgs.overlays = [
+    # nixpkgs.overlays = [
 (final: prev: rec {
   xwayland = prev.xwayland.overrideAttrs (_: {
     patches = [
@@ -42,5 +42,5 @@
     withGtkWrapper = true;
   };
 })
-];
+# ];
 }

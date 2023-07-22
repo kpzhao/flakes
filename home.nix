@@ -31,6 +31,7 @@
     neofetch
     slurp
     lf
+    logseq
     wl-clipboard
     ripgrep
     mako

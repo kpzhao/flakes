@@ -47,85 +47,74 @@
                 , ...
         }: 
     let system = "x86_64-linux";
-    overlays = [ (import ./overlays/sway-hidpi.nix) ];
-            pkgs = import nixpkgs {
-            inherit system overlays;
-        };
+    nixpkgs.overlays = [
+    (import /tmp/overlay/local-packages.nix)
+    ];
+
     in {
-        nixpkgs.overlays = [
-            (final: prev: rec {
-             xwayland-1 = prev.xwayland.overrideAttrs (_: {
-                     patches = [
-                     ./overlays/hidpi.patch
+
+        # devsShell = {
+        #     default = pkgs.mkShell {
+        #         nativeBuildInputs = with pkgs; [
+        #             git
+        #                 neovim
+        #                 sbctl
+        #                 wlroots
+        #         ];
+        #     };
+        # };
+
+        nixosConfigurations = {
+            test = nixpkgs.lib.nixosSystem {
+                inherit system;
+                inherit pkgs;
+
+
+                modules = [
+                    ./host/configuration.nix
+                        ./host/hardware-configuration.nix
+                        ./persistence.nix
+
+                        inputs.impermanence.nixosModules.impermanence
+
+                        base16.nixosModule
+                        { scheme = "${inputs.base16-schemes}/nord.yaml"; }
+                ./theming.nix				
+
+                    ({ ... }: {
+                     environment.systemPackages =
+                     [
+                     # pkgs.xwayland
+                     # pkgs.sway-1
+                     # pkgs.wlroots-hidpi
+                     ski
+
                      ];
-                     });
-            }
-            )
-#(import ./overlays/sway-hidpi.nix)
-        ];
+                     nix.settings.substituters = [
+                     "https://mirror.sjtu.edu.cn/nix-channels/store"
+                     ];
+                     nix.settings.trusted-public-keys = [
+                     ];
+                     })
 
+                nur.nixosModules.nur
 
-            devsShell = {
-                default = pkgs.mkShell {
-                    nativeBuildInputs = with pkgs; [
-                        git
-                            neovim
-                            sbctl
-                            wlroots
-                    ];
-                };
+                    ({ config, ... }: {
+                     environment.systemPackages = [ 
+                     config.nur.repos.YisuiMilena.hyfetch
+                     ];
+                     })
+
+                home-manager.nixosModules.home-manager
+                {
+                    home-manager.useGlobalPkgs = true;
+                    home-manager.useUserPackages = true;
+                    home-manager.users.Tim = import ./home.nix;
+                    home-manager.extraSpecialArgs = inputs;
+                }
+                ];
+
             };
-
-            nixosConfigurations = {
-                test = nixpkgs.lib.nixosSystem {
-                    inherit system;
-                    inherit pkgs;
-
-
-                    modules = [
-                        ./host/configuration.nix
-                            ./host/hardware-configuration.nix
-                            ./persistence.nix
-# ./overlays/sway-hidpi.nix
-
-                            inputs.impermanence.nixosModules.impermanence
-# ./nur.nix
-
-                            base16.nixosModule
-                            { scheme = "${inputs.base16-schemes}/nord.yaml"; }
-                    ./theming.nix				
-
-                        ({ ... }: {
-                         environment.systemPackages =
-                         [
-                         pkgs.xwayland-1
-
-                         ];
-                         nix.settings.substituters = [
-                         "https://mirror.sjtu.edu.cn/nix-channels/store"
-                         ];
-                         nix.settings.trusted-public-keys = [
-                         ];
-                         })
-
-                    nur.nixosModules.nur
-
-                        ({ config, ... }: {
-                         environment.systemPackages = [ 
-                         config.nur.repos.YisuiMilena.hyfetch
-                         ];
-                         })
-
-                    home-manager.nixosModules.home-manager
-                    {
-                        home-manager.useGlobalPkgs = true;
-                        home-manager.useUserPackages = true;
-                        home-manager.users.Tim = import ./home.nix;
-                        home-manager.extraSpecialArgs = inputs;
-                    }
-                    ];
-
-                };
-            };
-            };
-    }
+        };
+    };
+}
