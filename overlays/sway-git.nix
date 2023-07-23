@@ -37,7 +37,7 @@
 , libdrm
 , udev
 , cargo
-, xwayland
+, xwayland-git
 , gdk-pixbuf
 , libevdev
 , scdoc
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     meson ninja wayland-protocols git cmake libdrm libxkbcommon mesa vulkan-loader glslang udev seatd hwdata libdisplay-info
     libinput                    
     xcbutilrenderutil
-    xwayland
+    xwayland-git
     xcbutilwm
     xcbutilerrors
     gdk-pixbuf

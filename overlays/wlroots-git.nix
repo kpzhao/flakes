@@ -27,9 +27,7 @@
 , hwdata
 ,cmake
 ,libdisplay-info
-
-, enableXWayland ? true
-, xwayland ? null
+, xwayland-git 
 }:
 
 stdenv.mkDerivation rec {
@@ -51,7 +49,7 @@ stdenv.mkDerivation rec {
 
 
   # $out for the library and $examples for the example programs (in examples):
-  outputs = [ "out" "examples" ];
+  # outputs = [ "out" "examples" ];
 
   depsBuildBuild = [ pkg-config ];
 
@@ -75,26 +73,26 @@ stdenv.mkDerivation rec {
     xcbutilrenderutil
     seatd
     vulkan-loader
+    xwayland-git
   ]
-  ++ lib.optional enableXWayland xwayland
   ;
 
-  mesonFlags =
-    lib.optional (!enableXWayland) "-Dxwayland=disabled"
-  ;
+  # mesonFlags =
+  #   lib.optional (!enableXWayland) "-Dxwayland=disabled"
+  # ;
 
-  postFixup = ''
-    # Install ALL example programs to $examples:
-    # screencopy dmabuf-capture input-inhibitor layer-shell idle-inhibit idle
-    # screenshot output-layout multi-pointer rotation tablet touch pointer
-    # simple
-    mkdir -p $examples/bin
-    cd ./examples
-    for binary in $(find . -executable -type f -printf '%P\n' | grep -vE '\.so'); do
-      cp "$binary" "$examples/bin/wlroots-$binary"
-    done
-  '';
-
+  # postFixup = ''
+  #   # Install ALL example programs to $examples:
+  #   # screencopy dmabuf-capture input-inhibitor layer-shell idle-inhibit idle
+  #   # screenshot output-layout multi-pointer rotation tablet touch pointer
+  #   # simple
+  #   mkdir -p $examples/bin
+  #   cd ./examples
+  #   for binary in $(find . -executable -type f -printf '%P\n' | grep -vE '\.so'); do
+  #     cp "$binary" "$examples/bin/wlroots-$binary"
+  #   done
+  # '';
+  #
   # Test via TinyWL (the "minimum viable product" Wayland compositor based on wlroots):
   # passthru.tests.tinywl = nixosTests.tinywl;
 

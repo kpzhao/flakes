@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
   version = "git";
 
   src = fetchurl {
-    url = "mirror://xorg/individual/xserver/${pname}-${version}.tar.xz";
+    url = "mirror://xorg/individual/xserver/${pname}-23.1.2.tar.xz";
     sha256 = "sha256-vSXYSY7k13h0/aElEn4ts3/DMlMf68lmIx6gb66M938=";
   };
   patch = [
