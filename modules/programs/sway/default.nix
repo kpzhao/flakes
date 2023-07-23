@@ -7,6 +7,7 @@
     ];
     home = {
         packages = with pkgs; [
+                foot
             swaybg
                 swayidle
                 swaylock-effects
@@ -42,9 +43,9 @@
         wrapperFeatures.gtk = true;
         config = {
             modifier = "Mod4";
-            terminal = "alacritty";
+            terminal = "foot";
             startup = [
-            { command = "alacritty"; }
+            { command = "foot"; }
             { command = "firefox"; }
             { command = "mako"; }
             { command = "xprop -root -format _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2"; }

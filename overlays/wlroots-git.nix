@@ -28,6 +28,7 @@
 ,cmake
 ,libdisplay-info
 , xwayland-git 
+, fetchgit
 }:
 
 stdenv.mkDerivation rec {
@@ -42,10 +43,10 @@ stdenv.mkDerivation rec {
   #   sha256 = "sha256-35/po0RF0xTwSyjkUbYOALsc4WNJo2sVnmqk6PoxtnI=";
   # };
   
-  src = pkgs.fetchgit {
+  src = fetchgit {
     url = "https://gitlab.freedesktop.org/wlroots/wlroots";
     rev = "63f5851b6fdc630355510c44e875119c4755208d";
-    sha256 = "sha256-MlqJOoMSRuYeG+jl8DFgcNnpEyeRgDCK2JlN9pOqBWA=";
+    sha256 = "sha256-35/po0RF0xTwSyjkUbYOALsc4WNJo2sVnmqk6PoxtnI=";
   };
 
     patches = [

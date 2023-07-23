@@ -39,7 +39,7 @@
     mpv
     ncmpcpp
     nodejs
-    # qq
+    qq
     swappy
     sway-contrib.grimshot
     telegram-desktop
