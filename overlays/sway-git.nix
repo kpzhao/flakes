@@ -38,6 +38,10 @@
 , udev
 , cargo
 , xwayland
+, gdk-pixbuf
+, libevdev
+, scdoc
+
 }:
 
 stdenv.mkDerivation rec {
@@ -52,6 +56,10 @@ stdenv.mkDerivation rec {
 
   # $out for the library and $examples for the example programs (in examples):
   # outputs = [ "out"  ];
+  
+  patches = [
+  ./7226.patch
+  ];
 
   depsBuildBuild = [ pkg-config ];
 
@@ -62,6 +70,9 @@ stdenv.mkDerivation rec {
     xwayland
     xcbutilwm
     xcbutilerrors
+    gdk-pixbuf
+    libevdev
+    scdoc
   ];
 
   buildInputs = [
@@ -83,6 +94,18 @@ stdenv.mkDerivation rec {
   # mesonFlags =
   #   lib.optional (!enableXWayland) "-Dxwayland=disabled"
   # ;
+    mesonFlags = let
+    # The "sd-bus-provider" meson option does not include a "none" option,
+    # but it is silently ignored iff "-Dtray=disabled".  We use "basu"
+    # (which is not in nixpkgs) instead of "none" to alert us if this
+    # changes: https://github.com/swaywm/sway/issues/6843#issuecomment-1047288761
+    # assert trayEnabled -> systemdSupport && dbusSupport;
+
+    sd-bus-provider = "libsystemd" ;
+    in
+    [ "-Dsd-bus-provider=${sd-bus-provider}" ]
+  ;
+
 
   # postFixup = ''
   #   # Install ALL example programs to $examples:
