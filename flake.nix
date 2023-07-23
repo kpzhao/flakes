@@ -97,7 +97,7 @@
                      # pkgs.xwayland
                      # pkgs.sway-1
                      # pkgs.wlroots-hidpi
-                     pkgs.ski2
+                     pkgs.sway-git
 
                      ];
                      nix.settings.substituters = [
