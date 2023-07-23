@@ -47,9 +47,14 @@
                 , ...
         }: 
     let system = "x86_64-linux";
-    nixpkgs.overlays = [
-    (import /tmp/overlay/local-packages.nix)
-    ];
+        overlay = ./overlays;
+        # overlay = builtins.fetchTarball https://api.github.com/repos/igsha/nix-overlays/tarball/master;
+        pkgs = import nixpkgs {
+        inherit system; 
+        overlays = [
+        (import overlay)
+        ];
+        };
 
     in {
 
@@ -67,7 +72,7 @@
         nixosConfigurations = {
             test = nixpkgs.lib.nixosSystem {
                 inherit system;
-                inherit pkgs;
+                # inherit pkgs;
 
 
                 modules = [
@@ -87,7 +92,7 @@
                      # pkgs.xwayland
                      # pkgs.sway-1
                      # pkgs.wlroots-hidpi
-                     ski
+                     # pkgs.ski
 
                      ];
                      nix.settings.substituters = [
