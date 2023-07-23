@@ -34,12 +34,18 @@ stdenv.mkDerivation rec {
   pname = "wlroots";
   version = "git";
 
-  src = fetchFromGitLab {
-    domain = "gitlab.freedesktop.org";
-    owner = "wlroots";
-    repo = "wlroots";
-    rev = "63f5851b";
-    sha256 = "sha256-35/po0RF0xTwSyjkUbYOALsc4WNJo2sVnmqk6PoxtnI=";
+  # src = fetchFromGitLab {
+  #   domain = "gitlab.freedesktop.org";
+  #   owner = "wlroots";
+  #   repo = "wlroots";
+  #   rev = "63f5851b";
+  #   sha256 = "sha256-35/po0RF0xTwSyjkUbYOALsc4WNJo2sVnmqk6PoxtnI=";
+  # };
+  
+  src = pkgs.fetchgit {
+    url = "https://gitlab.freedesktop.org/wlroots/wlroots";
+    rev = "63f5851b6fdc630355510c44e875119c4755208d";
+    sha256 = "sha256-MlqJOoMSRuYeG+jl8DFgcNnpEyeRgDCK2JlN9pOqBWA=";
   };
 
     patches = [
