@@ -44,6 +44,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-35/po0RF0xTwSyjkUbYOALsc4WNJo2sVnmqk6PoxtnI=";
   };
 
+    patches = [
+  ./0001-xwayland-support-HiDPI-scale.patch
+  ];
+
+
+
   # $out for the library and $examples for the example programs (in examples):
   outputs = [ "out" "examples" ];
 
