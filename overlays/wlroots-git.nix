@@ -51,6 +51,7 @@ stdenv.mkDerivation rec {
 
     patches = [
   ./0001-xwayland-support-HiDPI-scale.patch
+  ./0002-Fix-configure_notify-event.patch
   ];
 
 
