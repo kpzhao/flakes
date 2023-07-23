@@ -54,6 +54,7 @@
         overlays = [
         (import overlay)
         ];
+        config.allowUnfree = true;
         };
 
     in {
@@ -94,11 +95,6 @@
                     ({ ... }: {
                      environment.systemPackages =
                      [
-                     # pkgs.xwayland
-                     # pkgs.sway-1
-                     # pkgs.wlroots-hidpi
-                     pkgs.sway-git
-
                      ];
                      nix.settings.substituters = [
                      "https://mirror.sjtu.edu.cn/nix-channels/store"

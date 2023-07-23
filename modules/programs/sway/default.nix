@@ -8,7 +8,7 @@
     home = {
         packages = with pkgs; [
                 foot
-            swaybg
+                swaybg
                 swayidle
                 swaylock-effects
                 pamixer
@@ -35,7 +35,8 @@
 
     wayland.windowManager.sway = {
         enable = true;
-        package = pkgs.sway-git;
+        # package = pkgs.sway-git;
+        package = pkgs.sway-unwrapped;
         systemd = {
             enable = true;
             xdgAutostart = true;
@@ -43,9 +44,9 @@
         wrapperFeatures.gtk = true;
         config = {
             modifier = "Mod4";
-            terminal = "foot";
+            terminal = "alacritty";
             startup = [
-            { command = "foot"; }
+            { command = "alacritty"; }
             { command = "firefox"; }
             { command = "mako"; }
             { command = "xprop -root -format _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2"; }

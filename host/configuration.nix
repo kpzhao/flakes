@@ -174,6 +174,7 @@
     };
 
     services.gvfs.enable = true;
+    services.v2raya.enable = true;
 # Enable the OpenSSH daemon.
     services.openssh.enable = true;
 
