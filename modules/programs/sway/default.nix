@@ -34,7 +34,7 @@
 
     wayland.windowManager.sway = {
         enable = true;
-        # package = pkgs.sway-2;
+        package = pkgs.sway-git;
         systemd = {
             enable = true;
             xdgAutostart = true;

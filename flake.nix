@@ -72,7 +72,7 @@
         nixosConfigurations = {
             test = nixpkgs.lib.nixosSystem {
                 inherit system;
-                # inherit pkgs;
+                inherit pkgs;
 
 
                 modules = [

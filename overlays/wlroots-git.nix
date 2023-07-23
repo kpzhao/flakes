@@ -34,7 +34,7 @@
 
 stdenv.mkDerivation rec {
   pname = "wlroots";
-  version = "unstable-git-2023-1";
+  version = "git";
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";

@@ -1,6 +1,6 @@
 { lib
 , stdenv
-, fetchFromGitLab
+, fetchgit
 , meson
 , ninja
 , pkg-config
@@ -27,6 +27,7 @@
 , cmake
 , libdisplay-info
 , wlroots
+, wlroots-git
 , wayland-protocols
 , git
 , pcre2
@@ -41,18 +42,16 @@
 
 stdenv.mkDerivation rec {
   pname = "sway";
-  version = "unstable-git-2023-1";
+  version = "git-2023-7-23";
 
-  src = fetchFromGitLab {
-    domain = "github.com";
-    owner = "swaywm";
-    repo = "sway";
-    rev = "c3e6390";
-    sha256 = "sha256-35/po0RF0xTwSyjkUbYOALsc4WNJo2sVnmqk6PoxtnI=";
+  src = fetchgit {
+    url = "https://github.com/swaywm/sway";
+    rev = "c3e6390073167bae8245d7fac9b455f9f06a5333";
+    sha256 = "sha256-QQOVim0U8uiAstPy9HMRBAl4McyvAdXoO44jCRlzVIQ=";
   };
 
   # $out for the library and $examples for the example programs (in examples):
-  outputs = [ "out"  ];
+  # outputs = [ "out"  ];
 
   depsBuildBuild = [ pkg-config ];
 
@@ -68,7 +67,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
   
     meson 
-    wlroots
+    wlroots-git
     wayland
     wayland-protocols 
     pcre2
