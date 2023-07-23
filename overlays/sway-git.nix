@@ -86,6 +86,7 @@ stdenv.mkDerivation rec {
     pango
     cairo
     git
+    xwayland-git
 
   ]
   # ++ lib.optional enableXWayland xwayland
