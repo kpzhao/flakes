@@ -1,7 +1,7 @@
 { pkgs, ...}: 
 {
 	imports = [
-			./ski2.nix.nix
+			./sway-hidpi.nix
 			# ./fcitx5
 			# ./lf
 			# ./mako
