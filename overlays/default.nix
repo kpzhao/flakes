@@ -44,8 +44,8 @@ final: prev: rec {
                        nativeBuildInputs = with final; (old.nativeBuildInputs or [ ]) ++ [ cmake git ];
 
 # Our version of sway already has this patch upstream, so we filter it out.
-                       # patches = builtins.filter
-                       # (p: !p ? name || p.name != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch")
+                       patches = builtins.filter
+                       (p: !p ? name || p.name != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch");
                        # (old.patches or [ ]);
 
                        })).override { wlroots = final.wlroots_0_17; };
