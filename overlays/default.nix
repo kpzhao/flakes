@@ -1,9 +1,9 @@
 final: prev: rec {
-           xwayland = prev.xwayland.overrideAttrs (_: {
-                   patches = [
-                   ./hidpi.patch
-                   ];
-                   });
+           # xwayland = prev.xwayland.overrideAttrs (_: {
+           #         patches = [
+           #         ./hidpi.patch
+           #         ];
+           #         });
 
            wlroots_0_17 = (final.wlroots_0_16.overrideAttrs (old: {
                        version = "unstable-2023-06-03";
@@ -17,10 +17,10 @@ final: prev: rec {
                        hash = "sha256-6MEVZCCwmNjKgMGDBIF2J2748vJEcEOaifLycXamvz0=";
                        };
 
-                       patches = [
-                       ./0001-xwayland-support-HiDPI-scale.patch
-                       ./0002-Fix-configure_notify-event.patch
-                       ];
+                       # patches = [
+                       # ./0001-xwayland-support-HiDPI-scale.patch
+                       # ./0002-Fix-configure_notify-event.patch
+                       # ];
 
                        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.hwdata ];
                        buildInputs = (old.buildInputs or [ ]) ++ [
@@ -44,9 +44,9 @@ final: prev: rec {
                        nativeBuildInputs = with final; (old.nativeBuildInputs or [ ]) ++ [ cmake git ];
 
 # Our version of sway already has this patch upstream, so we filter it out.
-                       patches = builtins.filter
-                       (p: !p ? name || p.name != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch")
-                       (old.patches or [ ]);
+                       # patches = builtins.filter
+                       # (p: !p ? name || p.name != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch")
+                       # (old.patches or [ ]);
 
                        })).override { wlroots = final.wlroots_0_17; };
        }
