@@ -27,7 +27,7 @@ final: prev: rec {
                        ];
                        })).override { };
 
-           sway-unwrapped = (prev.sway-unwrapped.overrideAttrs (old: {
+           sway-test = (prev.sway-unwrapped.overrideAttrs (old: {
                        version = "test";
                        src = final.fetchFromGitHub {
                        owner = "swaywm";
