@@ -33,7 +33,7 @@ final: prev: rec {
                        owner = "swaywm";
                        repo = "sway";
                        rev = "6bd11ad0dfb11f8cf7e0ab5330cd2488851c5614";
-                       hash = "sha256-WxnT+le9vneQLFPz2KoBduOI+zfZPhn1fKlaqbPL6/g=";
+                       sha256 = "sha256-WxnT+le9vneQLFPz2KoBduOI+zfZPhn1fKlaqbPL6/g=";
                        };
 
                        nativeBuildInputs = with final; (old.nativeBuildInputs or [ ]) ++ [ cmake ];
