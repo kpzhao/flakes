@@ -35,7 +35,7 @@
 
     wayland.windowManager.sway = {
         enable = true;
-        # package = pkgs.sway-git;
+        package = pkgs.sway-git;
         package = pkgs.sway-unwrapped;
         systemd = {
             enable = true;
