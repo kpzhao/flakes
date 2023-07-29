@@ -14,7 +14,7 @@ final: prev: rec {
                        # rev = "71b57b8d27e2817ebcaa6471e22251203c370554";
                        rev = "d40bcfe2c18f057f4bc324a81230f6ba2267db44"; # 20230729
                        # hash = "sha256-yYFlQsHD/TU0l6pS0t9tSHh7w+LFAUclJMpSyiA+Wnw=";
-                       hash = "sha256-6MEVZCCwmNjKgMGDBIF2J2748vJEcEOaifLycXamvz0=";
+                       hash = "sha256-6MEVZCCwmNjKgMGDBIF2J2748vJEcEOaifLycXamvz0="; #20230729
                        };
 
                        # patches = [
@@ -41,12 +41,12 @@ final: prev: rec {
                        sha256 = "sha256-QQOVim0U8uiAstPy9HMRBAl4McyvAdXoO44jCRlzVIQ=";
                        };
 
-                       nativeBuildInputs = with final; (old.nativeBuildInputs or [ ]) ++ [ cmake git ];
+                       nativeBuildInputs = with final; (old.nativeBuildInputs or [ ]) ++ [  ];
 
 # Our version of sway already has this patch upstream, so we filter it out.
                        patches = builtins.filter
-                       (p: !p ? name || p.name != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch");
-                       # (old.patches or [ ]);
+                       (p: !p ? name || p.name != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch")
+                       (old.patches or [ ]);
 
                        })).override { wlroots = final.wlroots_0_17; };
        }
