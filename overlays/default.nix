@@ -32,7 +32,7 @@ final: prev: rec {
                        src = final.fetchFromGitHub {
                        owner = "swaywm";
                        repo = "sway";
-                       rev = "68d620a";
+                       rev = "6bd11ad0dfb11f8cf7e0ab5330cd2488851c5614";
                        hash = "sha256-WxnT+le9vneQLFPz2KoBduOI+zfZPhn1fKlaqbPL6/g=";
                        };
 
