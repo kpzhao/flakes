@@ -45,8 +45,8 @@ final: prev: rec {
 
 # Our version of sway already has this patch upstream, so we filter it out.
                        patches = builtins.filter
-                       (p: !p ? name || p.name != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch")
+                       (p: !p ? name || (p.name != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch" && p.name != "load-configuration-from-etc.patch"))
                        (old.patches or [ ]);
 
-                       })).override { wlroots = final.wlroots_0_17; };
+                       })).override { wlroots = final.wlroots_0_17; enableXWayland = false; };
        }
