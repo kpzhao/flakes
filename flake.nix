@@ -10,9 +10,6 @@
         nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
         nur.url = "github:nix-community/NUR";
 
-# overlays
-        nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
-
         home-manager = {
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -48,7 +45,6 @@
         }: 
     let system = "x86_64-linux";
         overlay = ./overlays;
-        # # overlay = builtins.fetchTarball https://api.github.com/repos/igsha/nix-overlays/tarball/master;
         pkgs = import nixpkgs {
         inherit system; 
         overlays = [
@@ -58,18 +54,6 @@
         };
 
     in {
-
-        # devsShell = {
-        #     default = pkgs.mkShell {
-        #         nativeBuildInputs = with pkgs; [
-        #             git
-        #                 neovim
-        #                 sbctl
-        #                 wlroots
-        #         ];
-        #     };
-        # };
-
         nixosConfigurations = {
             test = nixpkgs.lib.nixosSystem {
                 inherit system;
