@@ -33,7 +33,7 @@ final: prev: rec {
                        owner = "swaywm";
                        repo = "sway";
                        rev = "68d620a";
-                       hash = "sha256-gRAkreCYLwvCNPM1HCx0iKoFlUsxXL/XkN7RNUMTIXM=";
+                       hash = "sha256-WxnT+le9vneQLFPz2KoBduOI+zfZPhn1fKlaqbPL6/g=";
                        };
 
                        nativeBuildInputs = with final; (old.nativeBuildInputs or [ ]) ++ [ bash-completion fish ];
