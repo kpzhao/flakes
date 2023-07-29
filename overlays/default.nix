@@ -36,7 +36,7 @@ final: prev: rec {
                        hash = "sha256-WxnT+le9vneQLFPz2KoBduOI+zfZPhn1fKlaqbPL6/g=";
                        };
 
-                       nativeBuildInputs = with final; (old.nativeBuildInputs or [ ]) ++ [ bash-completion fish ];
+                       nativeBuildInputs = with final; (old.nativeBuildInputs or [ ]) ++ [ cmake ];
 
 # Our version of sway already has this patch upstream, so we filter it out.
                        patches = builtins.filter
