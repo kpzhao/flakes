@@ -10,21 +10,25 @@
   nix.settings.experimental-features = ["nix-command" "flakes" "ca-derivations" "auto-allocate-uids" "cgroups"];
 
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    # ../overlays/sway-hidpi.nix
-    # ../pkgs/fcitx5-pinyin-zhwiki
   ];
 
-  # nixpkgs.overlays = import ../overlays args;
-  # nixpkgs.overlays = import ../overlays/sway;
-
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  # do not need to keep too much generations
-  boot.loader.systemd-boot.configurationLimit = 10;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelParams = ["i915.enable_psr=0"];
+  boot = {
+    loader = {
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 10;
+      };
+      efi = {
+        canTouchEfiVariables = true;
+      };
+      kernelParams = [
+        "quiet"
+        "splash"
+        "i915.enable_psr=0"
+      ];
+    };
+  };
 
   networking.hostName = "nixos";
 
@@ -54,9 +58,6 @@
     font-awesome
     sarasa-gothic
   ];
-
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
 
   users.defaultUserShell = pkgs.fish;
 
