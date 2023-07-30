@@ -81,8 +81,8 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  users.users.root.initialPassword = "zhao";
-  users.users.Tim.initialPassword = "zhao";
+  users.users.root.initialhashedpassword = "$6$WSLqMj/csKrhFrgF$zHtpHPOepWr18G.mL1xcfmUAGLXnzdTxidFaeM9TLdlDGZ3JoHufH3ScROtfL35dgGo.tKNO2ypPqJ4aPVtxt/";
+  users.users.Tim.initialhashedpassword = "$6$WSLqMj/csKrhFrgF$zHtpHPOepWr18G.mL1xcfmUAGLXnzdTxidFaeM9TLdlDGZ3JoHufH3ScROtfL35dgGo.tKNO2ypPqJ4aPVtxt/";
   users.users.Tim = {
     isNormalUser = true;
     description = "tim";
@@ -94,7 +94,7 @@
   };
   programs.fish.enable = true;
 
-  users.users.kpzhao.initialHashedPassword = "$6$Cnq2ls7h.E23YbMg$VBsNsao444JA86Wh40Is4eWACg8EEzgq8pK2l9JCZFgWUNAABwFu7J0iiVThVm/r9DhSMHDWnsrXk6LYN2amR/";
+  users.users.kpzhao.initialhashedpassword = "$6$Cnq2ls7h.E23YbMg$VBsNsao444JA86Wh40Is4eWACg8EEzgq8pK2l9JCZFgWUNAABwFu7J0iiVThVm/r9DhSMHDWnsrXk6LYN2amR/";
   users.users.kpzhao = {
     isNormalUser = true;
     description = "kpzhao";
