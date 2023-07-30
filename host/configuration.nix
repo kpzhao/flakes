@@ -110,7 +110,8 @@
     XMODIFIERS = "@im=fcitx";
     INPUT_METHOD = "fcitx";
     IMSETTINGS_MODULE = "fcitx";
-    # NIXOS_OZONE_WL = "1";
+    NIXOS_OZONE_WL = "1";
+    WLR_RENDERER = "vulkan";
 
     # Not officially in the specification
     XDG_BIN_HOME = "$HOME/.local/bin";
