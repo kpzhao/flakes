@@ -22,12 +22,12 @@
       efi = {
         canTouchEfiVariables = true;
       };
-      kernelParams = [
-        "quiet"
-        "splash"
-        "i915.enable_psr=0"
-      ];
     };
+    kernelParams = [
+      "quiet"
+      "splash"
+      "i915.enable_psr=0"
+    ];
   };
 
   networking.hostName = "nixos";
