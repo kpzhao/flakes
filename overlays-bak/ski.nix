@@ -1,12 +1,20 @@
 # $ cat /tmp/overlay/ski/default.nix
-{ lib , stdenv , fetchFromGitHub
-
-, autoconf, automake, bison, flex, gperf
-, libtool, pkg-config
-
-, elfutils, libbfd, libiberty , ncurses
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  bison,
+  flex,
+  gperf,
+  libtool,
+  pkg-config,
+  elfutils,
+  libbfd,
+  libiberty,
+  ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ski";
   version = "unstable-2022-07-07";
@@ -22,10 +30,17 @@ stdenv.mkDerivation rec {
     ./autogen.sh
   '';
 
-  nativeBuildInputs = [ autoconf automake
-    bison flex gperf libtool pkg-config ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    bison
+    flex
+    gperf
+    libtool
+    pkg-config
+  ];
 
-  buildInputs = [ elfutils libbfd libiberty ncurses ];
+  buildInputs = [elfutils libbfd libiberty ncurses];
 
   meta = with lib; {
     description = "ia64 (Itanium) instruction set simulator.";

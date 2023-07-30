@@ -1,36 +1,36 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, meson
-, ninja
-, pkg-config
-, wayland-scanner
-, libGL
-, wayland
-, wayland-protocols
-, libinput
-, libxkbcommon
-, pixman
-, xcbutilwm
-, libX11
-, libcap
-, xcbutilimage
-, xcbutilerrors
-, mesa
-, libpng
-, ffmpeg_4
-, xcbutilrenderutil
-, seatd
-, vulkan-loader
-, glslang
-, nixosTests
-, hwdata
-,cmake
-,libdisplay-info
-, xwayland-git 
-, fetchgit
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  meson,
+  ninja,
+  pkg-config,
+  wayland-scanner,
+  libGL,
+  wayland,
+  wayland-protocols,
+  libinput,
+  libxkbcommon,
+  pixman,
+  xcbutilwm,
+  libX11,
+  libcap,
+  xcbutilimage,
+  xcbutilerrors,
+  mesa,
+  libpng,
+  ffmpeg_4,
+  xcbutilrenderutil,
+  seatd,
+  vulkan-loader,
+  glslang,
+  nixosTests,
+  hwdata,
+  cmake,
+  libdisplay-info,
+  xwayland-git,
+  fetchgit,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wlroots";
   version = "git";
@@ -42,26 +42,24 @@ stdenv.mkDerivation rec {
   #   rev = "63f5851b";
   #   sha256 = "sha256-35/po0RF0xTwSyjkUbYOALsc4WNJo2sVnmqk6PoxtnI=";
   # };
-  
+
   src = fetchgit {
     url = "https://gitlab.freedesktop.org/wlroots/wlroots";
     rev = "63f5851b6fdc630355510c44e875119c4755208d";
     sha256 = "sha256-35/po0RF0xTwSyjkUbYOALsc4WNJo2sVnmqk6PoxtnI=";
   };
 
-    patches = [
-  ./0001-xwayland-support-HiDPI-scale.patch
-  ./0002-Fix-configure_notify-event.patch
+  patches = [
+    ./0001-xwayland-support-HiDPI-scale.patch
+    ./0002-Fix-configure_notify-event.patch
   ];
-
-
 
   # $out for the library and $examples for the example programs (in examples):
   # outputs = [ "out" "examples" ];
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
-  nativeBuildInputs = [ meson ninja cmake pkg-config wayland-scanner glslang hwdata libdisplay-info ];
+  nativeBuildInputs = [meson ninja cmake pkg-config wayland-scanner glslang hwdata libdisplay-info];
 
   buildInputs = [
     libGL
@@ -82,8 +80,7 @@ stdenv.mkDerivation rec {
     seatd
     vulkan-loader
     xwayland-git
-  ]
-  ;
+  ];
 
   # mesonFlags =
   #   lib.optional (!enableXWayland) "-Dxwayland=disabled"

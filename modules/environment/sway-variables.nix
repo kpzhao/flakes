@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   home = {
     sessionVariables = {
       EDITOR = "nvim";
@@ -17,7 +19,7 @@
       QT_QPA_PLATFORM = "wayland";
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
       #WLR_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card0";
-      WLR_NO_HARDWARE_CURSORS = "1"; # if no cursor,uncomment this line  
+      WLR_NO_HARDWARE_CURSORS = "1"; # if no cursor,uncomment this line
       WLR_RENDERER_ALLOW_SOFTWARE = "1";
       CLUTTER_BACKEND = "wayland";
       WLR_RENDERER = "vulkan";

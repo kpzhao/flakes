@@ -1,22 +1,26 @@
-{ config, lib, pkgs, user, impermanence, ... }:
-
 {
-  imports = [ 
-        ./modules/programs
-        # ./overlays
-        # ./pkgs/fcitx5-pinyin-zhwiki
-	    #./theming.nix
-        #./modules/programs/sway
-	#./modules/programs/waybar
-	#./modules/programs/fcitx5
-	#./modules/programs/rofi
-	#./modules/programs/mpv
-];
+  config,
+  lib,
+  pkgs,
+  user,
+  impermanence,
+  ...
+}: {
+  imports = [
+    ./modules/programs
+    # ./overlays
+    # ./pkgs/fcitx5-pinyin-zhwiki
+    #./theming.nix
+    #./modules/programs/sway
+    #./modules/programs/waybar
+    #./modules/programs/fcitx5
+    #./modules/programs/rofi
+    #./modules/programs/mpv
+  ];
   home.username = "Tim";
   home.homeDirectory = "/home/Tim";
 
-  home.packages = with pkgs;[
-
+  home.packages = with pkgs; [
     at-spi2-core
     brightnessctl
     meson
@@ -53,18 +57,13 @@
     xray
   ];
   services.udiskie = {
-      enable = true ;
-      automount = true;
-      notify = true;
+    enable = true;
+    automount = true;
+    notify = true;
   };
 
-
-  
-
-
-    home.stateVersion = "22.11";
+  home.stateVersion = "22.11";
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
-

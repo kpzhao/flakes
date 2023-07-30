@@ -1,46 +1,47 @@
-{ egl-wayland
-, libepoxy
-, fetchurl
-, fontutil
-, lib
-, libGL
-, libGLU
-, libX11
-, libXau
-, libXaw
-, libXdmcp
-, libXext
-, libXfixes
-, libXfont2
-, libXmu
-, libXpm
-, libXrender
-, libXres
-, libXt
-, libdrm
-, libtirpc
-, libunwind
-, libxcb
-, libxkbfile
-, libxshmfence
-, libxcvt
-, mesa
-, meson
-, ninja
-, openssl
-, pkg-config
-, pixman
-, stdenv
-, wayland
-, wayland-protocols
-, wayland-scanner
-, xkbcomp
-, xkeyboard_config
-, xorgproto
-, xtrans
-, zlib
-, defaultFontPath ? "" }:
-
+{
+  egl-wayland,
+  libepoxy,
+  fetchurl,
+  fontutil,
+  lib,
+  libGL,
+  libGLU,
+  libX11,
+  libXau,
+  libXaw,
+  libXdmcp,
+  libXext,
+  libXfixes,
+  libXfont2,
+  libXmu,
+  libXpm,
+  libXrender,
+  libXres,
+  libXt,
+  libdrm,
+  libtirpc,
+  libunwind,
+  libxcb,
+  libxkbfile,
+  libxshmfence,
+  libxcvt,
+  mesa,
+  meson,
+  ninja,
+  openssl,
+  pkg-config,
+  pixman,
+  stdenv,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
+  xkbcomp,
+  xkeyboard_config,
+  xorgproto,
+  xtrans,
+  zlib,
+  defaultFontPath ? "",
+}:
 stdenv.mkDerivation rec {
   pname = "xwayland";
   version = "git";
@@ -51,7 +52,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-vSXYSY7k13h0/aElEn4ts3/DMlMf68lmIx6gb66M938=";
   };
   patch = [
-  ./hidpi.patch
+    ./hidpi.patch
   ];
   depsBuildBuild = [
     pkg-config
@@ -112,7 +113,7 @@ stdenv.mkDerivation rec {
     homepage = "https://wayland.freedesktop.org/xserver.html";
     license = licenses.mit;
     mainProgram = "Xwayland";
-    maintainers = with maintainers; [ emantor ];
+    maintainers = with maintainers; [emantor];
     platforms = platforms.linux;
   };
 }

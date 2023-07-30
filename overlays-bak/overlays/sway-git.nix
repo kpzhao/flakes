@@ -1,49 +1,48 @@
-{ lib
-, stdenv
-, fetchgit
-, meson
-, ninja
-, pkg-config
-, wayland-scanner
-, libGL
-, wayland
-, libinput
-, libxkbcommon
-, pixman
-, xcbutilwm
-, libX11
-, libcap
-, xcbutilimage
-, xcbutilerrors
-, mesa
-, libpng
-, ffmpeg_4
-, xcbutilrenderutil
-, seatd
-, vulkan-loader
-, glslang
-, nixosTests
-, hwdata
-, cmake
-, libdisplay-info
-, wlroots
-, wlroots-git
-, wayland-protocols
-, git
-, pcre2
-, json_c
-, pango
-, cairo
-, libdrm
-, udev
-, cargo
-, xwayland-git
-, gdk-pixbuf
-, libevdev
-, scdoc
-
+{
+  lib,
+  stdenv,
+  fetchgit,
+  meson,
+  ninja,
+  pkg-config,
+  wayland-scanner,
+  libGL,
+  wayland,
+  libinput,
+  libxkbcommon,
+  pixman,
+  xcbutilwm,
+  libX11,
+  libcap,
+  xcbutilimage,
+  xcbutilerrors,
+  mesa,
+  libpng,
+  ffmpeg_4,
+  xcbutilrenderutil,
+  seatd,
+  vulkan-loader,
+  glslang,
+  nixosTests,
+  hwdata,
+  cmake,
+  libdisplay-info,
+  wlroots,
+  wlroots-git,
+  wayland-protocols,
+  git,
+  pcre2,
+  json_c,
+  pango,
+  cairo,
+  libdrm,
+  udev,
+  cargo,
+  xwayland-git,
+  gdk-pixbuf,
+  libevdev,
+  scdoc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sway";
   version = "git-2023-7-23";
@@ -56,16 +55,29 @@ stdenv.mkDerivation rec {
 
   # $out for the library and $examples for the example programs (in examples):
   # outputs = [ "out"  ];
-  
+
   patches = [
-  ./7226.patch
+    ./7226.patch
   ];
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
-  nativeBuildInputs = [ 
-    meson ninja wayland-protocols git cmake libdrm libxkbcommon mesa vulkan-loader glslang udev seatd hwdata libdisplay-info
-    libinput                    
+  nativeBuildInputs = [
+    meson
+    ninja
+    wayland-protocols
+    git
+    cmake
+    libdrm
+    libxkbcommon
+    mesa
+    vulkan-loader
+    glslang
+    udev
+    seatd
+    hwdata
+    libdisplay-info
+    libinput
     xcbutilrenderutil
     xwayland-git
     xcbutilwm
@@ -75,38 +87,33 @@ stdenv.mkDerivation rec {
     scdoc
   ];
 
-  buildInputs = [
-  
-    meson 
-    wlroots-git
-    wayland
-    wayland-protocols 
-    pcre2
-    json_c
-    pango
-    cairo
-    git
-    xwayland-git
-
-  ]
-  # ++ lib.optional enableXWayland xwayland
-  ;
+  buildInputs =
+    [
+      meson
+      wlroots-git
+      wayland
+      wayland-protocols
+      pcre2
+      json_c
+      pango
+      cairo
+      git
+      xwayland-git
+    ]
+    # ++ lib.optional enableXWayland xwayland
+    ;
 
   # mesonFlags =
   #   lib.optional (!enableXWayland) "-Dxwayland=disabled"
   # ;
-    mesonFlags = let
+  mesonFlags = let
     # The "sd-bus-provider" meson option does not include a "none" option,
     # but it is silently ignored iff "-Dtray=disabled".  We use "basu"
     # (which is not in nixpkgs) instead of "none" to alert us if this
     # changes: https://github.com/swaywm/sway/issues/6843#issuecomment-1047288761
     # assert trayEnabled -> systemdSupport && dbusSupport;
-
-    sd-bus-provider = "libsystemd" ;
-    in
-    [ "-Dsd-bus-provider=${sd-bus-provider}" ]
-  ;
-
+    sd-bus-provider = "libsystemd";
+  in ["-Dsd-bus-provider=${sd-bus-provider}"];
 
   # postFixup = ''
   #   # Install ALL example programs to $examples:

@@ -1,10 +1,17 @@
-{ pkgs, lib, config, ... }:
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
   services = {
     swayidle = {
       enable = true;
       timeouts = [
-        { timeout = 300; command = "${pkgs.swaylock}/bin/swaylock -f -c 000000"; }
+        {
+          timeout = 300;
+          command = "${pkgs.swaylock}/bin/swaylock -f -c 000000";
+        }
         {
           timeout = 360;
           command = ''${pkgs.sway}/bin/swaymsg "output * dpms off"'';
@@ -12,7 +19,10 @@
         }
       ];
       events = [
-        { event = "before-sleep"; command = "${pkgs.swaylock}/bin/swaylock -f -c 000000"; }
+        {
+          event = "before-sleep";
+          command = "${pkgs.swaylock}/bin/swaylock -f -c 000000";
+        }
       ];
     };
   };

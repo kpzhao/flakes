@@ -1,9 +1,8 @@
-with import <nixpkgs> { };
-stdenv.mkDerivation {
-  name = "hello-HEAD";
-  src = ./.;
-  installPhase = ''
-    echo "Hello" > $out
-  '';
-}
-
+with import <nixpkgs> {};
+  stdenv.mkDerivation {
+    name = "hello-HEAD";
+    src = ./.;
+    installPhase = ''
+      echo "Hello" > $out
+    '';
+  }
