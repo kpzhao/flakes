@@ -28,6 +28,8 @@
       "splash"
       "i915.enable_psr=0"
     ];
+    consoleLogLevel = 0;
+    initrd.verbose = false;
   };
 
   networking.hostName = "nixos";
