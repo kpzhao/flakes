@@ -32,6 +32,7 @@
     imv
     intel-gpu-tools
     helix
+    kitty
     neofetch
     slurp
     lf

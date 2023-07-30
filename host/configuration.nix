@@ -1,10 +1,6 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running `nixos-help`).
 {
   config,
   pkgs,
-  helix,
   ...
 } @ args: {
   nix.settings.experimental-features = ["nix-command" "flakes" "ca-derivations" "auto-allocate-uids" "cgroups"];
@@ -97,6 +93,17 @@
     shell = pkgs.fish;
   };
   programs.fish.enable = true;
+
+  users.users.kpzhao.initialHashedPassword = "$6$Cnq2ls7h.E23YbMg$VBsNsao444JA86Wh40Is4eWACg8EEzgq8pK2l9JCZFgWUNAABwFu7J0iiVThVm/r9DhSMHDWnsrXk6LYN2amR/";
+  users.users.kpzhao = {
+    isNormalUser = true;
+    description = "kpzhao";
+    extraGroups = ["adbusers" "networkmanager" "wheel" "root"];
+    packages = with pkgs; [
+      firefox
+    ];
+    shell = pkgs.fish;
+  };
 
   environment.sessionVariables = rec {
     MOZ_ENABLE_WAYLAND = "1";

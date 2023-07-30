@@ -48,9 +48,9 @@
     wrapperFeatures.gtk = true;
     config = {
       modifier = "Mod4";
-      terminal = "alacritty";
+      terminal = "kitty";
       startup = [
-        {command = "alacritty";}
+        # {command = "kitty";}
         {command = "firefox";}
         {command = "mako";}
         {command = "xprop -root -format _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2";}
