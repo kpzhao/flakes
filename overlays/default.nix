@@ -1,7 +1,7 @@
 final: prev: rec {
   xwayland = prev.xwayland.overrideAttrs (_: {
     patches = [
-      ./hidpi.patch
+      ./xwayland-hidpi.patch
     ];
   });
 
@@ -17,8 +17,8 @@ final: prev: rec {
       };
 
       patches = [
-        ./0001-xwayland-support-HiDPI-scale.patch
-        ./0002-Fix-configure_notify-event.patch
+        ./wlroots-0001-xwayland-support-HiDPI-scale.patch
+        ./wlroots-0002-Fix-configure_notify-event.patch
       ];
 
       nativeBuildInputs = (old.nativeBuildInputs or []) ++ [final.hwdata];
