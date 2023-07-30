@@ -8,14 +8,6 @@
 }: {
   imports = [
     ./modules/programs
-    # ./overlays
-    # ./pkgs/fcitx5-pinyin-zhwiki
-    #./theming.nix
-    #./modules/programs/sway
-    #./modules/programs/waybar
-    #./modules/programs/fcitx5
-    #./modules/programs/rofi
-    #./modules/programs/mpv
   ];
   home.username = "Tim";
   home.homeDirectory = "/home/Tim";

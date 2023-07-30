@@ -1,6 +1,8 @@
-{ config, pkgs, ... } @ args: 
-
 {
+  config,
+  pkgs,
+  ...
+} @ args: {
   nix.settings.experimental-features = ["nix-command" "flakes" "ca-derivations" "auto-allocate-uids" "cgroups"];
 
   imports = [
@@ -8,7 +10,7 @@
   ];
 
   boot = {
-    supportedFilesystems = [ "ntfs" ];
+    supportedFilesystems = ["ntfs"];
     loader = {
       systemd-boot = {
         enable = true;
