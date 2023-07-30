@@ -1,38 +1,6 @@
 {
   description = "NixOS configuration";
 
-  # nixConfig = {
-  #     extra-experimental-features = [ "nix-command" "flakes" ];
-  # };
-
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nur.url = "github:nix-community/NUR";
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    impermanence.url = "github:nix-community/impermanence";
-
-    # theme
-    base16.url = github:SenchoPens/base16.nix;
-
-    base16-schemes = {
-      url = github:base16-project/base16-schemes;
-      flake = false;
-    };
-    base16-zathura = {
-      url = github:haozeke/base16-zathura;
-      flake = false;
-    };
-    base16-vim = {
-      url = github:base16-project/base16-vim;
-      flake = false;
-    };
-  };
-
   outputs = inputs @ {
     self,
     nixpkgs,
@@ -58,11 +26,6 @@
         inherit pkgs;
 
         modules = [
-          #                 {
-          #   nixpkgs.overlays = [
-          #     (import ./overlays)
-          #   ];
-          # }
           ./host/configuration.nix
           ./host/hardware-configuration.nix
           ./persistence.nix
@@ -102,5 +65,33 @@
       };
     };
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
+  };
+
+    inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nur.url = "github:nix-community/NUR";
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    impermanence.url = "github:nix-community/impermanence";
+
+    # theme
+    base16.url = github:SenchoPens/base16.nix;
+
+    base16-schemes = {
+      url = github:base16-project/base16-schemes;
+      flake = false;
+    };
+    base16-zathura = {
+      url = github:haozeke/base16-zathura;
+      flake = false;
+    };
+    base16-vim = {
+      url = github:base16-project/base16-vim;
+      flake = false;
+    };
   };
 }
