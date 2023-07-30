@@ -12,13 +12,13 @@
     # user = "Tim";
     system = "x86_64-linux";
     overlay = ./overlays;
-    # pkgs = import nixpkgs {
-    #   inherit system;
-    #   overlays = [
-    #     (import overlay)
-    #   ];
-      # config.allowUnfree = true;
-    # };
+    pkgs = import nixpkgs {
+      inherit system;
+      overlays = [
+        (import overlay)
+      ];
+      config.allowUnfree = true;
+    };
   in {
     nixosConfigurations = {
       test = nixpkgs.lib.nixosSystem {
@@ -53,13 +53,13 @@
             ];
           })
 
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.Tim = import ./home.nix;
-            home-manager.extraSpecialArgs = inputs;
-          }
+          # home-manager.nixosModules.home-manager
+          # {
+          #   home-manager.useGlobalPkgs = true;
+          #   home-manager.useUserPackages = true;
+          #   home-manager.users.Tim = import ./home.nix;
+          #   home-manager.extraSpecialArgs = inputs;
+          # }
         ];
       };
     };
