@@ -1,8 +1,6 @@
+{ config, pkgs, ... } @ args: 
+
 {
-  config,
-  pkgs,
-  ...
-} @ args: {
   nix.settings.experimental-features = ["nix-command" "flakes" "ca-derivations" "auto-allocate-uids" "cgroups"];
 
   imports = [
@@ -10,6 +8,7 @@
   ];
 
   boot = {
+    supportedFilesystems = [ "ntfs" ];
     loader = {
       systemd-boot = {
         enable = true;
@@ -81,20 +80,22 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  users.users.root.initialhashedpassword = "$6$WSLqMj/csKrhFrgF$zHtpHPOepWr18G.mL1xcfmUAGLXnzdTxidFaeM9TLdlDGZ3JoHufH3ScROtfL35dgGo.tKNO2ypPqJ4aPVtxt/";
-  users.users.Tim.initialhashedpassword = "$6$WSLqMj/csKrhFrgF$zHtpHPOepWr18G.mL1xcfmUAGLXnzdTxidFaeM9TLdlDGZ3JoHufH3ScROtfL35dgGo.tKNO2ypPqJ4aPVtxt/";
-  users.users.Tim = {
+  users.users.root = {
+    initialHashedPassword = "$6$WSLqMj/csKrhFrgF$zHtpHPOepWr18G.mL1xcfmUAGLXnzdTxidFaeM9TLdlDGZ3JoHufH3ScROtfL35dgGo.tKNO2ypPqJ4aPVtxt/";
+  };
+  programs.fish.enable = true;
+  users.users.${user} = {
+    initialHashedPassword = "$6$WSLqMj/csKrhFrgF$zHtpHPOepWr18G.mL1xcfmUAGLXnzdTxidFaeM9TLdlDGZ3JoHufH3ScROtfL35dgGo.tKNO2ypPqJ4aPVtxt/";
+    shell = pkgs.fish;
     isNormalUser = true;
     description = "tim";
     extraGroups = ["adbusers" "networkmanager" "wheel" "root"];
     packages = with pkgs; [
       firefox
     ];
-    shell = pkgs.fish;
   };
-  programs.fish.enable = true;
 
-  users.users.kpzhao.initialhashedpassword = "$6$Cnq2ls7h.E23YbMg$VBsNsao444JA86Wh40Is4eWACg8EEzgq8pK2l9JCZFgWUNAABwFu7J0iiVThVm/r9DhSMHDWnsrXk6LYN2amR/";
+  users.users.kpzhao.initialHashedPassword = "$6$Cnq2ls7h.E23YbMg$VBsNsao444JA86Wh40Is4eWACg8EEzgq8pK2l9JCZFgWUNAABwFu7J0iiVThVm/r9DhSMHDWnsrXk6LYN2amR/";
   users.users.kpzhao = {
     isNormalUser = true;
     description = "kpzhao";
@@ -121,22 +122,10 @@
     ];
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  # users.users.alice = {
-  #   isNormalUser = true;
-  #   extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-  #   packages = with pkgs; [
-  #     firefox
-  #     tree
-  #   ];
-  # };
-
   programs.adb.enable = true;
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    cmake
-    hwdata
     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     git
     neofetch
@@ -146,7 +135,6 @@
     llvmPackages_16.libllvm
     gnumake
     p7zip
-    # sway-1
   ];
 
   security.polkit.enable = true;

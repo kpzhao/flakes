@@ -41,6 +41,7 @@
     nur,
     ...
   }: let
+    user = "Tim";
     system = "x86_64-linux";
     overlay = ./overlays;
     pkgs = import nixpkgs {
