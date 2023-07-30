@@ -4,7 +4,7 @@
   outputs = inputs @ {
     self,
     nixpkgs,
-    # home-manager,
+    home-manager,
     base16,
     nur,
     ...
@@ -12,13 +12,13 @@
     # user = "Tim";
     system = "x86_64-linux";
     overlay = ./overlays;
-    pkgs = import nixpkgs {
-      inherit system;
-      overlays = [
-        (import overlay)
-      ];
-      config.allowUnfree = true;
-    };
+    # pkgs = import nixpkgs {
+    #   inherit system;
+    #   overlays = [
+    #     (import overlay)
+    #   ];
+    #   config.allowUnfree = true;
+    # };
   in {
     nixosConfigurations = {
       test = nixpkgs.lib.nixosSystem {
@@ -31,35 +31,35 @@
 
           inputs.impermanence.nixosModules.impermanence
 
-          base16.nixosModule
-          {scheme = "${inputs.base16-schemes}/nord.yaml";}
-          ./theming.nix
+          # base16.nixosModule
+          # {scheme = "${inputs.base16-schemes}/nord.yaml";}
+          # ./theming.nix
 
-          ({...}: {
-            environment.systemPackages = [
-            ];
-            nix.settings.substituters = [
-              "https://mirror.sjtu.edu.cn/nix-channels/store"
-            ];
-            nix.settings.trusted-public-keys = [
-            ];
-          })
+          # ({...}: {
+          #   environment.systemPackages = [
+          #   ];
+          #   nix.settings.substituters = [
+          #     "https://mirror.sjtu.edu.cn/nix-channels/store"
+          #   ];
+          #   nix.settings.trusted-public-keys = [
+          #   ];
+          # })
+          #
+          # nur.nixosModules.nur
+          #
+          # ({config, ...}: {
+          #   environment.systemPackages = [
+          #     config.nur.repos.YisuiMilena.hyfetch
+          #   ];
+          # })
 
-          nur.nixosModules.nur
-
-          ({config, ...}: {
-            environment.systemPackages = [
-              config.nur.repos.YisuiMilena.hyfetch
-            ];
-          })
-
-          # home-manager.nixosModules.home-manager
-          # {
-          #   home-manager.useGlobalPkgs = true;
-          #   home-manager.useUserPackages = true;
-          #   home-manager.users.Tim = import ./home.nix;
-          #   home-manager.extraSpecialArgs = inputs;
-          # }
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.Tim = import ./home.nix;
+            home-manager.extraSpecialArgs = inputs;
+          }
         ];
       };
     };
@@ -72,7 +72,7 @@
     nur.url = "github:nix-community/NUR";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

@@ -101,15 +101,21 @@
     ];
     shell = pkgs.fish;
   };
+    i18n.inputMethod = {
+      enabled = "fcitx5";
+      fcitx5.addons = with pkgs; [
+        fcitx5-rime
+      ];
+    };
 
   environment.sessionVariables = rec {
     MOZ_ENABLE_WAYLAND = "1";
-    GLFW_IM_MODULE = "fcitx";
-    GTK_IM_MODULE = "fcitx";
-    QT_IM_MODULE = "fcitx";
-    XMODIFIERS = "@im=fcitx";
-    INPUT_METHOD = "fcitx";
-    IMSETTINGS_MODULE = "fcitx";
+    # GLFW_IM_MODULE = "fcitx";
+    # GTK_IM_MODULE = "fcitx";
+    # QT_IM_MODULE = "fcitx";
+    # XMODIFIERS = "@im=fcitx";
+    # INPUT_METHOD = "fcitx";
+    # IMSETTINGS_MODULE = "fcitx";
     # NIXOS_OZONE_WL = "1";
     # WLR_RENDERER = "vulkan";
 

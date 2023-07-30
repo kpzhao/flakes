@@ -41,10 +41,10 @@
     # package = pkgs.sway-git;
     # package = pkgs.sway-unwrapped;
     # package = pkgs.sway-test;
-    systemd = {
-      enable = true;
-      xdgAutostart = true;
-    };
+    # systemd = {
+    #   enable = true;
+    #   xdgAutostart = true;
+    # };
     wrapperFeatures.gtk = true;
     config = {
       modifier = "Mod4";
