@@ -56,13 +56,6 @@
     sarasa-gothic
   ];
 
-  users.defaultUserShell = pkgs.fish;
-
-  # Enable sound.
-  # hardware.pulseaudio.enable = true;
-  # Remove sound.enable or turn it off if you had it set previously, it seems to cause conflicts with pipewire
-  #sound.enable = false;
-
   # rtkit is optional but recommended
   security.rtkit.enable = true;
   services.pipewire = {
@@ -80,11 +73,12 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  users.defaultUserShell = pkgs.fish;
   users.users.root = {
     initialHashedPassword = "$6$WSLqMj/csKrhFrgF$zHtpHPOepWr18G.mL1xcfmUAGLXnzdTxidFaeM9TLdlDGZ3JoHufH3ScROtfL35dgGo.tKNO2ypPqJ4aPVtxt/";
   };
   programs.fish.enable = true;
-  users.users.${user} = {
+  users.users.Tim = {
     initialHashedPassword = "$6$WSLqMj/csKrhFrgF$zHtpHPOepWr18G.mL1xcfmUAGLXnzdTxidFaeM9TLdlDGZ3JoHufH3ScROtfL35dgGo.tKNO2ypPqJ4aPVtxt/";
     shell = pkgs.fish;
     isNormalUser = true;
@@ -138,18 +132,12 @@
   ];
 
   security.polkit.enable = true;
-  security.sudo.extraRules = [
-    {
-      users = ["Tim" "database"];
-      groups = [1006];
-      commands = [
-        {
-          command = "/home/root/secret.sh";
-          options = ["SETENV" "NOPASSWD"];
-        }
-      ];
-    }
-  ];
+  security.sudo = {
+    enable = true;
+    extraConfig = ''
+      Tim ALL=(ALL) NOPASSWD:ALL
+    '';
+  };
   security.pam.services.swaylock = {};
   xdg.portal = {
     enable = true;
