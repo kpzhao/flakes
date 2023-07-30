@@ -12,9 +12,7 @@ final: prev: rec {
         domain = "gitlab.freedesktop.org";
         owner = "wlroots";
         repo = "wlroots";
-        # rev = "71b57b8d27e2817ebcaa6471e22251203c370554";
         rev = "d40bcfe2c18f057f4bc324a81230f6ba2267db44"; # 20230729
-        # hash = "sha256-yYFlQsHD/TU0l6pS0t9tSHh7w+LFAUclJMpSyiA+Wnw=";
         hash = "sha256-6MEVZCCwmNjKgMGDBIF2J2748vJEcEOaifLycXamvz0="; #20230729
       };
 
@@ -39,10 +37,7 @@ final: prev: rec {
       src = final.fetchFromGitHub {
         owner = "swaywm";
         repo = "sway";
-        # rev = "6bd11ad0dfb11f8cf7e0ab5330cd2488851c5614";
         rev = "c3e6390073167bae8245d7fac9b455f9f06a5333";
-        # sha256 = "sha256-WxnT+le9vneQLFPz2KoBduOI+zfZPhn1fKlaqbPL6/g=";
-        # sha256 = "sha256-wV24FHJ+ZB95OSWEYF0UzZ9qA8NDBvFUONFdOfnXEEs=";
         sha256 = "sha256-QQOVim0U8uiAstPy9HMRBAl4McyvAdXoO44jCRlzVIQ=";
       };
 
@@ -54,7 +49,6 @@ final: prev: rec {
       # Our version of sway already has this patch upstream, so we filter it out.
       patches =
         builtins.filter
-        # (p: !p ? name || (p.name != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch" && p.name != "load-configuration-from-etc.patch" && p.name != "fix-paths.patch" && p.name != "sway-config-no-nix-store-references.patch" && p.name != "sway-config-nixos-paths.patch"))
         (p: !p ? name || (p.name != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch"))
         (old.patches or []);
     }))
