@@ -4,7 +4,7 @@
   outputs = inputs @ {
     self,
     nixpkgs,
-    home-manager,
+    # home-manager,
     base16,
     nur,
     ...
