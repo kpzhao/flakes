@@ -9,21 +9,20 @@
     nur,
     ...
   }: let
-    user = "Tim";
+    # user = "Tim";
     system = "x86_64-linux";
     overlay = ./overlays;
-    pkgs = import nixpkgs {
-      inherit system;
-      overlays = [
-        (import overlay)
-      ];
-      config.allowUnfree = true;
-    };
+    # pkgs = import nixpkgs {
+    #   inherit system;
+    #   overlays = [
+    #     (import overlay)
+    #   ];
+      # config.allowUnfree = true;
+    # };
   in {
     nixosConfigurations = {
       test = nixpkgs.lib.nixosSystem {
         inherit system;
-        inherit pkgs;
 
         modules = [
           ./host/configuration.nix
@@ -68,7 +67,8 @@
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
 
     home-manager = {
