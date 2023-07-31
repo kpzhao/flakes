@@ -101,12 +101,12 @@
     ];
     shell = pkgs.fish;
   };
-    i18n.inputMethod = {
-      enabled = "fcitx5";
-      fcitx5.addons = with pkgs; [
-        fcitx5-rime
-      ];
-    };
+    # i18n.inputMethod = {
+    #   enabled = "fcitx5";
+    #   fcitx5.addons = with pkgs; [
+    #   fcitx5-chinese-addons
+    #   ];
+    # };
 
   environment.sessionVariables = rec {
     MOZ_ENABLE_WAYLAND = "1";
@@ -116,8 +116,8 @@
     # XMODIFIERS = "@im=fcitx";
     # INPUT_METHOD = "fcitx";
     # IMSETTINGS_MODULE = "fcitx";
-    # NIXOS_OZONE_WL = "1";
-    # WLR_RENDERER = "vulkan";
+    NIXOS_OZONE_WL = "1";
+    WLR_RENDERER = "vulkan";
 
     # Not officially in the specification
     XDG_BIN_HOME = "$HOME/.local/bin";

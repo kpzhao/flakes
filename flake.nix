@@ -31,27 +31,27 @@
 
           inputs.impermanence.nixosModules.impermanence
 
-          # base16.nixosModule
-          # {scheme = "${inputs.base16-schemes}/nord.yaml";}
-          # ./theming.nix
+          base16.nixosModule
+          {scheme = "${inputs.base16-schemes}/nord.yaml";}
+          ./theming.nix
 
-          # ({...}: {
-          #   environment.systemPackages = [
-          #   ];
-          #   nix.settings.substituters = [
-          #     "https://mirror.sjtu.edu.cn/nix-channels/store"
-          #   ];
-          #   nix.settings.trusted-public-keys = [
-          #   ];
-          # })
-          #
-          # nur.nixosModules.nur
-          #
-          # ({config, ...}: {
-          #   environment.systemPackages = [
-          #     config.nur.repos.YisuiMilena.hyfetch
-          #   ];
-          # })
+          ({...}: {
+            environment.systemPackages = [
+            ];
+            nix.settings.substituters = [
+              "https://mirror.sjtu.edu.cn/nix-channels/store"
+            ];
+            nix.settings.trusted-public-keys = [
+            ];
+          })
+
+          nur.nixosModules.nur
+
+          ({config, ...}: {
+            environment.systemPackages = [
+              config.nur.repos.YisuiMilena.hyfetch
+            ];
+          })
 
           home-manager.nixosModules.home-manager
           {
