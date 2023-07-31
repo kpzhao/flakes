@@ -101,7 +101,7 @@
     ];
     shell = pkgs.fish;
   };
-    i18n.inputmethod = {
+    i18n.inputMethod = {
       enabled = "fcitx5";
       fcitx5.addons = with pkgs; [
       fcitx5-chinese-addons
