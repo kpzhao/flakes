@@ -47,6 +47,8 @@
     # };
     wrapperFeatures.gtk = true;
     config = {
+      window.titlebar = false;
+
       modifier = "Mod4";
       terminal = "kitty";
       startup = [
