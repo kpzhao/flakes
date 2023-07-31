@@ -12,7 +12,7 @@
   # # so we need to remove it before everytime we rebuild the config
   # home.activation.removeExistingFcitx5Profile = lib.hm.dag.entryBefore ["checkLinkTargets"] ''
   #   rm -f "${config.xdg.configHome}/fcitx5/profile"
-  '';
+  # '';
 
   i18n.inputMethod = {
     enabled = "fcitx5";

@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   imports = [
     ./aria2
-    ./fcitx5
+    # ./fcitx5
     ./firefox
     ./lf
     ./mako
