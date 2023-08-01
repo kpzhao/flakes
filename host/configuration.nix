@@ -22,11 +22,11 @@
     };
     kernelParams = [
       "quiet"
-      "splash"
+      # "splash"
       "i915.enable_psr=0"
     ];
-    consoleLogLevel = 0;
-    initrd.verbose = false;
+    # consoleLogLevel = 0;
+    # initrd.verbose = false;
   };
 
   networking.hostName = "nixos";
@@ -43,8 +43,8 @@
   time.timeZone = "Asia/Shanghai";
 
   # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  networking.proxy.default = "socks5://127.0.0.1:10808/";
+  networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -117,7 +117,7 @@
     # INPUT_METHOD = "fcitx";
     # IMSETTINGS_MODULE = "fcitx";
     NIXOS_OZONE_WL = "1";
-    WLR_RENDERER = "vulkan";
+    # WLR_RENDERER = "vulkan";
 
     # Not officially in the specification
     XDG_BIN_HOME = "$HOME/.local/bin";

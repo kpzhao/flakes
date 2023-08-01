@@ -4,7 +4,7 @@
     # ./fcitx5
     ./firefox
     ./lf
-    ./mako
+    # ./mako
     ./mpd
     ./mpv
     ./rofi

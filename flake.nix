@@ -1,15 +1,7 @@
 {
   description = "NixOS configuration";
 
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    home-manager,
-    base16,
-    nur,
-    ...
-  }: let
-    # user = "Tim";
+  outputs = inputs @ { self, nixpkgs, home-manager, base16, nur, ... }: let
     system = "x86_64-linux";
     overlay = ./overlays;
     # pkgs = import nixpkgs {
