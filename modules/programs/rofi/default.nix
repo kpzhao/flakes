@@ -5,7 +5,7 @@
   ...
 }: 
 let
-  app = cmd: "${lib.getExe my.pkgs.systemd-run-app} ${cmd}";
+  # app = cmd: "${lib.getExe my.pkgs.systemd-run-app} ${cmd}";
 
 in
 {
@@ -24,8 +24,8 @@ in
     theme = "Arc-Dark";
     terminal = app "${terminal}";
     extraConfig = {
-      modi = "drun,run,ssh";
-      run-command = app "{cmd}";
+      # modi = "drun,run,ssh";
+      # run-command = app "{cmd}";
     };
   };
 
