@@ -1,0 +1,75 @@
+{
+  description = "NixOS configuration";
+
+  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, home-manager, base16, nur, ... }:
+  let
+    user = "Tim";
+    system = "x86_64-linux";
+    overlay-unstable = final: prev: {
+         unstable = import nixpkgs-unstable {
+          inherit system;
+          config.allowUnfree = true;
+        };
+    };
+
+  in {
+    nixosConfigurations = {
+        inherit user;
+      ${user} = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit user; };
+        modules = [
+            ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
+          ./host/configuration.nix
+          ./persistence.nix
+
+          inputs.impermanence.nixosModules.impermanence
+
+          base16.nixosModule
+          {scheme = "${inputs.base16-schemes}/nord.yaml";}
+          ./theming.nix
+
+          nur.nixosModules.nur
+
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.Tim = import ./home.nix;
+            home-manager.extraSpecialArgs = inputs;
+          }
+        ];
+      };
+    };
+    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
+  };
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nur.url = "github:nix-community/NUR";
+
+    home-manager = {
+      url = "github:nix-community/home-manager/release-23.05";
+      # url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    impermanence.url = "github:nix-community/impermanence";
+
+    # theme
+    base16.url = github:SenchoPens/base16.nix;
+
+    base16-schemes = {
+      url = github:base16-project/base16-schemes;
+      flake = false;
+    };
+    base16-zathura = {
+      url = github:haozeke/base16-zathura;
+      flake = false;
+    };
+    base16-vim = {
+      url = github:base16-project/base16-vim;
+      flake = false;
+    };
+  };
+}

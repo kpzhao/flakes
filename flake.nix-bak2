@@ -1,0 +1,90 @@
+{
+  description = "Tim's NixOS configuration";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
+
+    # Placeholder.
+    blank.follows = "nixpkgs";
+
+    flake-utils.url = "github:numtide/flake-utils";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    impermanence.url = "github:nix-community/impermanence";
+
+  };
+
+  outputs = { self, nixpkgs, flake-utils, impermanence, ... }@inputs: let
+
+    inherit (nixpkgs) lib;
+
+    overlays = {
+    };
+
+    nixosModules = {
+      inputs.impermanence.nixosModules.impermanence;
+      
+          ./persistence.nix;
+
+
+      home-manager = { config, inputs, ... }: {
+        imports = [ inputs.home-manager.nixosModules.home-manager ];
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          verbose = true;
+            home-manager.users.Tim = import ./home.nix;
+          extraSpecialArgs = {
+            inherit inputs;
+            super = config;
+          };
+        };
+      };
+    };
+
+    mkSystem = name: system: nixpkgs: { extraModules ? [] }: nixpkgs.lib.nixosSystem {
+      inherit system;
+      specialArgs = {
+        inputs = inputs // { inherit nixpkgs; };
+      };
+      modules = with nixosModules; [
+        system-label
+        { networking.hostName = lib.mkDefault name; }
+        { nixpkgs.overlays = builtins.attrValues overlays; }
+        ./nixos/${name}/configuration.nix
+      ] ++ extraModules;
+    };
+
+  in {
+    inherit overlays nixosModules;
+
+      inherit (nixpkgs) lib;
+
+    nixosSystems = lib.mapAttrs
+      (name: conf: conf.config.system.build.toplevel)
+      self.nixosConfigurations;
+
+    nixosConfigurations = {
+      Tim = mkSystem "Tim" "x86_64-linux" inputs.nixpkgs {
+        extraModules = with nixosModules; [ home-manager ];
+      };
+    };
+
+  } // flake-utils.lib.eachDefaultSystem (system: rec {
+    packages = import ./pkgs {
+      inherit lib inputs;
+      pkgs = nixpkgs.legacyPackages.${system};
+    };
+
+    checks = packages;
+
+    devShells.default =
+      with nixpkgs.legacyPackages.${system};
+      mkShellNoCC {
+        packages = [ nvfetcher packages.nixos-rebuild-shortcut ];
+      };
+  });
+}

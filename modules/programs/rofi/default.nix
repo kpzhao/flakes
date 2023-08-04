@@ -22,7 +22,7 @@ in
     enable = true;
     package = pkgs.rofi-wayland;
     theme = "Arc-Dark";
-    terminal = app "${terminal}";
+    # terminal = app "${terminal}";
     extraConfig = {
       # modi = "drun,run,ssh";
       # run-command = app "{cmd}";

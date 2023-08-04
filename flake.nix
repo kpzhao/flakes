@@ -1,90 +1,68 @@
 {
-  description = "NixOS configuration";
-
-  outputs = inputs @ { self, nixpkgs, home-manager, base16, nur, ... }: let
-    system = "x86_64-linux";
-    overlay = ./overlays;
-    # pkgs = import nixpkgs {
-    #   inherit system;
-    #   overlays = [
-    #     (import overlay)
-    #   ];
-    #   config.allowUnfree = true;
-    # };
-  in {
-    nixosConfigurations = {
-      test = nixpkgs.lib.nixosSystem {
-        inherit system;
-
-        modules = [
-          ./host/configuration.nix
-          ./host/hardware-configuration.nix
-          ./persistence.nix
-
-          inputs.impermanence.nixosModules.impermanence
-
-          base16.nixosModule
-          {scheme = "${inputs.base16-schemes}/nord.yaml";}
-          ./theming.nix
-
-          ({...}: {
-            environment.systemPackages = [
-            ];
-            nix.settings.substituters = [
-              "https://mirror.sjtu.edu.cn/nix-channels/store"
-            ];
-            nix.settings.trusted-public-keys = [
-            ];
-          })
-
-          nur.nixosModules.nur
-
-          ({config, ...}: {
-            environment.systemPackages = [
-              config.nur.repos.YisuiMilena.hyfetch
-            ];
-          })
-
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.Tim = import ./home.nix;
-            home-manager.extraSpecialArgs = inputs;
-          }
-        ];
+      description = "Tim's NixOS configuration";
+      input = {
+        nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+        nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
+        flake-utils.url = "github:numtide/flake-utils";
+        home-manager = {
+            url = "github:nix-community/home-manager";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+        nur.url = "github:nix-community/NUR";
+        impermanence.url = "github:nix-community/impermanence";
       };
-    };
-    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
-  };
+      outputs = { self, nixpkgs, flake-utils, ... }@inputs: let
+        inherit (nixpkgs) lib;
+        nixosModules = {
+            home-manager = { config, inputs, my, ... }: {
+                imports = [ inputs.home-manager.nixosModules.home-manager ];
+                home-manager = {
+                    useGlobalPkgs = true;
+                    useUserPackages = true;
+                    verbose = true;
+                    extraSpecialArgs = {
+                    inherit inputs my;
+                    super = config;
+                    };
+                };
+            };
+        };
+        mkSystem = name: system: nixpkgs: { extraModules ? [] }: nixpkgs.lib.nixosSystem {
+            inherit system;
+            specialArgs = {
+                inputs = inputs // { inherit nixpkgs; };
+                my = import ./my // {
+                pkgs = self.packages.${system};
+                };
+            };
+            modules = with nixosModules; [
+                system-label
+                { networking.hostName = lib.mkDefault name; }
+                { nixpkgs.overlays = builtins.attrValues overlays; }
+                ./host/configuration.nix
+                ./persistence.nix
+                 inputs.impermanence.nixosModules.impermanence
+            ] ++ extraModules;
+        };
+      in {
+        inherit overlays nixosModules;
+        nixosConfigurations = {
+            Tim = mkSystem "Tim" "x86_64-linux" inputs.nixpkgs {
+                extraModules = with nixosModules; [ home-manager ];
+            };
+        };
+      } // flake-utils.lib.eachDefaultSystem (system: rec {
+            packages = import ./pkgs {
+                inherit lib inputs;
+                pkgs = nixpkgs.legacyPackages.${system};
+            };
 
-  inputs = {
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nur.url = "github:nix-community/NUR";
+            checks = packages;
 
-    home-manager = {
-      # url = "github:nix-community/home-manager/release-23.05";
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    impermanence.url = "github:nix-community/impermanence";
-
-    # theme
-    base16.url = github:SenchoPens/base16.nix;
-
-    base16-schemes = {
-      url = github:base16-project/base16-schemes;
-      flake = false;
-    };
-    base16-zathura = {
-      url = github:haozeke/base16-zathura;
-      flake = false;
-    };
-    base16-vim = {
-      url = github:base16-project/base16-vim;
-      flake = false;
-    };
-  };
+            devShells.default =
+            with nixpkgs.legacyPackages.${system};
+            mkShellNoCC {
+                packages = [ nvfetcher packages.nixos-rebuild-shortcut ];
+            };
+        });
 }
