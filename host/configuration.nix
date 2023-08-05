@@ -93,6 +93,7 @@
       firefox
     ];
   };
+  home-manager.users."Tim" = import ../home.nix;
 
     i18n.inputMethod = {
       enabled = "fcitx5";
