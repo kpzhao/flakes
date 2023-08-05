@@ -8,8 +8,10 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
         impermanence.url = "github:nix-community/impermanence";
+        flake-utils.url = "github:numtide/flake-utils";
+
       };
-      outputs = { self, nixpkgs, ... }@inputs: let
+      outputs = { self, nixpkgs, flake-utils, ... }@inputs: let
         inherit (nixpkgs) lib;
         nixosModules = {
             home-manager = { config, inputs, my, ... }: {
@@ -19,7 +21,7 @@
                     useUserPackages = true;
                     verbose = true;
                     extraSpecialArgs = {
-                    # inherit inputs my;
+                    inherit inputs my;
                     super = config;
                     };
                 };
@@ -29,9 +31,9 @@
             inherit system;
             specialArgs = {
                 inputs = inputs // { inherit nixpkgs; };
-                # my = import ./my // {
-                # pkgs = self.packages.${system};
-                # };
+                my = import ./my // {
+                pkgs = self.packages.${system};
+                };
             };
             modules = with nixosModules; [
                 ./host/configuration.nix
@@ -46,5 +48,14 @@
                 extraModules = with nixosModules; [ home-manager ];
             };
         };
-      };
+      }// flake-utils.lib.eachDefaultSystem (system: rec {
+    packages = import ./pkgs {
+      inherit lib inputs;
+      pkgs = nixpkgs.legacyPackages.${system};
+    };
+
+    checks = packages;
+
+  });
+
 }
