@@ -1,7 +1,7 @@
 {
   config,
   pkgs,
-  user,
+  # user,
   ...
 } @ args: {
   nix.settings.experimental-features = ["nix-command" "flakes" "ca-derivations" "auto-allocate-uids" "cgroups"];
@@ -81,13 +81,15 @@
     initialHashedPassword = "$6$WSLqMj/csKrhFrgF$zHtpHPOepWr18G.mL1xcfmUAGLXnzdTxidFaeM9TLdlDGZ3JoHufH3ScROtfL35dgGo.tKNO2ypPqJ4aPVtxt/";
   };
   programs.fish.enable = true;
-  users.users.${user} = {
+  users.users.Tim = {
     initialHashedPassword = "$6$WSLqMj/csKrhFrgF$zHtpHPOepWr18G.mL1xcfmUAGLXnzdTxidFaeM9TLdlDGZ3JoHufH3ScROtfL35dgGo.tKNO2ypPqJ4aPVtxt/";
     shell = pkgs.fish;
     isNormalUser = true;
     description = "tim";
     extraGroups = ["adbusers" "networkmanager" "wheel" "root"];
     packages = with pkgs; [
+      ripgrep
+      kitty
       firefox
     ];
   };
