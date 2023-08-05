@@ -10,7 +10,7 @@
         impermanence.url = "github:nix-community/impermanence";
       };
       outputs = { self, nixpkgs, ... }@inputs: let
-        inherit (nixpkgs) lib;
+        # inherit (nixpkgs) lib;
         nixosModules = {
             # home-manager = { config, inputs, my, ... }: {
             #     imports = [ inputs.home-manager.nixosmodules.home-manager ];
@@ -27,23 +27,23 @@
         };
         mkSystem = name: system: nixpkgs: { extraModules ? [] }: nixpkgs.lib.nixosSystem {
             inherit system;
-            specialArgs = {
-                inputs = inputs // { inherit nixpkgs; };
+            # specialArgs = {
+                # inputs = inputs // { inherit nixpkgs; };
                 # my = import ./my // {
                 # pkgs = self.packages.${system};
                 # };
-            };
+            # };
             modules = with nixosModules; [
                 ./host/configuration.nix
                 ./persistence.nix
                  inputs.impermanence.nixosModules.impermanence
-            ] ++ extraModules;
+            ]/*  ++ extraModules */;
         };
       in {
         inherit nixosModules;
         nixosConfigurations = {
             Tim = mkSystem "Tim" "x86_64-linux" inputs.nixpkgs {
-                extraModules = with nixosModules; [ /* home-manager */ ];
+                # extraModules = with nixosModules; [ /* home-manager */ ];
             };
         };
       };
