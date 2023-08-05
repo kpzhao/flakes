@@ -3,6 +3,7 @@
   lib,
   pkgs,
   user,
+  my,
   ...
 }: {
   imports = [
@@ -38,6 +39,7 @@
     qq
     swappy
     sway-contrib.grimshot
+    my.pkgs.systemd-run-app
     telegram-desktop
     trash-cli
     vulkan-tools

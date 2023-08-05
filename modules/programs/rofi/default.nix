@@ -13,7 +13,7 @@ in
     programs.rofi = {
         enable = true;
         package = pkgs.rofi-wayland;
-        theme = "Arc-Dark";
+        # theme = "Arc-Dark";
         terminal = app "${terminal}";
         extraConfig = {
             modi = "drun,run,ssh";
