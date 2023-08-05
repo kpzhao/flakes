@@ -142,7 +142,7 @@
       Tim ALL=(ALL) NOPASSWD:ALL
     '';
   };
-  security.pam.services.swaylock = {};
+  # security.pam.services.swaylock = {};
   xdg.portal = {
     enable = true;
     wlr.enable = true;
