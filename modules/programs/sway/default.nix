@@ -92,7 +92,9 @@
           "${modifier}+v" = "splitv";
           "${modifier}+w" = "layout tabbed";
           "${modifier}+e" = "layout toggle split";
-          "${modifier}+d" = "exec ${pkgs.rofi-wayland}/bin/rofi -show run -run-command '{cmd}'";
+          # "${modifier}+d" = "exec ${pkgs.rofi-wayland}/bin/rofi -show run -run-command '{cmd}'";
+          "${modifier}+d" = "exec ${pkgs.rofi-wayland}/bin/rofi -show run -run-command 'systemd-run-app {cmd}'";
+
           "${modifier}+Shift+l" = "exec loginctl lock-session";
           "${modifier}+space" = "focus mode_toggle";
           "${modifier}+a" = "focus parent";

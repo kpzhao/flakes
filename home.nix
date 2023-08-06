@@ -39,7 +39,7 @@
     qq
     swappy
     sway-contrib.grimshot
-    my.pkgs.systemd-run-app
+    systemd-run-app
     telegram-desktop
     trash-cli
     vulkan-tools

@@ -1,4 +1,5 @@
 { lib, pkgs, config, my, ... }:
+
 let
   rofi = "${config.programs.rofi.finalPackage}/bin/rofi";
 
@@ -10,14 +11,15 @@ let
 
 in
 {
+    home.packages = with pkgs; [
+        my.pkgs.systemd-run-app
+    ];
     programs.rofi = {
         enable = true;
         package = pkgs.rofi-wayland;
         theme = "Arc-Dark";
-        terminal = app "${terminal}";
         extraConfig = {
-            modi = "drun,run,ssh";
-            run-command = systemd-run-app "{cmd}";
+            run-command = app "{cmd}";
         };
     };
 }
