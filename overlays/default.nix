@@ -12,13 +12,13 @@ final: prev: rec {
         domain = "gitlab.freedesktop.org";
         owner = "wlroots";
         repo = "wlroots";
-        rev = "d40bcfe2c18f057f4bc324a81230f6ba2267db44";
-        hash = "sha256-6MEVZCCwmNjKgMGDBIF2J2748vJEcEOaifLycXamvz0=";
+        rev = "c74f89d4f84bfed0284d3908aee5d207698c70c5";
+        hash = "sha256-bYKYHmGGemaGpDMFRt3m8yi/t5hNlx43C5l+Dm4VJGY=";
       };
-      # patches = [
-      #   ./wlroots-0001-xwayland-support-HiDPI-scale.patch
-      #   ./wlroots-0002-Fix-configure_notify-event.patch
-      # ];
+      patches = [
+        ./wlroots-0001-xwayland-support-HiDPI-scale.patch
+        ./wlroots-0002-Fix-configure_notify-event.patch
+      ];
 
       nativeBuildInputs = (old.nativeBuildInputs or []) ++ [final.hwdata];
       buildInputs =
@@ -30,53 +30,54 @@ final: prev: rec {
     }))
     .override {};
 
-  sway-test =
-    (prev.sway-unwrapped.overrideAttrs (old: {
-      version = "scene-graph-2023-07-24";
-      src = final.fetchFromGitHub {
-        owner = "Nefsen402";
-        repo = "sway";
-        rev = "ba347c525a50a5aa9639ab33de93551fb8e296b7";
-        hash = "sha256-8Omt2xfe2NY70Mt0MN2jIvhng3A1t0hD8XAIL3VGx64=";
-      };
-      patch = [
-      ];
-
-      nativeBuildInputs = with final; (old.nativeBuildInputs or []) ++ [bash-completion fish];
-
-      # Our version of sway already has this patch upstream, so we filter it out.
-        patches =
-        builtins.filter (p: p.name or "" != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch") old.patches ++ [
-      # text_input: Implement input-method popups
-     ./7226.patch 
-    ];
-      # patches =
-      #   builtins.filter
-      #   (p: !p ? name || p.name != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch")
-      #   (old.patches or []);
-    }))
-    .override {wlroots = final.wlroots_0_17;};
-
   # sway-test =
   #   (prev.sway-unwrapped.overrideAttrs (old: {
-  #     version = "test";
+  #     version = "scene-graph-2023-07-24";
   #     src = final.fetchFromGitHub {
-  #       owner = "swaywm";
+  #       owner = "Nefsen402";
   #       repo = "sway";
-  #       rev = "c3e6390073167bae8245d7fac9b455f9f06a5333";
-  #       sha256 = "sha256-QQOVim0U8uiAstPy9HMRBAl4McyvAdXoO44jCRlzVIQ=";
+  #       rev = "ba347c525a50a5aa9639ab33de93551fb8e296b7";
+  #       hash = "sha256-8Omt2xfe2NY70Mt0MN2jIvhng3A1t0hD8XAIL3VGx64=";
   #     };
+  #     patch = [
+  #     ];
   #
-  #     # patch = [
-  #     # ];
-  #
-  #     nativeBuildInputs = with final; (old.nativeBuildInputs or []) ++ [];
+  #     nativeBuildInputs = with final; (old.nativeBuildInputs or []) ++ [bash-completion fish];
   #
   #     # Our version of sway already has this patch upstream, so we filter it out.
-  #     patches =
-  #       builtins.filter
-  #       (p: !p ? name || (p.name != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch"))
-  #       (old.patches or []);
+  #       patches =
+  #       builtins.filter (p: p.name or "" != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch") old.patches ++ [
+  #     # text_input: Implement input-method popups
+  #    ./7226.patch 
+  #   ];
+  #     # patches =
+  #     #   builtins.filter
+  #     #   (p: !p ? name || p.name != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch")
+  #     #   (old.patches or []);
   #   }))
   #   .override {wlroots = final.wlroots_0_17;};
+  #
+  sway-test =
+    (prev.sway-unwrapped.overrideAttrs (old: {
+      version = "test";
+      src = final.fetchFromGitHub {
+        owner = "swaywm";
+        repo = "sway";
+        rev = "bb91b7f5fa7fddb582b8dddf208cc335d39da9e7";
+        sha256 = "";
+      };
+
+      # patch = [
+      # ./7226.patch
+      # ];
+
+      nativeBuildInputs = with final; (old.nativeBuildInputs or []) ++ [];
+
+      # Our version of sway already has this patch upstream, so we filter it out.
+      patches =
+        builtins.filter
+        (p: !p ? name || (p.name != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch"))
+        (old.patches or []);
+    }))
+    .override {wlroots = final.wlroots_0_17;};
 }
