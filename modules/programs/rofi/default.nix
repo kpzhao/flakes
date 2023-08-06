@@ -12,7 +12,7 @@ let
 in
 {
   home.packages = with pkgs; [
-    # my.pkgs.systemd-run-app
+    systemd-run-app
   ];
   programs.rofi = {
     enable = true;
