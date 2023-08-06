@@ -1,9 +1,8 @@
-{
-  pkgs,
-  config,
-  lib,
-  user,
-  ...
+{ pkgs
+, config
+, lib
+, user
+, ...
 }: {
   home = {
     packages = with pkgs; [
@@ -15,7 +14,7 @@
       Unit = {
         Description = "aria2 daemon";
       };
-      Install.WantedBy = ["default.target"];
+      Install.WantedBy = [ "default.target" ];
       Service = {
         Type = "simple";
         ExecStart = ''

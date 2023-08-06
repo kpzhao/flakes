@@ -1,7 +1,6 @@
-{
-  config,
-  pkgs,
-  ...
+{ config
+, pkgs
+, ...
 }: {
   # /nix/persistent 是你实际保存文件的地方
   environment.persistence."/nix/persist" = {
@@ -44,7 +43,7 @@
         ".mozilla"
         ".ssh"
       ];
-      files = [];
+      files = [ ];
     };
   };
 }

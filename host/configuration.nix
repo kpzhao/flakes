@@ -1,18 +1,17 @@
-{
-  config,
-  pkgs,
-  # user,
+{ config
+, pkgs
+, # user,
   # my,
   ...
 } @ args: {
-  nix.settings.experimental-features = ["nix-command" "flakes" "ca-derivations" "auto-allocate-uids" "cgroups"];
+  nix.settings.experimental-features = [ "nix-command" "flakes" "ca-derivations" "auto-allocate-uids" "cgroups" ];
 
   imports = [
     ./hardware-configuration.nix
   ];
 
   boot = {
-    supportedFilesystems = ["ntfs"];
+    supportedFilesystems = [ "ntfs" ];
     loader = {
       systemd-boot = {
         enable = true;
@@ -36,7 +35,7 @@
   hardware = {
     opengl = {
       enable = true;
-      extraPackages = with pkgs; [intel-media-driver];
+      extraPackages = with pkgs; [ intel-media-driver ];
     };
   };
   # Pick only one of the below networking options.
@@ -87,7 +86,7 @@
     shell = pkgs.fish;
     isNormalUser = true;
     description = "tim";
-    extraGroups = ["adbusers" "networkmanager" "wheel" "root"];
+    extraGroups = [ "adbusers" "networkmanager" "wheel" "root" ];
     packages = with pkgs; [
       ripgrep
       kitty
@@ -97,12 +96,12 @@
   };
   home-manager.users."Tim" = import ../home.nix;
 
-    i18n.inputMethod = {
-      enabled = "fcitx5";
-      fcitx5.addons = with pkgs; [
+  i18n.inputMethod = {
+    enabled = "fcitx5";
+    fcitx5.addons = with pkgs; [
       fcitx5-chinese-addons
-      ];
-    };
+    ];
+  };
 
   environment.sessionVariables = rec {
     MOZ_ENABLE_WAYLAND = "1";
@@ -145,11 +144,11 @@
       Tim ALL=(ALL) NOPASSWD:ALL
     '';
   };
-  security.pam.services.swaylock = {};
+  security.pam.services.swaylock = { };
   xdg.portal = {
     enable = true;
     wlr.enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-wlr];
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-wlr ];
   };
   programs = {
     dconf.enable = true;
@@ -166,7 +165,7 @@
         Restart = "always";
         RestartSec = "1";
       };
-      wantedBy = ["multi-user.target"];
+      wantedBy = [ "multi-user.target" ];
     };
   };
 

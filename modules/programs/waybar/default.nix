@@ -1,9 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  user,
-  ...
+{ config
+, lib
+, pkgs
+, user
+, ...
 }: {
   programs.waybar = {
     enable = true;
@@ -14,12 +13,12 @@
     settings = [
       {
         #"spacing" = 4;
-        "modules-left" = ["sway/workspaces" "idle_inhibitor" "sway/mode" "sway/window"];
+        "modules-left" = [ "sway/workspaces" "idle_inhibitor" "sway/mode" "sway/window" ];
         #"modules-center"= [""];
-        "modules-right" = ["wireplumber" "network" "battery" "backlight" "clock" "tray"];
+        "modules-right" = [ "wireplumber" "network" "battery" "backlight" "clock" "tray" ];
         "backlight" = {
           "format" = "{percent}% {icon}";
-          "format-icons" = ["" ""];
+          "format-icons" = [ "" "" ];
         };
         "battery" = {
           "states" = {
@@ -29,7 +28,7 @@
           "format" = "{capacity}% {icon} ";
           "format-charging" = "{capacity}% ";
           "format-plugged" = "{capacity}% ";
-          "format-icons" = ["" "" "" "" ""];
+          "format-icons" = [ "" "" "" "" "" ];
         };
         "clock" = {
           "timezone" = "Asia/Shanghai";

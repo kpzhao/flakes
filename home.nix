@@ -1,9 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  user,
-  # my,
+{ config
+, lib
+, pkgs
+, user
+, # my,
   ...
 }: {
   imports = [

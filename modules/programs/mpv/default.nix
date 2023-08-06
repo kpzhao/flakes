@@ -1,8 +1,7 @@
-{
-  lib,
-  pkgs,
-  user,
-  ...
+{ lib
+, pkgs
+, user
+, ...
 }: {
   programs = {
     mpv = {

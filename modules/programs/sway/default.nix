@@ -1,8 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }: {
   imports = [
     ./swayidle.nix
@@ -23,7 +22,7 @@
   };
 
   systemd.user = {
-    targets.sway-session.Unit.Wants = ["xdg-desktop-autostart.target"];
+    targets.sway-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
   };
 
   home.pointerCursor = {
@@ -53,35 +52,36 @@
       terminal = "kitty";
       startup = [
         # {command = "kitty";}
-        {command = "firefox";}
-        {command = "mako";}
+        { command = "firefox"; }
+        { command = "mako"; }
         # {command = "xprop -root -format _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2";}
         # {command = "xrdb -merge <<< 'Xft.dpi: 192'";}
       ];
       assigns = {
-        "1" = [{app_id = "firefox";}];
-        "2" = [{app_id = "Alacritty";}];
+        "1" = [{ app_id = "firefox"; }];
+        "2" = [{ app_id = "Alacritty"; }];
       };
       gaps = {
         inner = 5;
         outer = 5;
         smartGaps = true;
       };
-      keybindings = let
-        modifier = config.wayland.windowManager.sway.config.modifier;
-        # volume
-        volume_raise = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.0";
-        volume_lower = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1.0";
-        # audio
-        audio_mute = "exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-        audio_mic_mute = "exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
-        audio_play = "exec playerctl play-pause";
-        audio_next = "exec playerctl next";
-        audio_prev = "exec playerctl previous";
-        # bright
-        bright_down = "exec brightnessctl set 5%-";
-        bright_up = "exec brightnessctl set +5%";
-      in
+      keybindings =
+        let
+          modifier = config.wayland.windowManager.sway.config.modifier;
+          # volume
+          volume_raise = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.0";
+          volume_lower = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1.0";
+          # audio
+          audio_mute = "exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+          audio_mic_mute = "exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+          audio_play = "exec playerctl play-pause";
+          audio_next = "exec playerctl next";
+          audio_prev = "exec playerctl previous";
+          # bright
+          bright_down = "exec brightnessctl set 5%-";
+          bright_up = "exec brightnessctl set +5%";
+        in
         lib.mkOptionDefault {
           "${modifier}+h" = "focus left";
           "${modifier}+j" = "focus down";
@@ -140,7 +140,7 @@
           scale = "2";
         };
       };
-      bars = [];
+      bars = [ ];
     };
   };
 }

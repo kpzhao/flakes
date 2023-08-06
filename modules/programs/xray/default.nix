@@ -1,7 +1,6 @@
-{
-  config,
-  pkgs,
-  ...
+{ config
+, pkgs
+, ...
 }: {
   home = {
     packages = with pkgs; [
@@ -16,7 +15,7 @@
       Unit = {
         Description = "xray is a proxy tool";
       };
-      Install.WantedBy = ["default.target"];
+      Install.WantedBy = [ "default.target" ];
       Service = {
         Type = "simple";
         ExecStart = ''
