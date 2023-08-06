@@ -7,19 +7,18 @@ let
 
   sway = config.wayland.windowManager.sway.package;
 
-  app = cmd: "${lib.getExe my.pkgs.systemd-run-app} ${cmd}";
+  # app = cmd: "${lib.getExe my.pkgs.systemd-run-app} ${cmd}";
 
 in
 {
     home.packages = with pkgs; [
-        my.pkgs.systemd-run-app
+        # my.pkgs.systemd-run-app
     ];
     programs.rofi = {
         enable = true;
         package = pkgs.rofi-wayland;
         theme = "Arc-Dark";
         extraConfig = {
-            run-command = app "{cmd}";
         };
     };
 }

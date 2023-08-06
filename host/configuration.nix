@@ -2,6 +2,7 @@
   config,
   pkgs,
   # user,
+  # my,
   ...
 } @ args: {
   nix.settings.experimental-features = ["nix-command" "flakes" "ca-derivations" "auto-allocate-uids" "cgroups"];
@@ -91,6 +92,7 @@
       ripgrep
       kitty
       firefox
+      # package.systemd-run-app
     ];
   };
   home-manager.users."Tim" = import ../home.nix;

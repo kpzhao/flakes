@@ -1,0 +1,37 @@
+{
+    "bird-babel-rtt": {
+        "cargoLocks": null,
+        "date": "2023-06-27",
+        "extract": null,
+        "name": "bird-babel-rtt",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "NickCao",
+            "repo": "bird",
+            "rev": "0b28efeace71a2c489b178a12b6aa6ed3e6ed4a4",
+            "sha256": "sha256-qOI7b3Ut4/JjnFOW+Cjt1ypWJdy2g95qizGgEpr6xTc=",
+            "type": "github"
+        },
+        "version": "0b28efeace71a2c489b178a12b6aa6ed3e6ed4a4"
+    },
+    "fcitx5-pinyin-zhwiki": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "fcitx5-pinyin-zhwiki",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-G44bgOWpnQEbP78idcOobEUm2m+7cYM+UCqyJu+D+9E=",
+            "type": "url",
+            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20230605.dict"
+        },
+        "version": "20230605"
+    }
+}

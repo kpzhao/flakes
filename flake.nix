@@ -12,16 +12,17 @@
 
       };
       outputs = { self, nixpkgs, flake-utils, ... }@inputs: let
+        this = import ./pkgs;
         inherit (nixpkgs) lib;
         nixosModules = {
-            home-manager = { config, inputs, my, ... }: {
+            home-manager = { config, inputs, ... }: {
                 imports = [ inputs.home-manager.nixosModules.home-manager ];
                 home-manager = {
                     useGlobalPkgs = true;
                     useUserPackages = true;
                     verbose = true;
                     extraSpecialArgs = {
-                    inherit inputs my;
+                    inherit inputs ;
                     super = config;
                     };
                 };
@@ -31,9 +32,9 @@
             inherit system;
             specialArgs = {
                 inputs = inputs // { inherit nixpkgs; };
-                my = import ./my // {
-                pkgs = self.packages.${system};
-                };
+                # my = import ./my // {
+                # pkgs = self.packages.${system};
+                # };
             };
             modules = with nixosModules; [
                 ./host/configuration.nix
@@ -49,10 +50,12 @@
             };
         };
       }// flake-utils.lib.eachDefaultSystem (system: rec {
-    packages = import ./pkgs {
-      inherit lib inputs;
-      pkgs = nixpkgs.legacyPackages.${system};
-    };
+        packages = this.packages nixpkgs ;
+        legacyPackages = nixpkgs;
+    # packages = import ./pkgs {
+    #   inherit lib inputs;
+    #   pkgs = nixpkgs.legacyPackages.${system};
+    # };
 
     checks = packages;
 
