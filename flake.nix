@@ -14,6 +14,7 @@
   outputs = { self, nixpkgs, flake-utils, ... }@inputs:
     let
       this = import ./pkgs;
+      overlay-sway = ./overlays;
       overlays.default = this.overlay;
       inherit (nixpkgs) lib;
       pkgs = import nixpkgs { };
@@ -35,14 +36,12 @@
         inherit system;
         specialArgs = {
           inputs = inputs // { inherit nixpkgs; };
-          # my = import ./my // {
-          # pkgs = self.packages.${system};
-          # };
         };
         modules = with nixosModules; [
           {
             nixpkgs.overlays = [
               this.overlay
+              (import overlay-sway)
             ];
           }
           ./host/configuration.nix

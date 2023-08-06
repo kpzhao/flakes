@@ -38,12 +38,11 @@
     qq
     swappy
     sway-contrib.grimshot
-    # my.pkgs.systemd-run-app
     telegram-desktop
     trash-cli
     vulkan-tools
     vulkan-validation-layers
-    # wpsoffice
+    wpsoffice
     xfce.thunar
     xorg.xprop
     xorg.xrdb
