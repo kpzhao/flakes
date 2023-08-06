@@ -13,7 +13,10 @@
       };
       outputs = { self, nixpkgs, flake-utils, ... }@inputs: let
         this = import ./pkgs;
+        overlays.default = this.overlay;
         inherit (nixpkgs) lib;
+        pkgs = import nixpkgs {
+        };
         nixosModules = {
             home-manager = { config, inputs, ... }: {
                 imports = [ inputs.home-manager.nixosModules.home-manager ];
@@ -49,16 +52,21 @@
                 extraModules = with nixosModules; [ home-manager ];
             };
         };
-      }// flake-utils.lib.eachDefaultSystem (system: rec {
-        packages = this.packages nixpkgs ;
-        legacyPackages = nixpkgs;
-    # packages = import ./pkgs {
-    #   inherit lib inputs;
-    #   pkgs = nixpkgs.legacyPackages.${system};
-    # };
-
-    checks = packages;
-
-  });
-
+      }// flake-utils.lib.eachSystem [ "x86_64-linux" ]
+    (
+        system:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = [
+              this.overlay
+            ];
+          };
+        in
+        {
+          formatter = pkgs.nixpkgs-fmt;
+          packages = this.packages pkgs;
+          legacyPackages = pkgs;
+        }
+    );
 }

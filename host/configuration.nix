@@ -92,7 +92,7 @@
       ripgrep
       kitty
       firefox
-      # package.systemd-run-app
+      systemd-run-app
     ];
   };
   home-manager.users."Tim" = import ../home.nix;
