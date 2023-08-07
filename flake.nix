@@ -41,7 +41,7 @@
           {
             nixpkgs.overlays = [
               this.overlay
-              (import overlay-sway)
+              # (import overlay-sway)
             ];
           }
           ./host/configuration.nix

@@ -2,11 +2,12 @@ final: prev: rec {
   xwayland = prev.xwayland.overrideAttrs (_: {
     patches = [
         ./hypr-patches/xwayland-hidpi.patch
+        ./hypr-patches/xwayland-vsync.patch
     ];
   });
 
   wlroots-hidpi =
-    (prev.wlroots.overrideAttrs (_: {
+    (prev.wlroots.overrideAttrs (old: {
       src = prev.fetchFromGitLab {
         domain = "gitlab.freedesktop.org";
         owner = "wlroots";
@@ -17,10 +18,11 @@ final: prev: rec {
 
       patches = [
         ./hypr-patches/wlroots-hidpi.patch
+        # ./hypr-patches/wlroots-hidpi-2.patch
       ];
-      nativeBuildInputs = (_.nativeBuildInputs or []) ++ [final.hwdata];
+      nativeBuildInputs = (old.nativeBuildInputs or []) ++ [final.hwdata];
       buildInputs =
-        (_.buildInputs or [])
+        (old.buildInputs or [])
         ++ [
           final.libdisplay-info
           final.libliftoff
@@ -35,7 +37,8 @@ final: prev: rec {
         rev = "bb91b7f5fa7fddb582b8dddf208cc335d39da9e7";
         sha256 = "sha256-bYKYHmGGemaGpDMFRt3m8yi/t5hNlx43C5l+Dm4VJGY=";
       };
-      patches = [
+      patches = 
+      builtins.filter (p: p.name or "" != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch") oa.patches ++ [
       # ./7226.patch
       ];
 
