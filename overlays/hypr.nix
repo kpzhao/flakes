@@ -19,6 +19,11 @@ final: prev: rec {
       patches = [
         ./hypr-patches/wlroots-hidpi.patch
         # ./hypr-patches/wlroots-hidpi-2.patch
+        (prev.fetchpatch {
+          url = "https://gitlab.freedesktop.org/wlroots/wlroots/-/commit/18595000f3a21502fd60bf213122859cc348f9af.diff";
+          sha256 = "sha256-jvfkAMh3gzkfuoRhB4E9T5X1Hu62wgUjj4tZkJm0mrI=";
+          revert = true;
+        })
       ];
       nativeBuildInputs = (old.nativeBuildInputs or []) ++ [final.hwdata];
       buildInputs =
@@ -39,7 +44,7 @@ final: prev: rec {
       };
       patches = 
       builtins.filter (p: p.name or "" != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch") oa.patches ++ [
-      # ./7226.patch
+      ./7226.patch
       ];
 
       buildInputs = oa.buildInputs ++ [ prev.pcre2 prev.xorg.xcbutilwm ];
