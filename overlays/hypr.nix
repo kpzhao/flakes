@@ -1,8 +1,8 @@
 final: prev: rec {
   xwayland = prev.xwayland.overrideAttrs (_: {
     patches = [
-        ./hypr-patches/xwayland-hidpi.patch
-        ./hypr-patches/xwayland-vsync.patch
+      ./hypr-patches/xwayland-hidpi.patch
+      ./hypr-patches/xwayland-vsync.patch
     ];
   });
 
@@ -25,9 +25,9 @@ final: prev: rec {
           revert = true;
         })
       ];
-      nativeBuildInputs = (old.nativeBuildInputs or []) ++ [final.hwdata];
+      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.hwdata ];
       buildInputs =
-        (old.buildInputs or [])
+        (old.buildInputs or [ ])
         ++ [
           final.libdisplay-info
           final.libliftoff
@@ -42,10 +42,10 @@ final: prev: rec {
         rev = "bb91b7f5fa7fddb582b8dddf208cc335d39da9e7";
         sha256 = "sha256-bYKYHmGGemaGpDMFRt3m8yi/t5hNlx43C5l+Dm4VJGY=";
       };
-      patches = 
-      builtins.filter (p: p.name or "" != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch") oa.patches ++ [
-      ./7226.patch
-      ];
+      patches =
+        builtins.filter (p: p.name or "" != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch") oa.patches ++ [
+          ./7226.patch
+        ];
 
       buildInputs = oa.buildInputs ++ [ prev.pcre2 prev.xorg.xcbutilwm ];
     })).override { wlroots = wlroots-hidpi; };

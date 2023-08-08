@@ -47,8 +47,17 @@
   networking.proxy.default = "socks5://127.0.0.1:10808/";
   networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    inputMethod = {
+      enabled = "fcitx5";
+      fcitx5.addons = with pkgs; [
+        fcitx5-chinese-addons
+        fcitx5-pinyin-zhwiki
+      ];
+    };
+  };
+
 
   fonts.packages = with pkgs; [
     noto-fonts
@@ -96,12 +105,7 @@
   };
   home-manager.users."Tim" = import ../home.nix;
 
-  i18n.inputMethod = {
-    enabled = "fcitx5";
-    fcitx5.addons = with pkgs; [
-      fcitx5-chinese-addons
-    ];
-  };
+
 
   environment.sessionVariables = rec {
     MOZ_ENABLE_WAYLAND = "1";

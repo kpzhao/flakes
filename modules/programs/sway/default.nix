@@ -40,10 +40,10 @@
     # package = pkgs.sway-git;
     # package = pkgs.sway-unwrapped;
     package = pkgs.sway-test;
-    # systemd = {
-    #   enable = true;
-    #   xdgAutostart = true;
-    # };
+    systemd = {
+      enable = true;
+      xdgAutostart = true;
+    };
     wrapperFeatures.gtk = true;
     config = {
       window.titlebar = false;
@@ -54,8 +54,8 @@
         # {command = "kitty";}
         { command = "firefox"; }
         { command = "mako"; }
-        {command = "xprop -root -format _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2";}
-        {command = "xrdb -merge <<< 'Xft.dpi: 192'";}
+        { command = "xprop -root -format _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2"; }
+        { command = "xrdb -merge <<< 'Xft.dpi: 192'"; }
       ];
       assigns = {
         "1" = [{ app_id = "firefox"; }];
