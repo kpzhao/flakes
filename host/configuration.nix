@@ -8,6 +8,7 @@
 
   imports = [
     ./hardware-configuration.nix
+    ./fhs-fonts.nix
   ];
 
   boot = {
@@ -177,6 +178,8 @@
   services.v2raya.enable = true;
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+  services.flatpak.enable = true;
+
 
   # Automatic Garbage Collection
   nix.gc = {
