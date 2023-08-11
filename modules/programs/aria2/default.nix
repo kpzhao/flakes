@@ -36,11 +36,11 @@
       bt-max-peers = "0";
       bt-request-peer-speed-limit = "0";
       max-overall-upload-limit = "512k";
-      bt-external-ip = "127.0.0.1";
+      # bt-external-ip = "127.0.0.1";
       dht-listen-port = "6882";
       enable-dht = "true";
       enable-peer-exchange = "true";
-      listen-port = "6800";
+      listen-port = "51413";
       bt-force-encryption = "true";
       bt-min-crypto-level = "arc4";
       bt-require-crypto = "true";

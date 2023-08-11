@@ -10,6 +10,7 @@
     ./rofi
     ./sway
     ./waybar
+    ./xdg
     ./xray
   ];
 }
