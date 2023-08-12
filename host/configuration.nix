@@ -8,7 +8,7 @@
 
   imports = [
     ./hardware-configuration.nix
-    ./fhs-fonts.nix
+    # ./fhs-fonts.nix
   ];
 
   boot = {
@@ -17,6 +17,7 @@
       systemd-boot = {
         enable = true;
         configurationLimit = 10;
+        # consoleMode = "auto";
       };
       efi = {
         canTouchEfiVariables = true;
@@ -60,15 +61,67 @@
   };
 
 
-  fonts.packages = with pkgs; [
-    noto-fonts
-    noto-fonts-cjk-sans
-    noto-fonts-cjk-serif
-    noto-fonts-emoji
-    font-awesome
-    sarasa-gothic
-  ];
+  fonts = {
+    fontDir.enable = true;
+    packages = with pkgs; [
+        noto-fonts
+        noto-fonts-cjk-sans
+        noto-fonts-cjk-serif
+        noto-fonts-emoji
+        font-awesome
+        sarasa-gothic
+    ];
+    fontconfig = {
+        enable = true;
+        defaultFonts = {
+            serif = [ "Noto Serif" "Noto Serif CJK SC" ];
+            sansSerif = [ "Noto Sans" "Noto Sans CJK SC" ];
+            monospace = [ "Sarasa Term SC" ];
+            emoji = [ "Noto Color Emoji" ];
+        };
+    };
 
+  };
+
+  #   fonts = {
+  #   enableDefaultPackages = true;
+  #   fontconfig = {
+  #     enable = true;
+  #     defaultFonts = {
+  #       emoji = [ "Noto Color Emoji" ];
+  #       monospace = [
+  #         "Hack"
+  #         "Source Han Mono SC"
+  #       ];
+  #       sansSerif = [
+  #         "Inter"
+  #         "Liberation Sans"
+  #         "Source Han Sans SC"
+  #       ];
+  #       serif = [
+  #         "Liberation Serif"
+  #         "Source Han Serif SC"
+  #       ];
+  #     };
+  #   };
+  #   fontDir.enable = true;
+  #   enableGhostscriptFonts = true;
+  #   packages = with pkgs; [
+  #     hack-font
+  #     inter
+  #     liberation_ttf
+  #     noto-fonts-emoji
+  #     roboto
+  #     sarasa-gothic
+  #     source-han-mono
+  #     source-han-sans
+  #     source-han-serif
+  #     wqy_microhei
+  #     wqy_zenhei
+  #   ];
+  # };
+
+xdg.mime.enable = true;
   # rtkit is optional but recommended
   security.rtkit.enable = true;
   services.pipewire = {
