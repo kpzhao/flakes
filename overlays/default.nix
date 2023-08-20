@@ -1,1 +1,1 @@
-hypr.nix
+default-latest.nix
