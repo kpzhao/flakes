@@ -12,8 +12,8 @@ final: prev: rec {
         domain = "gitlab.freedesktop.org";
         owner = "wlroots";
         repo = "wlroots";
-        rev = "c74f89d4f84bfed0284d3908aee5d207698c70c5";
-        sha256 = "sha256-LlxE3o3UzRY7APYVLGNKM30DBMcDifCRIQiMVSbYLIc=";
+        rev = "5f6912595e922c30beaf99190634bd1747be8f87";
+        sha256 = "";
       };
 
       patches = [
@@ -39,12 +39,12 @@ final: prev: rec {
       src = prev.fetchFromGitHub {
         owner = "swaywm";
         repo = "sway";
-        rev = "bb91b7f5fa7fddb582b8dddf208cc335d39da9e7";
-        sha256 = "sha256-bYKYHmGGemaGpDMFRt3m8yi/t5hNlx43C5l+Dm4VJGY=";
+        rev = "363c57984d08ff54bbf31f567ffcd4addad98753";
+        sha256 = "";
       };
       patches =
         builtins.filter (p: p.name or "" != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch") oa.patches ++ [
-          # ./7226.patch
+          ./patches-dev/7226.patch
         ];
 
       buildInputs = oa.buildInputs ++ [ prev.pcre2 prev.xorg.xcbutilwm ];
