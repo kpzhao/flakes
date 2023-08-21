@@ -44,7 +44,7 @@ final: prev: rec {
       };
       patches =
         builtins.filter (p: p.name or "" != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch") oa.patches ++ [
-          ./7226.patch
+          # ./7226.patch
         ];
 
       buildInputs = oa.buildInputs ++ [ prev.pcre2 prev.xorg.xcbutilwm ];

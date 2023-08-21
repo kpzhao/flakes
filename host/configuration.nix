@@ -1,8 +1,7 @@
 { config
 , pkgs
-, # user,
-  # my,
-  ...
+, inputs
+, ...
 } @ args: {
   nix.settings.experimental-features = [ "nix-command" "flakes" "ca-derivations" "auto-allocate-uids" "cgroups" ];
 
@@ -64,64 +63,27 @@
   fonts = {
     fontDir.enable = true;
     packages = with pkgs; [
-        noto-fonts
-        noto-fonts-cjk-sans
-        noto-fonts-cjk-serif
-        noto-fonts-emoji
-        font-awesome
-        sarasa-gothic
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
+      noto-fonts-emoji
+      font-awesome
+      sarasa-gothic
     ];
     fontconfig = {
-        enable = true;
-        defaultFonts = {
-            serif = [ "Noto Serif" "Noto Serif CJK SC" ];
-            sansSerif = [ "Noto Sans" "Noto Sans CJK SC" ];
-            monospace = [ "Sarasa Term SC" ];
-            emoji = [ "Noto Color Emoji" ];
-        };
+      enable = true;
+      defaultFonts = {
+        serif = [ "Noto Serif" "Noto Serif CJK SC" ];
+        sansSerif = [ "Noto Sans" "Noto Sans CJK SC" ];
+        monospace = [ "Sarasa Term SC" ];
+        emoji = [ "Noto Color Emoji" ];
+      };
     };
 
   };
 
-  #   fonts = {
-  #   enableDefaultPackages = true;
-  #   fontconfig = {
-  #     enable = true;
-  #     defaultFonts = {
-  #       emoji = [ "Noto Color Emoji" ];
-  #       monospace = [
-  #         "Hack"
-  #         "Source Han Mono SC"
-  #       ];
-  #       sansSerif = [
-  #         "Inter"
-  #         "Liberation Sans"
-  #         "Source Han Sans SC"
-  #       ];
-  #       serif = [
-  #         "Liberation Serif"
-  #         "Source Han Serif SC"
-  #       ];
-  #     };
-  #   };
-  #   fontDir.enable = true;
-  #   enableGhostscriptFonts = true;
-  #   packages = with pkgs; [
-  #     hack-font
-  #     inter
-  #     liberation_ttf
-  #     noto-fonts-emoji
-  #     roboto
-  #     sarasa-gothic
-  #     source-han-mono
-  #     source-han-sans
-  #     source-han-serif
-  #     wqy_microhei
-  #     wqy_zenhei
-  #   ];
-  # };
 
-xdg.mime.enable = true;
+  xdg.mime.enable = true;
   # rtkit is optional but recommended
   security.rtkit.enable = true;
   services.pipewire = {
@@ -194,6 +156,11 @@ xdg.mime.enable = true;
     gnumake
     p7zip
   ];
+
+  programs.hyprland = {
+    enable = true;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+  };
 
   security.polkit.enable = true;
   security.sudo = {

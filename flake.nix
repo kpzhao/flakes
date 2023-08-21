@@ -9,9 +9,10 @@
     };
     impermanence.url = "github:nix-community/impermanence";
     flake-utils.url = "github:numtide/flake-utils";
+    hyprland.url = "github:hyprwm/Hyprland";
 
   };
-  outputs = { self, nixpkgs, flake-utils, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, hyprland, ... }@inputs:
     let
       this = import ./pkgs;
       overlay-sway = ./overlays;
@@ -19,7 +20,7 @@
       inherit (nixpkgs) lib;
       pkgs = import nixpkgs { };
       nixosModules = {
-        home-manager = { config, inputs, ... }: {
+        home-manager = { config, inputs, hyprland, ... }: {
           imports = [ inputs.home-manager.nixosModules.home-manager ];
           home-manager = {
             useGlobalPkgs = true;
@@ -27,6 +28,7 @@
             verbose = true;
             extraSpecialArgs = {
               inherit inputs;
+              inherit hyprland;
               super = config;
             };
           };

@@ -7,7 +7,7 @@
     ./swayidle.nix
     ./swaybg.nix
   ];
- fonts.fontconfig.enable = true;
+  fonts.fontconfig.enable = true;
 
   home = {
     packages = with pkgs; [
