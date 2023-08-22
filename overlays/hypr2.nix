@@ -1,8 +1,7 @@
 final: prev: rec {
   xwayland = prev.xwayland.overrideAttrs (_: {
     patches = [
-      ./aur/hidpi.patch
-      # ./hypr-patches/xwayland-vsync.patch
+      ./patches/xwayland/hidpi.patch
     ];
   });
 
@@ -12,13 +11,14 @@ final: prev: rec {
         domain = "gitlab.freedesktop.org";
         owner = "wlroots";
         repo = "wlroots";
-        rev = "5f6912595e922c30beaf99190634bd1747be8f87";
-        sha256 = "";
+        rev = "f5917f0247600b65edec1735234d00de57d577a8";
+        sha256 = "sha256-9b+Zm7loehTAuqCm0qwcbPjXc1U51tplcPLCWqqstxQ=";
       };
 
       patches = [
-        ./hypr-patches/wlroots-hidpi.patch
-        # ./hypr-patches/wlroots-hidpi-2.patch
+        ./patches/wlroots/0001-xwayland-support-HiDPI-scale.patch
+        ./patches/wlroots/0002-Fix-configure_notify-event.patch
+        ./patches/wlroots/0003-Fix-size-hints-under-Xwayland-scaling.patch
         (prev.fetchpatch {
           url = "https://gitlab.freedesktop.org/wlroots/wlroots/-/commit/18595000f3a21502fd60bf213122859cc348f9af.diff";
           sha256 = "sha256-jvfkAMh3gzkfuoRhB4E9T5X1Hu62wgUjj4tZkJm0mrI=";
@@ -39,12 +39,12 @@ final: prev: rec {
       src = prev.fetchFromGitHub {
         owner = "swaywm";
         repo = "sway";
-        rev = "363c57984d08ff54bbf31f567ffcd4addad98753";
-        sha256 = "";
+        rev = "a9086518219c0ace4a5d81c2f7219dae3b6aa20c";
+        sha256 = "sha256-6CiZ3e3zvLrcA93arlzq44qUz6FSOU/oewt5PLMS1HA=";
       };
       patches =
         builtins.filter (p: p.name or "" != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch") oa.patches ++ [
-          ./patches-dev/7226.patch
+          ./patches/sway/7226.patch
         ];
 
       buildInputs = oa.buildInputs ++ [ prev.pcre2 prev.xorg.xcbutilwm ];
