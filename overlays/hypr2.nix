@@ -18,7 +18,7 @@ final: prev: rec {
       patches = [
         ./patches/wlroots/0001-xwayland-support-HiDPI-scale.patch
         ./patches/wlroots/0002-Fix-configure_notify-event.patch
-        ./patches/wlroots/0003-Fix-size-hints-under-Xwayland-scaling.patch
+        # ./patches/wlroots/0003-Fix-size-hints-under-Xwayland-scaling.patch
         (prev.fetchpatch {
           url = "https://gitlab.freedesktop.org/wlroots/wlroots/-/commit/18595000f3a21502fd60bf213122859cc348f9af.diff";
           sha256 = "sha256-jvfkAMh3gzkfuoRhB4E9T5X1Hu62wgUjj4tZkJm0mrI=";
