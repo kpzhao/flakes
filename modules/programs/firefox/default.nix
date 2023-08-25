@@ -11,6 +11,17 @@
         "media.ffmpeg.vaapi.enabled" = true;
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       };
+      userChrome = ''
+        #sidebar-header {
+          visibility: collapse;
+        }
+        #titlebar {
+          display: none !important;
+        }
+        #TabsToolbar {
+          visibility: collapse;
+        }
+      '';
     };
   };
 }

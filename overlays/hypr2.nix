@@ -23,7 +23,7 @@ final: prev: rec {
         })
         ./patches/wlroots/0001-xwayland-support-HiDPI-scale.patch
         ./patches/wlroots/0002-Fix-configure_notify-event.patch
-        ./patches/wlroots/0003-Fix-size-hints-under-Xwayland-scaling.patch
+        # ./patches/wlroots/0003-Fix-size-hints-under-Xwayland-scaling.patch
       ];
       nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.hwdata ];
       buildInputs =

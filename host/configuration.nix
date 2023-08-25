@@ -157,11 +157,6 @@
     p7zip
   ];
 
-  programs.hyprland = {
-    enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-  };
-
   security.polkit.enable = true;
   security.sudo = {
     enable = true;
@@ -210,5 +205,5 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  system.stateVersion = "23.05";
+  # system.stateVersion = "23.05";
 }

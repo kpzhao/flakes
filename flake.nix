@@ -9,7 +9,6 @@
     };
     impermanence.url = "github:nix-community/impermanence";
     flake-utils.url = "github:numtide/flake-utils";
-    hyprland.url = "github:hyprwm/Hyprland";
 
   };
   outputs = { self, nixpkgs, flake-utils, hyprland, ... }@inputs:
