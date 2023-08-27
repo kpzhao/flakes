@@ -1,9 +1,9 @@
 final: prev: rec {
-  xwayland = prev.xwayland.overrideAttrs (_: {
-    patches = [
-      ./patches/xwayland/hidpi.patch
-    ];
-  });
+  # xwayland = prev.xwayland.overrideAttrs (_: {
+  #   patches = [
+  #     ./patches/xwayland/hidpi.patch
+  #   ];
+  # });
 
   wlroots-hidpi =
     (prev.wlroots.overrideAttrs (old: {
@@ -16,14 +16,18 @@ final: prev: rec {
       };
 
       patches = [
-        (prev.fetchpatch {
-          url = "https://gitlab.freedesktop.org/wlroots/wlroots/-/commit/18595000f3a21502fd60bf213122859cc348f9af.diff";
-          sha256 = "sha256-jvfkAMh3gzkfuoRhB4E9T5X1Hu62wgUjj4tZkJm0mrI=";
-          revert = true;
-        })
-        ./patches/wlroots/0001-xwayland-support-HiDPI-scale.patch
-        ./patches/wlroots/0002-Fix-configure_notify-event.patch
+        # (prev.fetchpatch {
+        #   url = "https://gitlab.freedesktop.org/wlroots/wlroots/-/commit/18595000f3a21502fd60bf213122859cc348f9af.diff";
+        #   sha256 = "sha256-jvfkAMh3gzkfuoRhB4E9T5X1Hu62wgUjj4tZkJm0mrI=";
+        #   revert = true;
+        # })
+        # ./patches/wlroots/0001-xwayland-support-HiDPI-scale.patch
+        # ./patches/wlroots/0002-Fix-configure_notify-event.patch
         # ./patches/wlroots/0003-Fix-size-hints-under-Xwayland-scaling.patch
+      ];
+      mesonFlags = [
+        "-Dwerror=false"
+        # "-Dexamples=false"
       ];
       nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.hwdata ];
       buildInputs =
@@ -32,15 +36,15 @@ final: prev: rec {
           final.libdisplay-info
           final.libliftoff
         ];
-    })).override { inherit xwayland; };
+    })).override { /* inherit xwayland; */ };
 
   sway-unwrapped =
     (prev.sway-unwrapped.overrideAttrs (oa: {
       src = prev.fetchFromGitHub {
         owner = "swaywm";
         repo = "sway";
-        rev = "a9086518219c0ace4a5d81c2f7219dae3b6aa20c";
-        sha256 = "sha256-6CiZ3e3zvLrcA93arlzq44qUz6FSOU/oewt5PLMS1HA=";
+        rev = "4a2210577c7c4f84a99ca03386b8910d2f419ab6";
+        sha256 = "sha256-CZ4BkQ5JfrpTu+nyFmZygYYd69182uSPH2Q2M5YSLY8=";
       };
       patches =
         builtins.filter (p: p.name or "" != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch") oa.patches ++ [

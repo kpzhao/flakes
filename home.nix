@@ -40,6 +40,7 @@
     # sway-contrib.grimshot
     telegram-desktop
     trash-cli
+    unzip
     vulkan-tools
     vulkan-validation-layers
     wpsoffice

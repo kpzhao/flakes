@@ -11,7 +11,7 @@
     flake-utils.url = "github:numtide/flake-utils";
 
   };
-  outputs = { self, nixpkgs, flake-utils, hyprland, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, ... }@inputs:
     let
       this = import ./pkgs;
       overlay-sway = ./overlays;
