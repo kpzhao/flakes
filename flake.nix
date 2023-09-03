@@ -19,7 +19,7 @@
       inherit (nixpkgs) lib;
       pkgs = import nixpkgs { };
       nixosModules = {
-        home-manager = { config, inputs, hyprland, ... }: {
+        home-manager = { config, inputs, ... }: {
           imports = [ inputs.home-manager.nixosModules.home-manager ];
           home-manager = {
             useGlobalPkgs = true;
@@ -27,7 +27,6 @@
             verbose = true;
             extraSpecialArgs = {
               inherit inputs;
-              inherit hyprland;
               super = config;
             };
           };
