@@ -14,6 +14,7 @@
       foot
       swaybg
       swayidle
+      sway-contrib.grimshot
       swaylock-effects
       pamixer
       waybar
