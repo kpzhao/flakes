@@ -50,7 +50,7 @@
       window.titlebar = false;
 
       modifier = "Mod4";
-      terminal = "Alacritty";
+      terminal = "alacritty";
       startup = [
         # {command = "kitty";}
         { command = "firefox"; }
