@@ -7,6 +7,7 @@
 
   imports = [
     ./hardware-configuration.nix
+    ./persistence.nix
     # ./fhs-fonts.nix
   ];
 

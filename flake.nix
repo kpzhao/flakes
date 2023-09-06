@@ -45,7 +45,7 @@
             ];
           }
           ./host/configuration.nix
-          ./persistence.nix
+          # ./persistence.nix
           inputs.impermanence.nixosModules.impermanence
         ] ++ extraModules;
       };
