@@ -10,6 +10,7 @@
     ./mpv
     ./rofi
     ./sway
+    ./theme
     ./waybar
     ./xdg
     ./xray

@@ -12,6 +12,8 @@
   home.homeDirectory = "/home/Tim";
 
   home.packages = with pkgs; [
+    (callPackage ./pkgs/hello/default.nix {})
+    # (callPackage ./pkgs/alacritty-1/default.nix)
     at-spi2-core
     brightnessctl
     meson
@@ -19,7 +21,7 @@
     pkg-config
     wayland
     wayland-protocols
-    # fcitx5-pinyin-zhwiki
+    fcitx5-pinyin-zhwiki
     imv
     intel-gpu-tools
     helix
@@ -34,9 +36,8 @@
     mpv
     ncmpcpp
     nodejs
-    # qq
+    qq
     swappy
-    # sway-contrib.grimshot
     telegram-desktop
     trash-cli
     unzip
@@ -55,6 +56,7 @@
   };
 
   home.stateVersion = "23.11";
+   systemd.user.startServices = "sd-switch";
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

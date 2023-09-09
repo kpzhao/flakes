@@ -1,6 +1,8 @@
 { config
 , pkgs
 , inputs
+, nix-colors
+, home-manager
 , ...
 } @ args: {
   nix.settings.experimental-features = [ "nix-command" "flakes" "ca-derivations" "auto-allocate-uids" "cgroups" ];
@@ -25,7 +27,8 @@
     };
     kernelParams = [
       "quiet"
-      # "splash"
+      "loglevel=3"
+      "splash"
       "i915.enable_psr=0"
     ];
     # consoleLogLevel = 0;
@@ -60,7 +63,6 @@
     };
   };
 
-
   fonts = {
     fontDir.enable = true;
     packages = with pkgs; [
@@ -82,7 +84,6 @@
     };
 
   };
-
 
   xdg.mime.enable = true;
   # rtkit is optional but recommended
@@ -120,18 +121,15 @@
       systemd-run-app
     ];
   };
-  home-manager.users."Tim" = import ../home.nix;
+  home-manager = {
+      users."Tim" = import ../home.nix;
+      extraSpecialArgs = { inherit nix-colors; };
+  };
 
 
 
   environment.sessionVariables = rec {
     MOZ_ENABLE_WAYLAND = "1";
-    # GLFW_IM_MODULE = "fcitx";
-    # GTK_IM_MODULE = "fcitx";
-    # QT_IM_MODULE = "fcitx";
-    # XMODIFIERS = "@im=fcitx";
-    # INPUT_METHOD = "fcitx";
-    # IMSETTINGS_MODULE = "fcitx";
     # NIXOS_OZONE_WL = "1";
     WLR_RENDERER = "vulkan";
 

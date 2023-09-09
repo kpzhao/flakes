@@ -17,7 +17,6 @@
       sway-contrib.grimshot
       swaylock-effects
       pamixer
-      waybar
       rofi-wayland
       xfce.thunar
     ];

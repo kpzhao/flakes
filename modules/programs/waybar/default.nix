@@ -5,6 +5,9 @@
 , ...
 }: {
   programs.waybar = {
+    package = pkgs.waybar.override {
+        hyprlandSupport = false;
+    };
     enable = true;
     systemd = {
       enable = true;
