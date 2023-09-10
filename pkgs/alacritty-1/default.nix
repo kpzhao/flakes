@@ -21,7 +21,14 @@
 , wayland
 , xdg-utils
 
-
+  # Darwin Frameworks
+  # , AppKit
+  # , CoreGraphics
+  # , CoreServices
+  # , CoreText
+  # , Foundation
+  # , libiconv
+  # , OpenGL
 }:
 let
   rpathLibs = [
@@ -41,19 +48,17 @@ let
   ];
 in
 rustPlatform.buildRustPackage rec {
-  pname = "alacritty-1";
+  pname = "alacritty-git";
   version = "0.12.2";
 
   src = fetchFromGitHub {
     owner = "alacritty";
-    repo = pname;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-X3Z+f5r8surBW9FSsmWKZ/fr82ThXBUkS8fr/sTYR50=";
+    repo = "alacritty";
+    rev = "a6a47257a32f75ecd9b52ae27fc8c900e27f47ea";
+    sha256 = "sha256-MaM/y8euVlVakRoShIwWoXJheINLTA8XF0rz/jKOr9Y=";
   };
-
-  cargoHash = "sha256-JOmDmJl/y4WNsBnCixJykl4PgYgb5cSyo6MCdYmQAzQ=";
-
-  nativeBuildInputs = [
+  cargoHash = "sha256-+qjeotIJgJuYX6VkrFRmX6RHmhCiFrac2Lj1rwIsmlg=";
+   nativeBuildInputs = [
     cmake
     installShellFiles
     makeWrapper
@@ -63,6 +68,15 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs = rpathLibs;
+  #   ++ lib.optionals stdenv.isDarwin [
+  #   AppKit
+  #   CoreGraphics
+  #   CoreServices
+  #   CoreText
+  #   Foundation
+  #   libiconv
+  #   OpenGL
+  # ];
 
   outputs = [ "out" "terminfo" ];
 
@@ -96,11 +110,7 @@ rustPlatform.buildRustPackage rec {
     installShellCompletion --bash extra/completions/alacritty.bash
     installShellCompletion --fish extra/completions/alacritty.fish
 
-    install -dm 755 "$out/share/man/man1"
-    gzip -c extra/alacritty.man > "$out/share/man/man1/alacritty.1.gz"
-    gzip -c extra/alacritty-msg.man > "$out/share/man/man1/alacritty-msg.1.gz"
 
-    install -Dm 644 alacritty.yml $out/share/doc/alacritty.yml
 
     install -dm 755 "$terminfo/share/terminfo/a/"
     tic -xe alacritty,alacritty-direct -o "$terminfo/share/terminfo" extra/alacritty.info

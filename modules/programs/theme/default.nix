@@ -8,14 +8,14 @@
   # packages = [ pkgs.sytemd-run-app pkgs.alacritty-1  ];
   #
   programs = {
-    # alacritty = {
-    #   enable = true;
-    #   # package = pkgs.alacritty-1;
-    #   settings = {
-    #     foreground = "#${config.colorScheme.colors.base05}";
-    #     background = "#${config.colorScheme.colors.base00}";
-    #     # ...
-    #   };
-    # };
+    alacritty = {
+      enable = true;
+      package = (pkgs.callPackage ../../../pkgs/alacritty-1/default.nix {});
+      settings = {
+        colors.primary.foreground = "#${config.colorScheme.colors.base05}";
+        colors.primary.background = "#${config.colorScheme.colors.base00}";
+        # ...
+      };
+    };
   };
 }

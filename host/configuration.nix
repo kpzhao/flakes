@@ -27,9 +27,10 @@
     };
     kernelParams = [
       "quiet"
-      "loglevel=3"
+      "loglevel=5"
       "splash"
       "i915.enable_psr=0"
+      "nowatchdog"
     ];
     # consoleLogLevel = 0;
     # initrd.verbose = false;

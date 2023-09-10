@@ -12,8 +12,8 @@
   home.homeDirectory = "/home/Tim";
 
   home.packages = with pkgs; [
-    (callPackage ./pkgs/hello/default.nix {})
-    # (callPackage ./pkgs/alacritty-1/default.nix)
+    # (callPackage ./pkgs/hello/default.nix {})
+    # (callPackage ./pkgs/alacritty-1/default.nix{})
     at-spi2-core
     brightnessctl
     meson
