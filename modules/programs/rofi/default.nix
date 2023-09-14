@@ -14,10 +14,10 @@ in
   home.packages = with pkgs; [
     systemd-run-app
   ];
-  programs.rofi = {
-    enable = true;
-    package = pkgs.rofi-wayland;
-    theme = "Arc-Dark";
-    extraConfig = { };
-  };
+  # programs.rofi = {
+  #   enable = true;
+  #   package = pkgs.rofi-wayland;
+  #   theme = "Arc-Dark";
+  #   extraConfig = { };
+  # };
 }

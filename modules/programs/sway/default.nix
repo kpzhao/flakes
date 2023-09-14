@@ -2,7 +2,36 @@
 , lib
 , pkgs
 , ...
-}: {
+}: 
+let 
+  dbus-sway-environment = pkgs.writeTextFile {
+    name = "dbus-sway-environment";
+    destination = "/bin/dbus-sway-environment";
+    executable = true;
+
+    text = ''
+      dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+      systemctl --user stop pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
+      systemctl --user start pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
+    '';
+  };
+
+  configure-gtk = pkgs.writeTextFile {
+    name = "configure-gtk";
+    destination = "/bin/configure-gtk";
+    executable = true;
+    text = let
+      schema = pkgs.gsettings-desktop-schemas;
+      datadir = "${schema}/share/gsettings-schemas/${schema.name}";
+    in ''
+      export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
+      gnome_schema=org.gnome.desktop.interface
+      gsettings set $gnome_schema gtk-theme 'nord'
+    '';
+  };
+
+in
+{
   imports = [
     ./swayidle.nix
     ./swaybg.nix
@@ -11,13 +40,19 @@
 
   home = {
     packages = with pkgs; [
+    configure-gtk
+    # dracula-theme
+    dbus-sway-environment
       foot
+      glib
+      gnome3.adwaita-icon-theme
       swaybg
       swayidle
       sway-contrib.grimshot
       swaylock-effects
       pamixer
       rofi-wayland
+      xdg-utils
       xfce.thunar
     ];
   };
@@ -55,6 +90,8 @@
         # {command = "kitty";}
         { command = "firefox"; }
         { command = "mako"; }
+        { command = "dbus-sway-environment"; }
+        { command = "configure-gtk"; }
         { command = "xprop -root -format _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2"; }
         { command = "xrdb -merge <<< 'Xft.dpi: 192'"; }
       ];

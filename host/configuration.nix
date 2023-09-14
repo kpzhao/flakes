@@ -193,7 +193,8 @@
   services.v2raya.enable = true;
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  services.flatpak.enable = true;
+  # services.flatpak.enable = true;
+  services.dbus.enable = true;
 
 
   # Automatic Garbage Collection

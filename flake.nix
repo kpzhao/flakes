@@ -13,7 +13,7 @@
     let
       this = import ./pkgs;
       overlay-sway = import ./overlays;
-      pkgs = import nixpkgs { };
+      # pkgs = import nixpkgs { };
       nixosModules = import ./home-manager;
       mkSystem = name: system: nixpkgs: { extraModules ? [ ] }: nixpkgs.lib.nixosSystem {
         inherit system;
@@ -22,7 +22,7 @@
           # inputs = inputs // { inherit nixpkgs; };
           inherit nix-colors;
         };
-        modules = with nixosModules; [
+        modules = /* with nixosModules; */ [
           {
             nixpkgs.overlays = [
               this.overlay

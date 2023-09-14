@@ -8,6 +8,7 @@
     ./mako
     ./mpd
     ./mpv
+    # ./nvim-theme
     ./rofi
     ./sway
     ./theme
