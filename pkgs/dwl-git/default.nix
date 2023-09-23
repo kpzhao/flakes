@@ -12,7 +12,7 @@
 , wayland-scanner
 , wayland
 , wayland-protocols
-, wlroots
+, wlroots-hidpi
 , writeText
 , xcbutilwm
 , xwayland
@@ -24,11 +24,10 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "dwl-git";
   version = "0.4";
 
-  src = fetchFromGitHub {
-    owner = "djpohly";
-    repo = "dwl";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-OW7K7yMYSzqZWpQ9Vmpy8EgdWvyv3q1uh8A40f6AQF4=";
+  src = builtins.fetchGit {
+    url = "https://github.com/djpohly/dwl";
+    rev = "d4f2c6bfd638d45736512691f06081cf314370bd";
+    ref = "wlroots-next";
   };
 
   nativeBuildInputs = [
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     pixman
     wayland
     wayland-protocols
-    wlroots
+    wlroots-hidpi
   ] ++ lib.optionals enableXWayland [
     libX11
     xcbutilwm

@@ -13,6 +13,11 @@
   home.packages = with pkgs; [
     # (callPackage ./pkgs/hello/default.nix {})
     # (callPackage ./pkgs/alacritty-1/default.nix{})
+    (dwl-git.override({ conf = ./pkgs/dwl-git/dwl-config.h;}))
+    # (my-dwl.override({ conf = ./pkgs/my-dwl/dwl-config.h;}))
+    dwl-bar
+    foot
+    # (dwl-git.overrideAttrs (drv: rev {conf = ./pkgs/dwl-git/dwl-config.h};))
     at-spi2-core
     brightnessctl
     meson
@@ -37,6 +42,7 @@
     nil
     nodejs
     qq
+    spotify
     swappy
     telegram-desktop
     trash-cli
@@ -44,6 +50,7 @@
     vulkan-tools
     vulkan-validation-layers
     wpsoffice
+    xdg-desktop-portal
     xfce.thunar
     xorg.xprop
     xorg.xrdb

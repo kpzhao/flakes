@@ -6,7 +6,7 @@ in
   imports = [
     nix-colors.homeManagerModules.default
   ];
-  colorScheme = nix-colors.colorSchemes.nord;
+  colorScheme = nix-colors.colorSchemes.tokyo-night-dark;
 
   gtk ={
   enable =true;
