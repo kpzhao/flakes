@@ -91,7 +91,7 @@ in
         { command = "firefox"; }
         { command = "mako"; }
         { command = "dbus-sway-environment"; }
-        { command = "configure-gtk"; }
+        # { command = "configure-gtk"; }
         { command = "xprop -root -format _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2"; }
         { command = "xrdb -merge <<< 'Xft.dpi: 192'"; }
       ];
@@ -100,8 +100,8 @@ in
         "2" = [{ app_id = "Alacritty"; }];
       };
       gaps = {
-        inner = 5;
-        outer = 5;
+        inner = 1;
+        outer = 1;
         smartGaps = true;
       };
       keybindings =
