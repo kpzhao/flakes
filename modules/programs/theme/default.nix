@@ -8,14 +8,14 @@ in
   ];
   colorScheme = nix-colors.colorSchemes.tokyo-night-dark;
 
-  gtk ={
-  enable =true;
-  theme = {
-    name = "${config.colorscheme.slug}";
-    package = gtkThemeFromScheme {
-      scheme = config.colorscheme;
+  gtk = {
+    enable = true;
+    theme = {
+      name = "${config.colorscheme.slug}";
+      package = gtkThemeFromScheme {
+        scheme = config.colorscheme;
+      };
     };
-  };
   };
 
   programs.neovim.plugins = [
@@ -36,7 +36,7 @@ in
       };
     };
   };
-    programs.rofi = {
+  programs.rofi = {
     enable = true;
     package = pkgs.rofi-wayland;
     font = "FiraCode Nerd Font 15";

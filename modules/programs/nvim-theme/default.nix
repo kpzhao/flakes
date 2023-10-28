@@ -2,7 +2,8 @@
 
 let
   inherit (nix-colors.lib-contrib { inherit pkgs; }) vimThemeFromScheme;
-in {
+in
+{
   programs.neovim.plugins = [
     {
       plugin = vimThemeFromScheme { scheme = config.colorscheme; };

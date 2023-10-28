@@ -54,11 +54,14 @@ stdenv.mkDerivation (finalAttrs: {
   outputs = [ "out" "man" ];
 
   # Allow users to set an alternative config.def.h
-  postPatch = let
-    configFile = if lib.isDerivation conf || builtins.isPath conf
-                 then conf
-                 else writeText "config.def.h" conf;
-  in lib.optionalString (conf != null) "cp ${configFile} config.def.h";
+  postPatch =
+    let
+      configFile =
+        if lib.isDerivation conf || builtins.isPath conf
+        then conf
+        else writeText "config.def.h" conf;
+    in
+    lib.optionalString (conf != null) "cp ${configFile} config.def.h";
 
   makeFlags = [
     "PKG_CONFIG=${stdenv.cc.targetPrefix}pkg-config"

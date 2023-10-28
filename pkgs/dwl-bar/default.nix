@@ -46,12 +46,12 @@ stdenv.mkDerivation (finalAttrs: {
     wayland
     wayland-protocols
     # wlroots-hidpi
-  ]  ;
+  ];
 
   outputs = [ "out" ];
 
   makeFlags = [
-     "PREFIX=$(out)"
+    "PREFIX=$(out)"
   ];
 
 

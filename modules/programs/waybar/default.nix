@@ -6,7 +6,7 @@
 }: {
   programs.waybar = {
     package = pkgs.waybar.override {
-        hyprlandSupport = false;
+      hyprlandSupport = false;
     };
     enable = true;
     systemd = {

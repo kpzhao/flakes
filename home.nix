@@ -13,7 +13,7 @@
   home.packages = with pkgs; [
     # (callPackage ./pkgs/hello/default.nix {})
     # (callPackage ./pkgs/alacritty-1/default.nix{})
-    (dwl-git.override({ conf = ./pkgs/dwl-git/dwl-config.h;}))
+    (dwl-git.override ({ conf = ./pkgs/dwl-git/dwl-config.h; }))
     # (my-dwl.override({ conf = ./pkgs/my-dwl/dwl-config.h;}))
     dwl-bar
     foot
@@ -41,7 +41,9 @@
     ncmpcpp
     nil
     nodejs
+    # python3
     qq
+    rustdesk
     spotify
     swappy
     telegram-desktop
@@ -55,13 +57,15 @@
     xorg.xprop
     xorg.xrdb
     xray
+    git-repo
+    tree
   ];
-  services.udiskie = {
-    enable = true;
-    automount = true;
-    notify = true;
-  };
-    programs.neovim = {
+  # services.udiskie = {
+  #   enable = true;
+  #   automount = true;
+  #   notify = true;
+  # };
+  programs.neovim = {
     enable = true;
     vimAlias = true;
     vimdiffAlias = true;
@@ -78,14 +82,14 @@
       lualine-nvim
       which-key-nvim
       lualine-lsp-progress
-     ];
+    ];
     extraConfig = ''
       :source ${./nvim.lua}
     '';
   };
 
   home.stateVersion = "23.11";
-   systemd.user.startServices = "sd-switch";
+  systemd.user.startServices = "sd-switch";
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

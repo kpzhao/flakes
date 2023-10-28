@@ -25,6 +25,7 @@
         canTouchEfiVariables = true;
       };
     };
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       "quiet"
       # "loglevel=3"
@@ -50,7 +51,7 @@
   time.timeZone = "Asia/Shanghai";
 
   # Configure network proxy if necessary
-  networking.proxy.default = "socks5://127.0.0.1:10808/";
+  networking.proxy.default = "socks5h://127.0.0.1:10808/";
   networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   i18n = {
@@ -123,8 +124,8 @@
     ];
   };
   home-manager = {
-      users."Tim" = import ../home.nix;
-      extraSpecialArgs = { inherit nix-colors; };
+    users."Tim" = import ../home.nix;
+    extraSpecialArgs = { inherit nix-colors; };
   };
 
 
@@ -189,11 +190,22 @@
     };
   };
 
+  systemd.services.nix-daemon = {
+    environment = {
+      # 指定临时文件的位置
+      TMPDIR = "/var/cache/nix";
+    };
+    serviceConfig = {
+      # 在 Nix Daemon 启动时自动创建 /var/cache/nix
+      CacheDirectory = "nix";
+    };
+  };
+  environment.variables.NIX_REMOTE = "daemon";
+
   services.gvfs.enable = true;
-  services.v2raya.enable = true;
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  # services.flatpak.enable = true;
+  services.flatpak.enable = true;
   services.dbus.enable = true;
 
 
@@ -203,6 +215,8 @@
     dates = "weekly";
     options = "--delete-older-than 7d";
   };
+
+  nix.settings.auto-optimise-store = true;
 
   nixpkgs.config.allowUnfree = true;
 

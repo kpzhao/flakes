@@ -9,7 +9,7 @@
     impermanence.url = "github:nix-community/impermanence";
     nix-colors.url = "github:misterio77/nix-colors";
   };
-  outputs = { self, nixpkgs, nix-colors,  ... }@inputs:
+  outputs = { self, nixpkgs, nix-colors, ... }@inputs:
     let
       this = import ./pkgs;
       overlay-sway = import ./overlays;
