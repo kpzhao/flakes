@@ -1,31 +1,13 @@
-{ config
-, pkgs
-, inputs
-, nix-colors
-, home-manager
-, ...
-} @ args: {
-  nix.settings.experimental-features = [ "nix-command" "flakes" "ca-derivations" "auto-allocate-uids" "cgroups" ];
+{ config, lib, pkgs, inputs, ...}: {
 
   imports = [
     ./hardware-configuration.nix
     ./persistence.nix
-    # ./fhs-fonts.nix
   ];
 
   boot = {
-    supportedFilesystems = [ "ntfs" ];
-    loader = {
-      systemd-boot = {
-        enable = true;
-        configurationLimit = 10;
-        # consoleMode = "auto";
-      };
-      efi = {
-        canTouchEfiVariables = true;
-      };
-    };
     kernelPackages = pkgs.linuxPackages_latest;
+    kernelModules = [ "tcp_bbr" ];
     kernelParams = [
       "quiet"
       # "loglevel=3"
@@ -33,26 +15,47 @@
       "i915.enable_psr=0"
       "nowatchdog"
     ];
-    consoleLogLevel = 3;
-    # initrd.verbose = false;
-  };
+    kernel.sysctl = {
+      ## TCP optimization
+      # TCP Fast Open is a TCP extension that reduces network latency by packing
+      # data in the sender’s initial TCP SYN. Setting 3 = enable TCP Fast Open for
+      # both incoming and outgoing connections:
+      "net.ipv4.tcp_fastopen" = 3;
+      # Bufferbloat mitigations + slight improvement in throughput & latency
+      "net.ipv4.tcp_congestion_control" = "bbr";
+      "net.core.default_qdisc" = "cake";
+    };
 
-  networking.hostName = "nixos";
+    loader = {
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 5;
+      };
+      efi.canTouchEfiVariables = true;
+    };
+
+    consoleLogLevel = 3;
+    supportedFilesystems = [ "ntfs" ];
+    tmp.cleanOnBoot = true;
+  };
 
   hardware = {
     opengl = {
       enable = true;
       extraPackages = with pkgs; [ intel-media-driver ];
     };
+    bluetooth.enable = true;
   };
-  # Pick only one of the below networking options.
-  networking.networkmanager.enable = true;
+
+  # compresses half the ram for use as swap
+  zramSwap = {
+    enable = true;
+    memoryPercent = 50;
+    algorithm = "zstd";
+  };
+
   # Set your time zone.
   time.timeZone = "Asia/Shanghai";
-
-  # Configure network proxy if necessary
-  networking.proxy.default = "socks5h://127.0.0.1:10808/";
-  networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   i18n = {
     defaultLocale = "en_US.UTF-8";
@@ -64,7 +67,7 @@
       ];
     };
   };
-
+  # Font
   fonts = {
     fontDir.enable = true;
     packages = with pkgs; [
@@ -87,94 +90,114 @@
 
   };
 
+  # Network
+  networking = {
+    hostName = "nixos";
+    # dns
+    networkmanager = {
+      enable = true;
+      unmanaged = [ "docker0" "rndis0" ];
+      wifi.macAddress = "random";
+    };
+
+    # Configure network proxy if necessary
+    proxy = {
+      default = "socks5h://127.0.0.1:10808/";
+      noProxy = "127.0.0.1,localhost,internal.domain";
+    };
+
+    # Killer feature, Its a must these days.
+    # Adblocker!! It uses steven black hosts.
+    stevenBlackHosts = {
+      enable = true;
+      blockFakenews = true;
+      blockGambling = true;
+      blockPorn = true;
+      blockSocial = false;
+    };
+
+    # Firewall uses iptables underthehood
+    # Rules are for syncthing
+    firewall = {
+      enable = true;
+      # For syncthing
+      allowedTCPPorts = [ 8384 22000 ];
+      allowedUDPPorts = [ 22000 21027 ];
+      allowPing = false;
+      logReversePathDrops = true;
+    };
+  };
+  # Avoid slow boot time
+  systemd.services.NetworkManager-wait-online.enable = false;
+
   xdg.mime.enable = true;
-  # rtkit is optional but recommended
+
+  # Secure core
   security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-  };
-
-  hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  users.defaultUserShell = pkgs.fish;
-  users.users.root = {
-    initialHashedPassword = "$6$WSLqMj/csKrhFrgF$zHtpHPOepWr18G.mL1xcfmUAGLXnzdTxidFaeM9TLdlDGZ3JoHufH3ScROtfL35dgGo.tKNO2ypPqJ4aPVtxt/";
-  };
-  programs.fish.enable = true;
-  users.users.Tim = {
-    initialHashedPassword = "$6$WSLqMj/csKrhFrgF$zHtpHPOepWr18G.mL1xcfmUAGLXnzdTxidFaeM9TLdlDGZ3JoHufH3ScROtfL35dgGo.tKNO2ypPqJ4aPVtxt/";
-    shell = pkgs.fish;
-    isNormalUser = true;
-    description = "tim";
-    extraGroups = [ "adbusers" "networkmanager" "wheel" "root" ];
-    packages = with pkgs; [
-      ripgrep
-      kitty
-      firefox
-      systemd-run-app
-    ];
-  };
-  home-manager = {
-    users."Tim" = import ../home.nix;
-    extraSpecialArgs = { inherit nix-colors; };
-  };
-
-
-
-  environment.sessionVariables = rec {
-    MOZ_ENABLE_WAYLAND = "1";
-    # NIXOS_OZONE_WL = "1";
-    WLR_RENDERER = "vulkan";
-
-    # Not officially in the specification
-    XDG_BIN_HOME = "$HOME/.local/bin";
-    PATH = [
-      "${XDG_BIN_HOME}"
-    ];
-  };
-
-  programs.adb.enable = true;
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    git
-    neofetch
-    telegram-desktop
-    element-desktop
-    firefox
-    gcc
-    llvmPackages_16.libllvm
-    gnumake
-    p7zip
-  ];
-
   security.polkit.enable = true;
-  security.sudo = {
+  security.sudo.enable = false;
+  # Configure doas
+  security.doas = {
     enable = true;
-    extraConfig = ''
-      Tim ALL=(ALL) NOPASSWD:ALL
-    '';
-  };
-  security.pam.services.swaylock = { };
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-wlr ];
-  };
-  programs = {
-    dconf.enable = true;
+    extraRules = [{
+      users = [ "Tim" ];
+      keepEnv = true;
+      persist = true;
+    }];
   };
 
+  # Services
+  services = {
+    dbus = {
+      packages = with pkgs; [ dconf udisks2 gcr ];
+      enable = true;
+    };
+
+    journald.extraConfig = ''
+      SystemMaxUse=50M
+      RuntimeMaxUse=10M
+    '';
+    # enable openssh
+   openssh.enable = true;
+    # To mount drives with udiskctl command
+    udisks2.enable = true;
+    # gnome.at-spi2-core.enable = true;
+
+    # tlp.enable = true;     # TLP and auto-cpufreq for power management
+    auto-cpufreq.enable = true;
+
+    # For Laptop, make lid close and power buttom click to suspend
+    logind = {
+      lidSwitch = "suspend";
+      extraConfig = ''
+        HandlePowerKey = suspend
+      '';
+    };
+
+    atd.enable = true;
+    fstrim.enable = true;
+    # See if you want bluetooth setup
+    blueman.enable = true;
+
+    # For android file transfer via usb, or better check on KDE connect 
+    gvfs.enable = true;
+
+    # This makes the user '<<my-username>>' to autologin in all tty
+    # Depends on you if you want login manager or prefer entering password manually
+    getty.autologinUser = "Tim";
+
+    # Pipewire setup, just these lines enought to make sane default for it
+    pipewire = {
+      enable = true;
+      alsa = {
+        enable = true;
+      };
+      wireplumber.enable = true;
+      pulse.enable = true;
+    };
+  };
+
+  # Systemd
   systemd.services = {
     # For wayland users
     seatd = {
@@ -188,9 +211,8 @@
       };
       wantedBy = [ "multi-user.target" ];
     };
-  };
-
-  systemd.services.nix-daemon = {
+    # Move TMPDIR to /var/cache/nix
+    nix-daemon = {
     environment = {
       # 指定临时文件的位置
       TMPDIR = "/var/cache/nix";
@@ -200,25 +222,123 @@
       CacheDirectory = "nix";
     };
   };
-  environment.variables.NIX_REMOTE = "daemon";
-
-  services.gvfs.enable = true;
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-  services.flatpak.enable = true;
-  services.dbus.enable = true;
-
-
-  # Automatic Garbage Collection
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 7d";
   };
 
-  nix.settings.auto-optimise-store = true;
+  # System packages
+  environment.systemPackages = with pkgs; [
+    gitFull
+    neovim
+  ];
 
-  nixpkgs.config.allowUnfree = true;
+  # ENV
+  environment = {
+    variables = rec {
+      MOZ_ENABLE_WAYLAND = "1";
+      NIXOS_OZONE_WL = "1";
+      WLR_RENDERER = "vulkan";
+      DITOR = "nvim";
+      BROWSER = "firefox";
 
-  system.stateVersion = "23.11";
+      # Not officially in the specification
+      XDG_BIN_HOME = "$HOME/.local/bin";
+      PATH = [
+        "${XDG_BIN_HOME}"
+      ];
+      
+      NIX_REMOTE = "daemon";
+    };
+  };
+
+# Users
+  users.users.root = {
+    initialHashedPassword = "$6$WSLqMj/csKrhFrgF$zHtpHPOepWr18G.mL1xcfmUAGLXnzdTxidFaeM9TLdlDGZ3JoHufH3ScROtfL35dgGo.tKNO2ypPqJ4aPVtxt/";
+  };
+  users.users.Tim = {
+    initialHashedPassword = "$6$WSLqMj/csKrhFrgF$zHtpHPOepWr18G.mL1xcfmUAGLXnzdTxidFaeM9TLdlDGZ3JoHufH3ScROtfL35dgGo.tKNO2ypPqJ4aPVtxt/";
+    shell = pkgs.fish;
+    isNormalUser = true;
+    description = "tim";
+    extraGroups = [ "adbusers" "networkmanager" "wheel" "root" ];
+    packages = with pkgs; [
+      ripgrep
+      firefox
+      systemd-run-app
+    ];
+  };
+  programs.fish.enable = true;
+  users.defaultUserShell = pkgs.fish;
+# Nixpkgs
+  # As name implies, allows Unfree packages. You can enable in case you wanna install non-free tools (eg: some fonts lol)
+  nixpkgs = {
+    config = {
+      # keep a check and remove it asap
+      permittedInsecurePackages = [
+        "openssl-1.1.1u"
+        "electron-24.8.6"
+      ];
+      allowUnfree = true;
+      allowBroken = false;
+    };
+  };
+
+  # faster rebuilding
+  documentation = {
+    enable = true;
+    doc.enable = false;
+    man.enable = true;
+    dev.enable = false;
+  };
+
+# Nix
+  # Collect garbage and delete generation every 6 day. Will help to get some storage space.
+  # Better to atleast keep it for few days, as you do major update (unstable), if something breaks you can roll back.
+  nix = {
+    gc = {
+      automatic = true;
+      dates = "daily";
+      options = "--delete-older-than 6d";
+    };
+
+    # pin the registry to avoid downloading and evaling a new nixpkgs version every time
+    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+
+    # This will additionally add your inputs to the system's legacy channels  
+    # Making legacy nix commands consistent as well, awesome!  
+    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
+
+    # Free up to 1GiB whenever there is less than 100MiB left.
+    extraOptions = ''
+      # experimental-features = nix-command flakes
+      keep-outputs = true
+      warn-dirty = false
+      keep-derivations = true
+      min-free = ${toString (100 * 1024 * 1024)}
+      max-free = ${toString (1024 * 1024 * 1024)}
+    '';
+
+    # substituters are cachix domain, where some package binaries are available (eg : Hyprland & Emacs 30)
+    # NOTE : You should do a simple rebuild with these substituters line first,
+    # and then install packages from there, as a rebuild will register these cachix into /etc/nix/nix.conf file.
+    # If you continue without a rebuild, Emacs will start compiling.
+    # So rebuild and make sure you see these substituters in /etc/nix/nix.conf and then add packages.
+    settings = {
+      experimental-features = [ "nix-command" "flakes" "ca-derivations" "auto-allocate-uids" "cgroups" ];
+      auto-optimise-store = true;
+      builders-use-substitutes = true;
+      trusted-users = [ "root" "@wheel" ];
+      max-jobs = "auto";
+      # use binary cache, its not gentoo
+      substituters = [
+        "https://cache.nixos.org"
+        # "https://nix-community.cachix.org"
+      ];
+      # Keys for the sustituters cachix
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        # "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
+    };
+  };
+
+  system.stateVersion = "24.05";
 }

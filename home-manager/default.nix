@@ -1,14 +1,10 @@
-rec {
-  home-manager = { config, inputs, nix-colors, ... }: {
-    imports = [ inputs.home-manager.nixosModules.home-manager ];
-    home-manager = {
-      useGlobalPkgs = true;
-      useUserPackages = true;
-      verbose = true;
-      extraSpecialArgs = {
-        inherit inputs nix-colors;
-        super = config;
-      };
-    };
-  };
+{ ... }:
+{
+  config.home.stateVersion = "24.05";
+  config.home.extraOutputsToInstall = ["doc" "devdoc"];
+  imports = [
+    ./home.nix
+    # inputs.hyprland.homeManagerModules.default
+    # inputs.nur.nixosModules.nur
+  ];
 }

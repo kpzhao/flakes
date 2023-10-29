@@ -35,8 +35,9 @@ let
 in
 {
   imports = [
-    ./swayidle.nix
     ./swaybg.nix
+    ./swayidle.nix
+    ./swaylock.nix
   ];
   fonts.fontconfig.enable = true;
 
@@ -51,7 +52,6 @@ in
       swaybg
       swayidle
       sway-contrib.grimshot
-      swaylock-effects
       pamixer
       rofi-wayland
       xdg-utils

@@ -23,17 +23,34 @@
         ]
       },
       "locked": {
-        "lastModified": 1698462811,
-        "narHash": "sha256-iJUDNjXFfnIUYOxX0Xep1NFBrms8F2S/0PaZT8REQf8=",
+        "lastModified": 1698541803,
+        "narHash": "sha256-Af5mtmCht5lWiRDzX2IZT892rOokKOXycnjIahKFus8=",
         "owner": "kpzhao",
         "repo": "home-manager",
-        "rev": "d288402bd137322695f96ca82dc860724a92e282",
+        "rev": "c4881f7b80388156fe89ecfc878c9d2c214c8f14",
         "type": "github"
       },
       "original": {
         "owner": "kpzhao",
-        "ref": "master",
         "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "hosts": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1698463385,
+        "narHash": "sha256-H5odKLF7WXXJ0sX6EgesoeGgV3L5sJW5qpg5SkLCJ3E=",
+        "owner": "StevenBlack",
+        "repo": "hosts",
+        "rev": "b05eca9505722abe416b46fd4eb55dda7443da7e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "StevenBlack",
+        "repo": "hosts",
         "type": "github"
       }
     },
@@ -75,16 +92,13 @@
       "locked": {
         "lastModified": 1698318101,
         "narHash": "sha256-gUihHt3yPD7bVqg+k/UVHgngyaJ3DMEBchbymBMvK1E=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
+        "path": "/nix/store/35dcag44a0ymww0vy0s4jjgxwpv9g62d-source",
         "rev": "63678e9f3d3afecfeafa0acead6239cdb447574c",
-        "type": "github"
+        "type": "path"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
+        "id": "nixpkgs",
+        "type": "indirect"
       }
     },
     "nixpkgs-lib": {
@@ -102,12 +116,29 @@
         "type": "github"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1698318101,
+        "narHash": "sha256-gUihHt3yPD7bVqg+k/UVHgngyaJ3DMEBchbymBMvK1E=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "63678e9f3d3afecfeafa0acead6239cdb447574c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "hosts": "hosts",
         "impermanence": "impermanence",
         "nix-colors": "nix-colors",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs_2"
       }
     }
   },

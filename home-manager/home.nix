@@ -11,11 +11,13 @@
   home.homeDirectory = "/home/Tim";
 
   home.packages = with pkgs; [
+    android-tools
     # (callPackage ./pkgs/hello/default.nix {})
     # (callPackage ./pkgs/alacritty-1/default.nix{})
-    (dwl-git.override ({ conf = ./pkgs/dwl-git/dwl-config.h; }))
+    # (dwl-git.override ({ conf = ./pkgs/dwl-git/dwl-config.h; }))
     # (my-dwl.override({ conf = ./pkgs/my-dwl/dwl-config.h;}))
-    dwl-bar
+    # dwl-bar
+    du-dust
     foot
     # (dwl-git.overrideAttrs (drv: rev {conf = ./pkgs/dwl-git/dwl-config.h};))
     at-spi2-core
@@ -30,6 +32,8 @@
     intel-gpu-tools
     helix
     neofetch
+    git
+    nix-du
     slurp
     lf
     logseq
@@ -41,7 +45,6 @@
     ncmpcpp
     nil
     nodejs
-    # python3
     qq
     rustdesk
     spotify
@@ -88,7 +91,7 @@
     '';
   };
 
-  home.stateVersion = "23.11";
+  home.stateVersion = "24.05";
   systemd.user.startServices = "sd-switch";
 
   # Let Home Manager install and manage itself.

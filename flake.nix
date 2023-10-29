@@ -3,43 +3,66 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:kpzhao/home-manager/master";
+      url = "github:kpzhao/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     impermanence.url = "github:nix-community/impermanence";
     nix-colors.url = "github:misterio77/nix-colors";
+
+    # For Adblocking and making internet usable
+    hosts.url = "github:StevenBlack/hosts";
   };
-  outputs = { self, nixpkgs, nix-colors, ... }@inputs:
+
+  outputs = inputs @ { self, hosts, home-manager, nix-colors, nixpkgs, ... }:
     let
+      # You might check on darwin for macos
+      system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
+      lib = nixpkgs.lib;
       this = import ./pkgs;
       overlay-sway = import ./overlays;
-      # pkgs = import nixpkgs { };
-      nixosModules = import ./home-manager;
-      mkSystem = name: system: nixpkgs: { extraModules ? [ ] }: nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inputs = inputs;
-          # inputs = inputs // { inherit nixpkgs; };
-          inherit nix-colors;
-        };
-        modules = /* with nixosModules; */ [
-          {
-            nixpkgs.overlays = [
-              this.overlay
-              overlay-sway
-            ];
-          }
-          ./host/configuration.nix
-          inputs.impermanence.nixosModules.impermanence
-        ] ++ extraModules;
-      };
     in
     {
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+
       nixosConfigurations = {
-        Tim = mkSystem "Tim" "x86_64-linux" inputs.nixpkgs {
-          extraModules = with nixosModules; [ home-manager ];
+
+        Tim = lib.nixosSystem {
+          inherit system;
+          modules = [
+
+            ./host/configuration.nix
+            inputs.impermanence.nixosModules.impermanence
+            # ./home-manager/default.nix
+
+            {
+              nixpkgs.overlays = [
+                this.overlay
+                overlay-sway
+              ];
+            }
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = {
+                inherit inputs;
+                inherit self;
+                inherit nix-colors;
+              };
+
+              home-manager.users.Tim = ./home.nix;
+            }
+            hosts.nixosModule
+          ];
+          specialArgs = { inherit inputs; };
         };
       };
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
     };
 }
+
+

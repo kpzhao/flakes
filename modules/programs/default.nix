@@ -10,6 +10,7 @@
     ./mpv
     # ./nvim-theme
     ./rofi
+    ./sioyek
     ./sway
     ./theme
     ./waybar
