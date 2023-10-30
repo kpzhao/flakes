@@ -3,7 +3,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:kpzhao/home-manager";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     impermanence.url = "github:nix-community/impermanence";
@@ -54,7 +54,7 @@
                 inherit nix-colors;
               };
 
-              home-manager.users.Tim = ./home.nix;
+              home-manager.users.Tim = ./home;
             }
             hosts.nixosModule
           ];

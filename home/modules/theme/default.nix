@@ -28,7 +28,7 @@ in
   programs = {
     alacritty = {
       enable = true;
-      package = (pkgs.callPackage ../../../pkgs/alacritty-1/default.nix { });
+      package = (pkgs.callPackage ../../../../pkgs/alacritty-1/default.nix { });
       settings = {
         colors.primary.foreground = "#${config.colorScheme.colors.base05}";
         colors.primary.background = "#${config.colorScheme.colors.base00}";
@@ -39,7 +39,6 @@ in
   programs.rofi = {
     enable = true;
     package = pkgs.rofi-wayland;
-    font = "FiraCode Nerd Font 15";
     theme = toString (pkgs.substituteAll (
       { src = ./theme.rasi; } // config.colorScheme.colors
     ));

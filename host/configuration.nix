@@ -145,6 +145,7 @@
       persist = true;
     }];
   };
+  security.pam.services.swaylock = { };
 
   # Services
   services = {
@@ -224,6 +225,12 @@
   };
   };
 
+    programs = {
+    adb.enable = true;
+    dconf.enable = true;
+    command-not-found.enable = false;
+  };
+
   # System packages
   environment.systemPackages = with pkgs; [
     gitFull
@@ -287,6 +294,7 @@
     doc.enable = false;
     man.enable = true;
     dev.enable = false;
+    nixos.enable = false;
   };
 
 # Nix

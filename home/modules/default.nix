@@ -3,16 +3,17 @@
     ./app-git
     ./aria2
     # ./fcitx5
+    ./fish
     ./firefox
     ./lf
     ./mako
     ./mpd
     ./mpv
-    # ./nvim-theme
+    ./neovim
     ./rofi
     ./sioyek
     ./sway
-    ./theme
+    # ./theme
     ./waybar
     ./xdg
     ./xray

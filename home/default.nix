@@ -1,6 +1,6 @@
 { ... }:
 {
-  config.home.stateVersion = "24.05";
+  config.home.stateVersion = "23.11";
   config.home.extraOutputsToInstall = ["doc" "devdoc"];
   imports = [
     ./home.nix
