@@ -21,4 +21,19 @@
       sha256 = "sha256-G44bgOWpnQEbP78idcOobEUm2m+7cYM+UCqyJu+D+9E=";
     };
   };
+
+  bili_tui = rec {
+    pname = "bilibili_live_tui";
+    version = "4441239";
+
+    src = fetchFromGitHub {
+      owner = "yaocccc";
+      repo = pname;
+      rev = "${version}";
+      sha256 = "sha256-th66czpHiLdZRqXVGpxVLh2lrvrjXErniJzuwVNZsP0=";
+    };
+
+    vendorSha256 = "sha256-eoLVLAzbw9BxbSgHWxmaxVmlV6RhIscwSAJrv2OpU+k=";
+
+  };
 }

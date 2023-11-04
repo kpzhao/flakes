@@ -101,31 +101,42 @@
     };
 
     # Configure network proxy if necessary
-    proxy = {
-      default = "socks5h://127.0.0.1:10808/";
-      noProxy = "127.0.0.1,localhost,internal.domain";
-    };
+    # proxy = {
+    #   default = "socks5h://127.0.0.1:10808/";
+    #   noProxy = "127.0.0.1,localhost,internal.domain";
+    # };
 
     # Killer feature, Its a must these days.
     # Adblocker!! It uses steven black hosts.
-    stevenBlackHosts = {
-      enable = true;
-      blockFakenews = true;
-      blockGambling = true;
-      blockPorn = true;
-      blockSocial = false;
-    };
+    # stevenBlackHosts = {
+    #   enable = true;
+    #   blockFakenews = true;
+    #   blockGambling = true;
+    #   blockPorn = true;
+    #   blockSocial = false;
+    # };
+    #     localCommands = ''
+    #   ip rule add fwmark 1 table 100
+    #   ip route add local 0.0.0.0/0 dev lo table 100
+    #
+    #   ip -6 rule add fwmark 1 table 100
+    #   ip -6 route add local ::/0 dev lo table 100
+    # '';
 
     # Firewall uses iptables underthehood
     # Rules are for syncthing
-    firewall = {
+        nftables = {
       enable = true;
-      # For syncthing
-      allowedTCPPorts = [ 8384 22000 ];
-      allowedUDPPorts = [ 22000 21027 ];
-      allowPing = false;
-      logReversePathDrops = true;
+      # ruleset = nftablesRuleset;
     };
+    # firewall = {
+    #   enable = true;
+    #   # For syncthing
+    #   allowedTCPPorts = [ 8384 22000 ];
+    #   allowedUDPPorts = [ 22000 21027 ];
+    #   allowPing = false;
+    #   logReversePathDrops = true;
+    # };
   };
   # Avoid slow boot time
   systemd.services.NetworkManager-wait-online.enable = false;
@@ -212,6 +223,23 @@
       };
       wantedBy = [ "multi-user.target" ];
     };
+
+    xray = {
+      wantedBy = [ "multi-user.target" ]; 
+      after = [ "network.target" ];
+      description = "xray service";
+      serviceConfig = {
+        Type = "simple";
+        User = "xray";
+        ExecStart = ''${pkgs.xray}/bin/xray -c /nix/persist/etc/config-nft.json'';         
+        # ExecStop = ''${pkgs.screen}/bin/screen -S irc -X quit'';
+        Restart = "always";
+        RestartSec = "1";
+        CapabilityBoundingSet = "CAP_NET_BIND_SERVICE CAP_NET_RAW";
+        AmbientCapabilities = "CAP_NET_BIND_SERVICE CAP_NET_RAW";
+      };
+    };
+
     # Move TMPDIR to /var/cache/nix
     nix-daemon = {
     environment = {
@@ -235,6 +263,9 @@
   environment.systemPackages = with pkgs; [
     gitFull
     neovim
+    bili_tui
+    xray
+    dig
   ];
 
   # ENV
@@ -256,6 +287,8 @@
     };
   };
 
+  nix.envVars.GOPROXY = "https://goproxy.cn,direct";
+
 # Users
   users.users.root = {
     initialHashedPassword = "$6$WSLqMj/csKrhFrgF$zHtpHPOepWr18G.mL1xcfmUAGLXnzdTxidFaeM9TLdlDGZ3JoHufH3ScROtfL35dgGo.tKNO2ypPqJ4aPVtxt/";
@@ -274,6 +307,32 @@
   };
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
+
+  #   users = {
+  #   # DynamicUser is set to true in the systemd service, so systemd will use
+  #   # the xray user if it is statically defined
+  #   groups.xray.gid = 255;
+  #   users.xray = {
+  #     isSystemUser = true;
+  #     uid = 255;
+  #     group = "xray";
+  #   };
+  # };
+
+  users.users.xray ={
+      isSystemUser = true;
+      # uid = ;
+      group = "xray";
+  extraGroups  = [ "proxy"  ];
+      packages = with pkgs; [
+      xray
+    ];
+  };
+  users.groups = {
+    xray.gid = 23333;
+    # proxy.gid = 23333;
+  };
+
 # Nixpkgs
   # As name implies, allows Unfree packages. You can enable in case you wanna install non-free tools (eg: some fonts lol)
   nixpkgs = {
