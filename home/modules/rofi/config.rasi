@@ -1,0 +1,13 @@
+configuration{
+    modi: "drun";
+    icon-theme: "Adwaita";
+    show-icons: false;
+    terminal: "foot";
+    drun-display-format: "{name}";
+    location: 0;
+    disable-history: false;
+    hide-scrollbar: true;
+    display-drun: " Apps ";
+}
+
+@theme "catppuccin-frappe"
