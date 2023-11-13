@@ -1,13 +1,17 @@
-{ config, lib, pkgs, inputs, ...}: {
+{ config, lib, pkgs, inputs, ... }: {
 
   imports = [
     ./hardware-configuration.nix
     ./persistence.nix
+    ../xray.nix
+    # ../qemu.nix
+    ./networking.nix
   ];
 
   boot = {
+    initrd.kernelModules = [ "amdgpu" ];
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelModules = [ "tcp_bbr" ];
+    kernelModules = [ "tcp_bbr" "kvm-amd" ];
     kernelParams = [
       "quiet"
       # "loglevel=3"
@@ -41,8 +45,10 @@
 
   hardware = {
     opengl = {
-     enable = true;
-    #  extraPackages = with pkgs; [ intel-media-driver ];
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
+      #  extraPackages = with pkgs; [ intel-media-driver ];
     };
     bluetooth.enable = true;
   };
@@ -80,12 +86,12 @@
     ];
     fontconfig = {
       enable = true;
-      defaultFonts = {
-        serif = [ "Noto Serif" "Noto Serif CJK SC" ];
-        sansSerif = [ "Noto Sans" "Noto Sans CJK SC" ];
-        monospace = [ "Sarasa Term SC" ];
-        emoji = [ "Noto Color Emoji" ];
-      };
+      # defaultFonts = {
+      #   serif = [ "Noto Serif" "Noto Serif CJK SC" ];
+      #   sansSerif = [ "Noto Sans" "Noto Sans CJK SC" ];
+      #   monospace = [ "Sarasa Term SC" ];
+      #   emoji = [ "Noto Color Emoji" ];
+      # };
     };
 
   };
@@ -125,7 +131,7 @@
 
     # Firewall uses iptables underthehood
     # Rules are for syncthing
-        nftables = {
+    nftables = {
       enable = true;
       # ruleset = nftablesRuleset;
     };
@@ -170,7 +176,7 @@
       RuntimeMaxUse=10M
     '';
     # enable openssh
-   openssh.enable = true;
+    openssh.enable = true;
     # To mount drives with udiskctl command
     udisks2.enable = true;
     # gnome.at-spi2-core.enable = true;
@@ -207,6 +213,12 @@
       wireplumber.enable = true;
       pulse.enable = true;
     };
+    udev = {
+      path = [ "/bin" ];
+      extraRules = ''
+        ACTION=="add", SUBSYSTEM=="net", ATTRS{idVendor}=="0cf3", ATTRS{idProduct}=="9271", RUN+="${pkgs.iw} dev wlp1s0 set 4addr on"
+      '';
+    };
   };
 
   # Systemd
@@ -225,38 +237,49 @@
     };
 
     xray = {
-      wantedBy = [ "multi-user.target" ]; 
+      wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       description = "xray service";
       serviceConfig = {
         Type = "simple";
         User = "xray";
-        ExecStart = ''${pkgs.xray}/bin/xray -c /nix/persist/etc/config-nft.json'';         
+        ExecStart = ''${pkgs.xray}/bin/xray -c /nix/persist/etc/config-nft.json'';
         # ExecStop = ''${pkgs.screen}/bin/screen -S irc -X quit'';
         Restart = "always";
         RestartSec = "1";
         CapabilityBoundingSet = "CAP_NET_BIND_SERVICE CAP_NET_RAW";
         AmbientCapabilities = "CAP_NET_BIND_SERVICE CAP_NET_RAW";
+        LimitNPROC = "500";
+        LimitNOFILE = "1000000";
       };
     };
 
     # Move TMPDIR to /var/cache/nix
     nix-daemon = {
-    environment = {
-      # 指定临时文件的位置
-      TMPDIR = "/var/cache/nix";
+      environment = {
+        # 指定临时文件的位置
+        TMPDIR = "/var/cache/nix";
+      };
+      serviceConfig = {
+        # 在 Nix Daemon 启动时自动创建 /var/cache/nix
+        CacheDirectory = "nix";
+      };
     };
-    serviceConfig = {
-      # 在 Nix Daemon 启动时自动创建 /var/cache/nix
-      CacheDirectory = "nix";
-    };
-  };
   };
 
-    programs = {
+  programs = {
     adb.enable = true;
     dconf.enable = true;
     command-not-found.enable = false;
+    steam = {
+      enable = true;
+      package = pkgs.steam.override {
+        # Chinese fonts for steam
+        extraPkgs = p: with p; [ wqy_zenhei ];
+      };
+      remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    };
   };
 
   # System packages
@@ -266,6 +289,7 @@
     #bili_tui
     xray
     dig
+    iw
   ];
 
   # ENV
@@ -282,14 +306,14 @@
       PATH = [
         "${XDG_BIN_HOME}"
       ];
-      
+
       NIX_REMOTE = "daemon";
     };
   };
 
   nix.envVars.GOPROXY = "https://goproxy.cn,direct";
 
-# Users
+  # Users
   users.users.root = {
     initialHashedPassword = "$6$WSLqMj/csKrhFrgF$zHtpHPOepWr18G.mL1xcfmUAGLXnzdTxidFaeM9TLdlDGZ3JoHufH3ScROtfL35dgGo.tKNO2ypPqJ4aPVtxt/";
   };
@@ -298,7 +322,7 @@
     shell = pkgs.fish;
     isNormalUser = true;
     description = "tim";
-    extraGroups = [ "adbusers" "networkmanager" "wheel" "root" ];
+    extraGroups = [ "adbusers" "networkmanager" "wheel" "root" "libvirtd" ];
     packages = with pkgs; [
       ripgrep
       firefox
@@ -319,12 +343,12 @@
   #   };
   # };
 
-  users.users.xray ={
-      isSystemUser = true;
-      # uid = ;
-      group = "xray";
-  extraGroups  = [ "proxy"  ];
-      packages = with pkgs; [
+  users.users.xray = {
+    isSystemUser = true;
+    # uid = ;
+    group = "xray";
+    extraGroups = [ "proxy" ];
+    packages = with pkgs; [
       xray
     ];
   };
@@ -333,7 +357,7 @@
     # proxy.gid = 23333;
   };
 
-# Nixpkgs
+  # Nixpkgs
   # As name implies, allows Unfree packages. You can enable in case you wanna install non-free tools (eg: some fonts lol)
   nixpkgs = {
     config = {
@@ -356,7 +380,7 @@
     nixos.enable = false;
   };
 
-# Nix
+  # Nix
   # Collect garbage and delete generation every 6 day. Will help to get some storage space.
   # Better to atleast keep it for few days, as you do major update (unstable), if something breaks you can roll back.
   nix = {

@@ -13,6 +13,7 @@
     ./neovim
     ./rofi
     ./sioyek
+    # ./steam
     ./sway
     # ./theme
     ./waybar

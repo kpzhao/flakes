@@ -1,41 +1,55 @@
 { config, lib, ... }:
 let
   nftablesRuleset = ''
-    table inet xray {
-      chain prerouting {
-        type filter hook prerouting priority filter; policy accept;
-        meta skgid 23333 return
-        ip daddr { 127.0.0.0/8, 224.0.0.0/4, 255.255.255.255 } return
-        meta l4proto tcp ip daddr 192.168.0.0/16 return
-        ip daddr 192.168.0.0/16 udp dport != 53 return
-        ip6 daddr { ::1, fe80::/10 } return
-        meta l4proto tcp ip6 daddr fd00::/8 return
-        ip6 daddr fd00::/8 udp dport != 53 return
-        meta l4proto { tcp, udp } meta mark set 1 tproxy to :1 accept
-      }
+      # 保留 IP 参考 https://en.wikipedia.org/wiki/Reserved_IP_addresses
+    define LANv4 = {
+        0.0.0.0/8,
+        10.0.0.0/8,
+        127.0.0.0/8,
+        169.254.0.0/16,
+        172.16.0.0/12,
+        192.168.0.0/16,
+        224.0.0.0/4,
+        240.0.0.0/4
+    }
 
-      chain output {
-        type route hook output priority filter; policy accept;
-        meta skgid 23333 return
-        ip daddr { 127.0.0.0/8, 224.0.0.0/4, 255.255.255.255 } return
-        meta l4proto tcp ip daddr 192.168.0.0/16 return
-        ip daddr 192.168.0.0/16 udp dport != 53 return
-        ip6 daddr { ::1, fe80::/10 } return
-        meta l4proto tcp ip6 daddr fd00::/8 return
-        ip6 daddr fd00::/8 udp dport != 53 return
-        meta l4proto { tcp, udp } meta mark set 1 accept
-      }
+    define LANv6 = {
+        ::/128,
+        ::1/128,
+        fc00::/7,
+        fe80::/10,
+        ff00::/8
+    }
 
-      chain divert {
-        type filter hook prerouting priority mangle; policy accept;
-        meta l4proto tcp socket transparent 1 meta mark set 1 accept
-      }
+    # 只做了 ipv4
+    table ip xray {
+
+        chain local {
+            type route hook output priority mangle; policy accept;
+            ip protocol != { tcp, udp } return
+            udp dport 53 return
+            tcp dport 53 return
+            ip daddr { 0.0.0.0/8, 10.0.0.0/8, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/12, 192.168.0.0/16, 224.0.0.0/4, 240.0.0.0/4 } return
+            meta skgid 23333 accept
+            ip protocol { tcp, udp } mark set 1
+        }
+        chain forward {
+            type filter hook prerouting priority mangle; policy accept;
+            ip protocol != { tcp, udp } return
+            udp dport 53 return
+            tcp dport 53 return
+            ip daddr { 0.0.0.0/8, 10.0.0.0/8, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/12, 192.168.0.0/16, 224.0.0.0/4, 240.0.0.0/4 } return
+            meta skgid 23333 accept
+            # DIVERT 规则
+            meta l4proto tcp socket transparent 1 meta mark set 1 accept
+            ip protocol { tcp, udp } mark set 1 tproxy to :10803
+        }
     }
   '';
 in
- {
+{
   networking = {
-      # Packets in the output chain cannot use tproxy directly, we need to
+    # Packets in the output chain cannot use tproxy directly, we need to
     # set their fwmark to 1 and add a rule that sends packets with fwmark=1
     # to lo. They are then matched by the prerouting chain.
     # Currently there's no way to configure ip rules more declaratively

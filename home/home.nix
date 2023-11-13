@@ -33,12 +33,14 @@
   };
 
   home.packages = with pkgs; [
+    amdgpu_top
     android-tools
     # (callPackage ./../pkgs/hello/default.nix {})
-    (callPackage ./../pkgs/alacritty-1/default.nix{})
+    (callPackage ./../pkgs/alacritty-1/default.nix { })
     # (dwl-git.override ({ conf = ./pkgs/dwl-git/dwl-config.h; }))
     # (my-dwl.override({ conf = ./pkgs/my-dwl/dwl-config.h;}))
     # dwl-bar
+    btop
     du-dust
     foot
     # (dwl-git.overrideAttrs (drv: rev {conf = ./pkgs/dwl-git/dwl-config.h};))
@@ -56,6 +58,7 @@
     intel-gpu-tools
     helix
     neofetch
+    nvfetcher
     git
     nix-du
     slurp
@@ -69,8 +72,10 @@
     ncmpcpp
     nil
     nodejs
+    qemu_full
     qq
-    #rustdesk
+    radeontop
+    rustdesk
     spotify
     swappy
     telegram-desktop
@@ -78,14 +83,23 @@
     unzip
     vulkan-tools
     vulkan-validation-layers
-   # wpsoffice
+    wpsoffice-cn
     xdg-desktop-portal
     xfce.thunar
     xorg.xprop
     xorg.xrdb
     xray
-    git-repo tree
+    git-repo
+    tree
   ];
+
+  dconf.settings = {
+    "org/virt-manager/virt-manager/connections" = {
+      autoconnect = [ "qemu:///system" ];
+      uris = [ "qemu:///system" ];
+    };
+  };
+
   # services.udiskie = {
   #   enable = true;
   #   automount = true;

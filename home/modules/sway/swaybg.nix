@@ -17,7 +17,7 @@
       Install.WantedBy = [ "sway-session.target" ];
       Service = {
         ExecStart = ''
-          ${pkgs.swaybg}/bin/swaybg -i /home/Tim/Pictures/Wallpaper/wallpaper1.jpg -m fill
+          ${pkgs.swaybg}/bin/swaybg -i /home/Tim/Pictures/Wallpaper/1.png -m fill
         '';
         Type = "oneshot";
       };

@@ -7,3 +7,7 @@ fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/downlo
 src.git = "https://github.com/NickCao/bird"
 src.branch = "babel-rtt"
 fetch.github = "NickCao/bird"
+
+[sway]
+src.git= "https://github.com/swaywm/sway"
+fetch.github = "swaywm/sway"
