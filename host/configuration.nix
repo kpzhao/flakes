@@ -3,6 +3,7 @@
   imports = [
     ./hardware-configuration.nix
     ./persistence.nix
+    ./xray.nix
   ];
 
   boot = {
@@ -266,13 +267,14 @@
     bili_tui
     xray
     dig
+    sway-git
   ];
 
   # ENV
   environment = {
     variables = rec {
       MOZ_ENABLE_WAYLAND = "1";
-      NIXOS_OZONE_WL = "1";
+      # NIXOS_OZONE_WL = "1";
       WLR_RENDERER = "vulkan";
       DITOR = "nvim";
       BROWSER = "firefox";

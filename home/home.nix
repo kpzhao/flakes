@@ -69,6 +69,7 @@
     ncmpcpp
     nil
     nodejs
+    nvfetcher
     qq
     rustdesk
     spotify
@@ -83,6 +84,7 @@
     xfce.thunar
     xorg.xprop
     xorg.xrdb
+    xorg.xeyes
     xray
     git-repo tree
   ];

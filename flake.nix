@@ -40,7 +40,7 @@
             {
               nixpkgs.overlays = [
                 this.overlay
-                overlay-sway
+                # overlay-sway
               ];
             }
 

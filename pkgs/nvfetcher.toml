@@ -1,3 +1,7 @@
+[bili_tui]
+src.git = "https://github.com/yaocccc/bilibili_live_tui"
+fetch.github = "yaocccc/bilibili_live_tui"
+
 [fcitx5-pinyin-zhwiki]
 src.archpkg = "fcitx5-pinyin-zhwiki"
 src.prefix = "0.2.4."
@@ -7,3 +11,15 @@ fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/downlo
 src.git = "https://github.com/NickCao/bird"
 src.branch = "babel-rtt"
 fetch.github = "NickCao/bird"
+
+[sway-git]
+src.git = "https://github.com/swaywm/sway"
+fetch.github = "swaywm/sway"
+
+[wlroots-git]
+src.git = "https://gitlab.freedesktop.org/wlroots/wlroots.git"
+fetch.git = "https://gitlab.freedesktop.org/wlroots/wlroots.git"
+
+[xwayland-xprop]
+src.aur = "xorg-xwayland-hidpi-xprop"
+fetch.url = "https://xorg.freedesktop.org/archive/individual/xserver/xwayland-$ver.tar.xz"
