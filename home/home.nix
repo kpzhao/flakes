@@ -1,8 +1,6 @@
 { config
 , pkgs
-, inputs
-, # my,
-  ...
+, ...
 }: {
   imports = [
     ./modules
@@ -35,7 +33,8 @@
   home.packages = with pkgs; [
     android-tools
     # (callPackage ./../pkgs/hello/default.nix {})
-    (callPackage ./../pkgs/alacritty-1/default.nix{})
+    # (callPackage ./../pkgs/alacritty-1/default.nix{})
+    alacritty
     # (dwl-git.override ({ conf = ./pkgs/dwl-git/dwl-config.h; }))
     # (my-dwl.override({ conf = ./pkgs/my-dwl/dwl-config.h;}))
     # dwl-bar
@@ -87,6 +86,7 @@
     xorg.xeyes
     xray
     git-repo tree
+    bili_tui
   ];
   # services.udiskie = {
   #   enable = true;

@@ -264,10 +264,10 @@
   environment.systemPackages = with pkgs; [
     gitFull
     neovim
-    bili_tui
+    # bili_tui
     xray
     dig
-    sway-git
+    # sway-git
   ];
 
   # ENV

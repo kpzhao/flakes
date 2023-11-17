@@ -7,7 +7,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     impermanence.url = "github:nix-community/impermanence";
-    nix-colors.url = "github:misterio77/nix-colors";
 
     # For Adblocking and making internet usable
     hosts.url = "github:StevenBlack/hosts";
@@ -23,7 +22,6 @@
       };
       lib = nixpkgs.lib;
       this = import ./pkgs;
-      overlay-sway = import ./overlays;
     in
     {
 
@@ -40,7 +38,6 @@
             {
               nixpkgs.overlays = [
                 this.overlay
-                # overlay-sway
               ];
             }
 
