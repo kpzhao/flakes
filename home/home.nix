@@ -10,10 +10,10 @@
 
   gtk = {
     enable = true;
-    theme = {
-      package = pkgs.materia-theme;
-      name = "Materia";
-    };
+    # theme = {
+    #   package = pkgs.materia-theme;
+    #   name = "Materia";
+    # };
     iconTheme = {
       package = pkgs.numix-icon-theme-circle;
       name = "Numix-Circle";
@@ -25,14 +25,14 @@
     };
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
   };
-  qt = {
-    enable = true;
-    platformTheme = "gtk";
-  };
+  # qt = {
+  #   enable = true;
+  #   platformTheme = "gtk";
+  # };
 
   home.packages = with pkgs; [
     android-tools
-    # (callPackage ./../pkgs/hello/default.nix {})
+    # (callPackage ./../pkgs/materia.nix {})
     # (callPackage ./../pkgs/alacritty-1/default.nix{})
     alacritty
     # (dwl-git.override ({ conf = ./pkgs/dwl-git/dwl-config.h; }))
@@ -69,6 +69,7 @@
     nil
     nodejs
     nvfetcher
+    p7zip
     qq
     rustdesk
     spotify
@@ -76,8 +77,8 @@
     telegram-desktop
     trash-cli
     unzip
-    vulkan-tools
-    vulkan-validation-layers
+    # vulkan-tools
+    # vulkan-validation-layers
     wpsoffice
     xdg-desktop-portal
     xfce.thunar
@@ -87,6 +88,8 @@
     xray
     git-repo tree
     bili_tui
+    graphviz
+    btop
   ];
   # services.udiskie = {
   #   enable = true;

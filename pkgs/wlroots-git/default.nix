@@ -6,7 +6,6 @@
   fetchpatch,
   xwayland-xprop,
   enableXWayland ? true,
-  xwayland ? null,
 }:
 (wlroots_0_16.override {
   inherit enableXWayland ;
@@ -20,9 +19,9 @@
           sha256 = "sha256-jvfkAMh3gzkfuoRhB4E9T5X1Hu62wgUjj4tZkJm0mrI=";
           revert = true;
         })
-        ./patches/0001-xwayland-support-HiDPI-scale.patch
-        # ./patches/0002-Fix-configure_notify-event.patch
-        # ./patches/0003-Fix-size-hints-under-Xwayland-scaling.patch
+        ./0001-xwayland-support-HiDPI-scale.patch
+        ./0002-Fix-configure_notify-event.patch
+        ./0003-Fix-size-hints-under-Xwayland-scaling.patch
       ];
   nativeBuildInputs = old.nativeBuildInputs or [] ++ [
     hwdata
