@@ -31,6 +31,8 @@
   # };
 
   home.packages = with pkgs; [
+    age
+    sops
     android-tools
     # (callPackage ./../pkgs/materia.nix {})
     # (callPackage ./../pkgs/alacritty-1/default.nix{})
@@ -80,7 +82,7 @@
     # vulkan-tools
     # vulkan-validation-layers
     wpsoffice
-    xdg-desktop-portal
+    # xdg-desktop-portal
     xfce.thunar
     xorg.xprop
     xorg.xrdb

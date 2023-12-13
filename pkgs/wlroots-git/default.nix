@@ -4,9 +4,21 @@
   hwdata,
   libdisplay-info,
   fetchpatch,
+  fetchurl,
+  libdrm,
   xwayland-xprop,
   enableXWayland ? true,
 }:
+let
+  # NOTE: remove after https://github.com/NixOS/nixpkgs/pull/271096 reaches nixos-unstable
+  libdrm_2_4_118 = libdrm.overrideAttrs(old: rec {
+    version = "2.4.118";
+    src = fetchurl {
+      url = "https://dri.freedesktop.org/${old.pname}/${old.pname}-${version}.tar.xz";
+      hash = "sha256-p3e9hfK1/JxX+IbIIFgwBXgxfK/bx30Kdp1+mpVnq4g=";
+    };
+  });
+in
 (wlroots_0_16.override {
   inherit enableXWayland ;
   xwayland = xwayland-xprop;
@@ -23,10 +35,10 @@
         ./0002-Fix-configure_notify-event.patch
         ./0003-Fix-size-hints-under-Xwayland-scaling.patch
       ];
-  nativeBuildInputs = old.nativeBuildInputs or [] ++ [
-    hwdata
-  ];
-  buildInputs = old.buildInputs or [] ++ [
-    libdisplay-info
+  # nativeBuildInputs = old.nativeBuildInputs or [] ++ [
+    # hwdata libdrm
+  # ];
+  buildInputs = [libdrm_2_4_118] ++ old.buildInputs ++ [
+    libdisplay-info hwdata
   ];
 })

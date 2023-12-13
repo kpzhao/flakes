@@ -273,7 +273,7 @@
     variables = rec {
       MOZ_ENABLE_WAYLAND = "1";
       # NIXOS_OZONE_WL = "1";
-      WLR_RENDERER = "vulkan";
+      # WLR_RENDERER = "vulkan";
       DITOR = "nvim";
       BROWSER = "firefox";
 
@@ -341,6 +341,7 @@
       permittedInsecurePackages = [
         "openssl-1.1.1u"
         "electron-24.8.6"
+        "electron-25.9.0"
       ];
       allowUnfree = true;
       allowBroken = false;

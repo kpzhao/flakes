@@ -48,15 +48,15 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-aQAAg+ArqwI5/fbhY80oAkvpRonU6FUsfYuWp3Z2WCM=",
+            "sha256": "sha256-crMmSqQ7QgmjgEG8QpvBgQYfvttCUsKYo8gHZGXIZmc=",
             "type": "url",
-            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20231016.dict"
+            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20231205.dict"
         },
-        "version": "20231016"
+        "version": "20231205"
     },
     "sway-git": {
         "cargoLocks": null,
-        "date": "2023-11-16",
+        "date": "2023-12-06",
         "extract": null,
         "name": "sway-git",
         "passthru": null,
@@ -68,15 +68,15 @@
             "name": null,
             "owner": "swaywm",
             "repo": "sway",
-            "rev": "5c99b98805e8171d590d466b2eb21402aaf8de6b",
-            "sha256": "sha256-Ow/tFFtrwcjBCBgeoUwCGObT/z7FvpBveKoh3UssSAk=",
+            "rev": "bf2b79b2845a070d84aafaf95e6cfcf9af7eeb9b",
+            "sha256": "sha256-qwDyl5/JrJgvRCh6HA9KuxSlhaS+90LpJ5FTtOkHGbk=",
             "type": "github"
         },
-        "version": "5c99b98805e8171d590d466b2eb21402aaf8de6b"
+        "version": "bf2b79b2845a070d84aafaf95e6cfcf9af7eeb9b"
     },
     "wlroots-git": {
         "cargoLocks": null,
-        "date": "2023-11-17",
+        "date": "2023-12-05",
         "extract": null,
         "name": "wlroots-git",
         "passthru": null,
@@ -86,12 +86,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "c9c9dd6a5b866055a6a39fd78e55f6d5797fec28",
-            "sha256": "sha256-dUZrwAJnJGa2q/3MPcO6f1xweaT6+Z8/9vjsaPomUxE=",
+            "rev": "1f64f3925c384e9bf20ad813ee3a9195403606ea",
+            "sha256": "sha256-ETdYvfsj0xNoHdtAAU2zKlStOrsWMCdiTkeZKJL79MM=",
             "type": "git",
             "url": "https://gitlab.freedesktop.org/wlroots/wlroots.git"
         },
-        "version": "c9c9dd6a5b866055a6a39fd78e55f6d5797fec28"
+        "version": "1f64f3925c384e9bf20ad813ee3a9195403606ea"
     },
     "xwayland-xprop": {
         "cargoLocks": null,

@@ -16,6 +16,7 @@
       lualine-nvim
       which-key-nvim
       lualine-lsp-progress
+      comment-nvim
     ];
     extraConfig = ''
       :source ${./nvim.lua}

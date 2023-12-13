@@ -27,36 +27,36 @@
   };
   fcitx5-pinyin-zhwiki = {
     pname = "fcitx5-pinyin-zhwiki";
-    version = "20231016";
+    version = "20231205";
     src = fetchurl {
-      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20231016.dict";
-      sha256 = "sha256-aQAAg+ArqwI5/fbhY80oAkvpRonU6FUsfYuWp3Z2WCM=";
+      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20231205.dict";
+      sha256 = "sha256-crMmSqQ7QgmjgEG8QpvBgQYfvttCUsKYo8gHZGXIZmc=";
     };
   };
   sway-git = {
     pname = "sway-git";
-    version = "5c99b98805e8171d590d466b2eb21402aaf8de6b";
+    version = "bf2b79b2845a070d84aafaf95e6cfcf9af7eeb9b";
     src = fetchFromGitHub {
       owner = "swaywm";
       repo = "sway";
-      rev = "5c99b98805e8171d590d466b2eb21402aaf8de6b";
+      rev = "bf2b79b2845a070d84aafaf95e6cfcf9af7eeb9b";
       fetchSubmodules = false;
-      sha256 = "sha256-Ow/tFFtrwcjBCBgeoUwCGObT/z7FvpBveKoh3UssSAk=";
+      sha256 = "sha256-qwDyl5/JrJgvRCh6HA9KuxSlhaS+90LpJ5FTtOkHGbk=";
     };
-    date = "2023-11-16";
+    date = "2023-12-06";
   };
   wlroots-git = {
     pname = "wlroots-git";
-    version = "c9c9dd6a5b866055a6a39fd78e55f6d5797fec28";
+    version = "1f64f3925c384e9bf20ad813ee3a9195403606ea";
     src = fetchgit {
       url = "https://gitlab.freedesktop.org/wlroots/wlroots.git";
-      rev = "c9c9dd6a5b866055a6a39fd78e55f6d5797fec28";
+      rev = "1f64f3925c384e9bf20ad813ee3a9195403606ea";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-dUZrwAJnJGa2q/3MPcO6f1xweaT6+Z8/9vjsaPomUxE=";
+      sha256 = "sha256-ETdYvfsj0xNoHdtAAU2zKlStOrsWMCdiTkeZKJL79MM=";
     };
-    date = "2023-11-17";
+    date = "2023-12-05";
   };
   xwayland-xprop = {
     pname = "xwayland-xprop";

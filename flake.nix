@@ -10,9 +10,11 @@
 
     # For Adblocking and making internet usable
     hosts.url = "github:StevenBlack/hosts";
+
+    sops-nix.url = "github:Mic92/sops-nix";
   };
 
-  outputs = inputs @ { self, hosts, home-manager, nix-colors, nixpkgs, ... }:
+  outputs = inputs @ { self, hosts, home-manager, nix-colors, sops-nix, nixpkgs, ... }:
     let
       # You might check on darwin for macos
       system = "x86_64-linux";
@@ -34,6 +36,7 @@
             ./host/configuration.nix
             inputs.impermanence.nixosModules.impermanence
             # ./home-manager/default.nix
+            sops-nix.nixosModules.sops
 
             {
               nixpkgs.overlays = [
