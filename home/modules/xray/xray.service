@@ -1,0 +1,8 @@
+[Unit]
+Description=xray service
+
+[Service]
+ExecStart=/etc/profiles/per-user/Tim/bin/xray -c /home/Tim/.config/xray/config.json
+
+[Install]
+WantedBy=default.target
