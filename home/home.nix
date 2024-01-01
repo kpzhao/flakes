@@ -52,6 +52,7 @@
     wayland
     wayland-protocols
     fcitx5-pinyin-zhwiki
+    ffmpeg
     fzf
     imv
     intel-gpu-tools

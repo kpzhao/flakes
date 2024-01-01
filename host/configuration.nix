@@ -142,7 +142,7 @@
   # Avoid slow boot time
   systemd.services.NetworkManager-wait-online.enable = false;
 
-  xdg.mime.enable = true;
+  # xdg.mime.enable = true;
 
   # Secure core
   security.rtkit.enable = true;
