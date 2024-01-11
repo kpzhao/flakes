@@ -56,7 +56,7 @@
     },
     "sway-git": {
         "cargoLocks": null,
-        "date": "2023-12-06",
+        "date": "2024-01-04",
         "extract": null,
         "name": "sway-git",
         "passthru": null,
@@ -68,15 +68,15 @@
             "name": null,
             "owner": "swaywm",
             "repo": "sway",
-            "rev": "bf2b79b2845a070d84aafaf95e6cfcf9af7eeb9b",
-            "sha256": "sha256-qwDyl5/JrJgvRCh6HA9KuxSlhaS+90LpJ5FTtOkHGbk=",
+            "rev": "7e69a7076fc8a4eb788e0229b1c99dd0b7b04bb7",
+            "sha256": "sha256-7kO+KaRbzwKkZBLmkODxjgEHqkx2vw+fraTMZ23s+iI=",
             "type": "github"
         },
-        "version": "bf2b79b2845a070d84aafaf95e6cfcf9af7eeb9b"
+        "version": "7e69a7076fc8a4eb788e0229b1c99dd0b7b04bb7"
     },
     "wlroots-git": {
         "cargoLocks": null,
-        "date": "2023-12-05",
+        "date": "2024-01-07",
         "extract": null,
         "name": "wlroots-git",
         "passthru": null,
@@ -86,12 +86,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "1f64f3925c384e9bf20ad813ee3a9195403606ea",
-            "sha256": "sha256-ETdYvfsj0xNoHdtAAU2zKlStOrsWMCdiTkeZKJL79MM=",
+            "rev": "48721bca656556606275a5e776066a2f00822e92",
+            "sha256": "sha256-PUx4RZiLbWineoAvZk7kuUBXRFI15vfxLna49LUR8+s=",
             "type": "git",
             "url": "https://gitlab.freedesktop.org/wlroots/wlroots.git"
         },
-        "version": "1f64f3925c384e9bf20ad813ee3a9195403606ea"
+        "version": "48721bca656556606275a5e776066a2f00822e92"
     },
     "xwayland-xprop": {
         "cargoLocks": null,
@@ -102,10 +102,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-n3wJONKkHpQf+gT5nDXl2yvNPuwDSv6NNdXIEKIusKg=",
+            "sha256": "sha256-652apyMsR0EsiDXsFal8V18DVjcmx4d1T/DAGb0H4wI=",
             "type": "url",
-            "url": "https://xorg.freedesktop.org/archive/individual/xserver/xwayland-23.2.2.tar.xz"
+            "url": "https://xorg.freedesktop.org/archive/individual/xserver/xwayland-23.2.3.tar.xz"
         },
-        "version": "23.2.2"
+        "version": "23.2.3"
     }
 }

@@ -64,7 +64,7 @@
       enabled = "fcitx5";
       fcitx5.addons = with pkgs; [
         fcitx5-chinese-addons
-        #fcitx5-pinyin-zhwiki
+        fcitx5-pinyin-zhwiki
       ];
     };
   };
@@ -272,7 +272,7 @@
   environment = {
     variables = rec {
       MOZ_ENABLE_WAYLAND = "1";
-      # NIXOS_OZONE_WL = "1";
+      NIXOS_OZONE_WL = "1";
       # WLR_RENDERER = "vulkan";
       DITOR = "nvim";
       BROWSER = "firefox";

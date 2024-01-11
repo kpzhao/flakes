@@ -35,35 +35,35 @@
   };
   sway-git = {
     pname = "sway-git";
-    version = "bf2b79b2845a070d84aafaf95e6cfcf9af7eeb9b";
+    version = "7e69a7076fc8a4eb788e0229b1c99dd0b7b04bb7";
     src = fetchFromGitHub {
       owner = "swaywm";
       repo = "sway";
-      rev = "bf2b79b2845a070d84aafaf95e6cfcf9af7eeb9b";
+      rev = "7e69a7076fc8a4eb788e0229b1c99dd0b7b04bb7";
       fetchSubmodules = false;
-      sha256 = "sha256-qwDyl5/JrJgvRCh6HA9KuxSlhaS+90LpJ5FTtOkHGbk=";
+      sha256 = "sha256-7kO+KaRbzwKkZBLmkODxjgEHqkx2vw+fraTMZ23s+iI=";
     };
-    date = "2023-12-06";
+    date = "2024-01-04";
   };
   wlroots-git = {
     pname = "wlroots-git";
-    version = "1f64f3925c384e9bf20ad813ee3a9195403606ea";
+    version = "48721bca656556606275a5e776066a2f00822e92";
     src = fetchgit {
       url = "https://gitlab.freedesktop.org/wlroots/wlroots.git";
-      rev = "1f64f3925c384e9bf20ad813ee3a9195403606ea";
+      rev = "48721bca656556606275a5e776066a2f00822e92";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-ETdYvfsj0xNoHdtAAU2zKlStOrsWMCdiTkeZKJL79MM=";
+      sha256 = "sha256-PUx4RZiLbWineoAvZk7kuUBXRFI15vfxLna49LUR8+s=";
     };
-    date = "2023-12-05";
+    date = "2024-01-07";
   };
   xwayland-xprop = {
     pname = "xwayland-xprop";
-    version = "23.2.2";
+    version = "23.2.3";
     src = fetchurl {
-      url = "https://xorg.freedesktop.org/archive/individual/xserver/xwayland-23.2.2.tar.xz";
-      sha256 = "sha256-n3wJONKkHpQf+gT5nDXl2yvNPuwDSv6NNdXIEKIusKg=";
+      url = "https://xorg.freedesktop.org/archive/individual/xserver/xwayland-23.2.3.tar.xz";
+      sha256 = "sha256-652apyMsR0EsiDXsFal8V18DVjcmx4d1T/DAGb0H4wI=";
     };
   };
 }

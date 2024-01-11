@@ -62,7 +62,7 @@
     nix-du
     slurp
     lf
-    #logseq
+    logseq
     wl-clipboard
     ripgrep
     mako
@@ -96,11 +96,11 @@
     graphviz
     btop
   ];
-  # services.udiskie = {
-  #   enable = true;
-  #   automount = true;
-  #   notify = true;
-  # };
+  services.udiskie = {
+    enable = true;
+    automount = true;
+    notify = true;
+  };
 
   systemd.user.startServices = "sd-switch";
 
