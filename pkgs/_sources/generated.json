@@ -1,7 +1,7 @@
 {
     "bili_tui": {
         "cargoLocks": null,
-        "date": "2023-04-24",
+        "date": "2024-01-13",
         "extract": null,
         "name": "bili_tui",
         "passthru": null,
@@ -13,11 +13,11 @@
             "name": null,
             "owner": "yaocccc",
             "repo": "bilibili_live_tui",
-            "rev": "44412397dde7de3190466af3d4cff1c62396a998",
-            "sha256": "sha256-th66czpHiLdZRqXVGpxVLh2lrvrjXErniJzuwVNZsP0=",
+            "rev": "fa2d6d249aa745dbb958d5d43bc59f4b36e10b43",
+            "sha256": "sha256-i/jb2ZCduR83kglq9r9UjxRrA92wHezVnXGPw1Sxzo4=",
             "type": "github"
         },
-        "version": "44412397dde7de3190466af3d4cff1c62396a998"
+        "version": "fa2d6d249aa745dbb958d5d43bc59f4b36e10b43"
     },
     "bird-babel-rtt": {
         "cargoLocks": null,
@@ -56,7 +56,7 @@
     },
     "sway-git": {
         "cargoLocks": null,
-        "date": "2024-01-04",
+        "date": "2024-01-08",
         "extract": null,
         "name": "sway-git",
         "passthru": null,
@@ -68,15 +68,15 @@
             "name": null,
             "owner": "swaywm",
             "repo": "sway",
-            "rev": "7e69a7076fc8a4eb788e0229b1c99dd0b7b04bb7",
-            "sha256": "sha256-7kO+KaRbzwKkZBLmkODxjgEHqkx2vw+fraTMZ23s+iI=",
+            "rev": "c5fd8c050f7ddbfe3e5b7abc8f5f6ace3a3c5307",
+            "sha256": "sha256-RoTFYjSb6miOnUSjEglbDwMy5mCVt3i4N/5tJSLTLgI=",
             "type": "github"
         },
-        "version": "7e69a7076fc8a4eb788e0229b1c99dd0b7b04bb7"
+        "version": "c5fd8c050f7ddbfe3e5b7abc8f5f6ace3a3c5307"
     },
     "wlroots-git": {
         "cargoLocks": null,
-        "date": "2024-01-07",
+        "date": "2024-01-09",
         "extract": null,
         "name": "wlroots-git",
         "passthru": null,
@@ -86,12 +86,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "48721bca656556606275a5e776066a2f00822e92",
-            "sha256": "sha256-PUx4RZiLbWineoAvZk7kuUBXRFI15vfxLna49LUR8+s=",
+            "rev": "ce89f49b7aab281198fad64e9a825a24dbf72e3d",
+            "sha256": "sha256-JOrvP2cSCdpFEArVbIwBdRtRcayd7MszbCREEefQFh8=",
             "type": "git",
             "url": "https://gitlab.freedesktop.org/wlroots/wlroots.git"
         },
-        "version": "48721bca656556606275a5e776066a2f00822e92"
+        "version": "ce89f49b7aab281198fad64e9a825a24dbf72e3d"
     },
     "xwayland-xprop": {
         "cargoLocks": null,

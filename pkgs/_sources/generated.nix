@@ -3,15 +3,15 @@
 {
   bili_tui = {
     pname = "bili_tui";
-    version = "44412397dde7de3190466af3d4cff1c62396a998";
+    version = "fa2d6d249aa745dbb958d5d43bc59f4b36e10b43";
     src = fetchFromGitHub {
       owner = "yaocccc";
       repo = "bilibili_live_tui";
-      rev = "44412397dde7de3190466af3d4cff1c62396a998";
+      rev = "fa2d6d249aa745dbb958d5d43bc59f4b36e10b43";
       fetchSubmodules = false;
-      sha256 = "sha256-th66czpHiLdZRqXVGpxVLh2lrvrjXErniJzuwVNZsP0=";
+      sha256 = "sha256-i/jb2ZCduR83kglq9r9UjxRrA92wHezVnXGPw1Sxzo4=";
     };
-    date = "2023-04-24";
+    date = "2024-01-13";
   };
   bird-babel-rtt = {
     pname = "bird-babel-rtt";
@@ -35,28 +35,28 @@
   };
   sway-git = {
     pname = "sway-git";
-    version = "7e69a7076fc8a4eb788e0229b1c99dd0b7b04bb7";
+    version = "c5fd8c050f7ddbfe3e5b7abc8f5f6ace3a3c5307";
     src = fetchFromGitHub {
       owner = "swaywm";
       repo = "sway";
-      rev = "7e69a7076fc8a4eb788e0229b1c99dd0b7b04bb7";
+      rev = "c5fd8c050f7ddbfe3e5b7abc8f5f6ace3a3c5307";
       fetchSubmodules = false;
-      sha256 = "sha256-7kO+KaRbzwKkZBLmkODxjgEHqkx2vw+fraTMZ23s+iI=";
+      sha256 = "sha256-RoTFYjSb6miOnUSjEglbDwMy5mCVt3i4N/5tJSLTLgI=";
     };
-    date = "2024-01-04";
+    date = "2024-01-08";
   };
   wlroots-git = {
     pname = "wlroots-git";
-    version = "48721bca656556606275a5e776066a2f00822e92";
+    version = "ce89f49b7aab281198fad64e9a825a24dbf72e3d";
     src = fetchgit {
       url = "https://gitlab.freedesktop.org/wlroots/wlroots.git";
-      rev = "48721bca656556606275a5e776066a2f00822e92";
+      rev = "ce89f49b7aab281198fad64e9a825a24dbf72e3d";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-PUx4RZiLbWineoAvZk7kuUBXRFI15vfxLna49LUR8+s=";
+      sha256 = "sha256-JOrvP2cSCdpFEArVbIwBdRtRcayd7MszbCREEefQFh8=";
     };
-    date = "2024-01-07";
+    date = "2024-01-09";
   };
   xwayland-xprop = {
     pname = "xwayland-xprop";

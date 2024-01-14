@@ -40,6 +40,7 @@
     # (dwl-git.override ({ conf = ./pkgs/dwl-git/dwl-config.h; }))
     # (my-dwl.override({ conf = ./pkgs/my-dwl/dwl-config.h;}))
     # dwl-bar
+    bat
     du-dust
     foot
     # (dwl-git.overrideAttrs (drv: rev {conf = ./pkgs/dwl-git/dwl-config.h};))
@@ -62,6 +63,7 @@
     nix-du
     slurp
     lf
+    libnotify
     logseq
     wl-clipboard
     ripgrep

@@ -9,5 +9,5 @@
     };
   };
   home.file.".config/mpv/mpv.conf".source = ./mpv.conf;
-  home.file.".config/mpv/scripts/file-browser.lua".source = ./scripts/file-browser.lua;
+  # home.file.".config/mpv/scripts/file-browser.lua".source = ./scripts/file-browser.lua;
 }

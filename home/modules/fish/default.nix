@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   programs.fish = {
     enable = true;
@@ -13,7 +13,14 @@
                 	''
       else '''';
     interactiveShellInit = ''set fish_greeting ""'';
-
+    shellAliases = with pkgs; {
+      rebuild = "doas nix-store --verify; pushd ~/Documents/flakes && doas nixos-rebuild switch --flake .#Tim && notify-send \"Done\"&& bat cache --build; popd";
+      fcd = "cd $(find -type d | fzf)";
+      ls = "${lib.getExe eza} -h --git --icons --color=auto --group-directories-first -s extension";
+      l = "ls -lF --time-style=long-iso --icons";
+      la = "${lib.getExe eza} -lah --tree";
+      tree = "${lib.getExe eza} --tree --icons --tree";
+    };
   };
   home.file = {
     ".config/fish/conf.d/nord.fish".text = import ./nord_theme.nix;

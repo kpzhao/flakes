@@ -107,42 +107,17 @@
     #   noProxy = "127.0.0.1,localhost,internal.domain";
     # };
 
-    # Killer feature, Its a must these days.
-    # Adblocker!! It uses steven black hosts.
-    # stevenBlackHosts = {
-    #   enable = true;
-    #   blockFakenews = true;
-    #   blockGambling = true;
-    #   blockPorn = true;
-    #   blockSocial = false;
-    # };
-    #     localCommands = ''
-    #   ip rule add fwmark 1 table 100
-    #   ip route add local 0.0.0.0/0 dev lo table 100
-    #
-    #   ip -6 rule add fwmark 1 table 100
-    #   ip -6 route add local ::/0 dev lo table 100
-    # '';
-
+   
     # Firewall uses iptables underthehood
     # Rules are for syncthing
         nftables = {
       enable = true;
       # ruleset = nftablesRuleset;
     };
-    # firewall = {
-    #   enable = true;
-    #   # For syncthing
-    #   allowedTCPPorts = [ 8384 22000 ];
-    #   allowedUDPPorts = [ 22000 21027 ];
-    #   allowPing = false;
-    #   logReversePathDrops = true;
-    # };
-  };
+   };
   # Avoid slow boot time
   systemd.services.NetworkManager-wait-online.enable = false;
 
-  # xdg.mime.enable = true;
 
   # Secure core
   security.rtkit.enable = true;
@@ -309,17 +284,6 @@
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
 
-  #   users = {
-  #   # DynamicUser is set to true in the systemd service, so systemd will use
-  #   # the xray user if it is statically defined
-  #   groups.xray.gid = 255;
-  #   users.xray = {
-  #     isSystemUser = true;
-  #     uid = 255;
-  #     group = "xray";
-  #   };
-  # };
-
   users.users.xray ={
       isSystemUser = true;
       # uid = ;
@@ -331,7 +295,6 @@
   };
   users.groups = {
     xray.gid = 23333;
-    # proxy.gid = 23333;
   };
 
 # Nixpkgs
@@ -340,9 +303,9 @@
     config = {
       # keep a check and remove it asap
       permittedInsecurePackages = [
-        "openssl-1.1.1u"
-        "electron-24.8.6"
-        "electron-25.9.0"
+        # "openssl-1.1.1u"
+        # "electron-24.8.6"
+        # "electron-25.9.0"
       ];
       allowUnfree = true;
       allowBroken = false;
@@ -376,14 +339,14 @@
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
     # Free up to 1GiB whenever there is less than 100MiB left.
-    extraOptions = ''
-      # experimental-features = nix-command flakes
-      keep-outputs = true
-      warn-dirty = false
-      keep-derivations = true
-      min-free = ${toString (100 * 1024 * 1024)}
-      max-free = ${toString (1024 * 1024 * 1024)}
-    '';
+    # extraOptions = ''
+    #   # experimental-features = nix-command flakes
+    #   keep-outputs = true
+    #   warn-dirty = false
+    #   keep-derivations = true
+    #   min-free = ${toString (100 * 1024 * 1024)}
+    #   max-free = ${toString (1024 * 1024 * 1024)}
+    # '';
 
     # substituters are cachix domain, where some package binaries are available (eg : Hyprland & Emacs 30)
     # NOTE : You should do a simple rebuild with these substituters line first,
@@ -399,12 +362,12 @@
       # use binary cache, its not gentoo
       substituters = [
         "https://cache.nixos.org"
-        # "https://nix-community.cachix.org"
+        "https://nix-community.cachix.org"
       ];
       # Keys for the sustituters cachix
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        # "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
     };
   };

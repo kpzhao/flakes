@@ -106,7 +106,9 @@
       # 继续之前的BT任务时, 无需再次校验, 默认:false
       bt-seed-unverified = true;
       # 保存磁力链接元数据为种子文件(.torrent文件), 默认:false
-      #bt-save-metadata=false
+      bt-save-metadata=true;
+      # 加载已保存的元数据文件(.torrent)，默认:false
+      bt-load-saved-metadata=true;
       #仅下载种子文件
       bt-metadata-only = true;
       #通过网上的种子文件下载，种子保存在内存
