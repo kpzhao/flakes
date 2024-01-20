@@ -5,7 +5,8 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
@@ -14,28 +15,33 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "none";
+    {
+      device = "none";
       fsType = "tmpfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/7F20-8173";
+    {
+      device = "/dev/disk/by-uuid/7F20-8173";
       fsType = "vfat";
     };
 
   fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/d5b66c54-52c7-480b-9f48-1075d23c8fcd";
+    {
+      device = "/dev/disk/by-uuid/d5b66c54-52c7-480b-9f48-1075d23c8fcd";
       fsType = "ext4";
     };
 
   fileSystems."/etc/nixos" =
-    { device = "/nix/persist/etc/nixos";
+    {
+      device = "/nix/persist/etc/nixos";
       fsType = "none";
       options = [ "bind" ];
     };
 
   fileSystems."/var/log" =
-    { device = "/nix/persist/var/log";
+    {
+      device = "/nix/persist/var/log";
       fsType = "none";
       options = [ "bind" ];
     };

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ...}: {
+{ config, lib, pkgs, inputs, ... }: {
 
   imports = [
     ./hardware-configuration.nix
@@ -7,7 +7,7 @@
   ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    # kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [ "tcp_bbr" ];
     kernelParams = [
       "quiet"
@@ -37,7 +37,7 @@
 
     consoleLogLevel = 3;
     supportedFilesystems = [ "ntfs" ];
-    tmp.cleanOnBoot = true;
+    # tmp.cleanOnBoot = true;
   };
 
   hardware = {
@@ -60,13 +60,13 @@
 
   i18n = {
     defaultLocale = "en_US.UTF-8";
-    inputMethod = {
-      enabled = "fcitx5";
-      fcitx5.addons = with pkgs; [
-        fcitx5-chinese-addons
-        fcitx5-pinyin-zhwiki
-      ];
-    };
+    # inputMethod = {
+    #   enabled = "fcitx5";
+    #   fcitx5.addons = with pkgs; [
+    #     fcitx5-chinese-addons
+    #     fcitx5-pinyin-zhwiki
+    #   ];
+    # };
   };
   # Font
   fonts = {
@@ -107,14 +107,14 @@
     #   noProxy = "127.0.0.1,localhost,internal.domain";
     # };
 
-   
+
     # Firewall uses iptables underthehood
     # Rules are for syncthing
-        nftables = {
+    nftables = {
       enable = true;
       # ruleset = nftablesRuleset;
     };
-   };
+  };
   # Avoid slow boot time
   systemd.services.NetworkManager-wait-online.enable = false;
 
@@ -146,7 +146,7 @@
       RuntimeMaxUse=10M
     '';
     # enable openssh
-   openssh.enable = true;
+    openssh.enable = true;
     # To mount drives with udiskctl command
     udisks2.enable = true;
     # gnome.at-spi2-core.enable = true;
@@ -201,13 +201,13 @@
     };
 
     xray = {
-      wantedBy = [ "multi-user.target" ]; 
+      wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       description = "xray service";
       serviceConfig = {
         Type = "simple";
         User = "xray";
-        ExecStart = ''${pkgs.xray}/bin/xray -c /nix/persist/etc/config-nft.json'';         
+        ExecStart = ''${pkgs.xray}/bin/xray -c /nix/persist/etc/config-nft.json'';
         # ExecStop = ''${pkgs.screen}/bin/screen -S irc -X quit'';
         Restart = "always";
         RestartSec = "1";
@@ -218,18 +218,18 @@
 
     # Move TMPDIR to /var/cache/nix
     nix-daemon = {
-    environment = {
-      # 指定临时文件的位置
-      TMPDIR = "/var/cache/nix";
+      environment = {
+        # 指定临时文件的位置
+        TMPDIR = "/var/cache/nix";
+      };
+      serviceConfig = {
+        # 在 Nix Daemon 启动时自动创建 /var/cache/nix
+        CacheDirectory = "nix";
+      };
     };
-    serviceConfig = {
-      # 在 Nix Daemon 启动时自动创建 /var/cache/nix
-      CacheDirectory = "nix";
-    };
-  };
   };
 
-    programs = {
+  programs = {
     adb.enable = true;
     dconf.enable = true;
     command-not-found.enable = false;
@@ -251,21 +251,22 @@
       # WLR_RENDERER = "vulkan";
       DITOR = "nvim";
       BROWSER = "firefox";
+      SDL_VIDEODRIVER = "wayland";
 
       # Not officially in the specification
       XDG_BIN_HOME = "$HOME/.local/bin";
       PATH = [
         "${XDG_BIN_HOME}"
       ];
-      
+
       NIX_REMOTE = "daemon";
     };
   };
 
   nix.envVars.GOPROXY = "https://goproxy.cn,direct";
 
-# Users
-  users.mutableUsers =false;
+  # Users
+  users.mutableUsers = false;
   users.users.root = {
     initialHashedPassword = "$6$WSLqMj/csKrhFrgF$zHtpHPOepWr18G.mL1xcfmUAGLXnzdTxidFaeM9TLdlDGZ3JoHufH3ScROtfL35dgGo.tKNO2ypPqJ4aPVtxt/";
   };
@@ -284,12 +285,12 @@
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
 
-  users.users.xray ={
-      isSystemUser = true;
-      # uid = ;
-      group = "xray";
-  extraGroups  = [ "proxy"  ];
-      packages = with pkgs; [
+  users.users.xray = {
+    isSystemUser = true;
+    # uid = ;
+    group = "xray";
+    extraGroups = [ "proxy" ];
+    packages = with pkgs; [
       xray
     ];
   };
@@ -297,7 +298,7 @@
     xray.gid = 23333;
   };
 
-# Nixpkgs
+  # Nixpkgs
   # As name implies, allows Unfree packages. You can enable in case you wanna install non-free tools (eg: some fonts lol)
   nixpkgs = {
     config = {
@@ -305,7 +306,7 @@
       permittedInsecurePackages = [
         # "openssl-1.1.1u"
         # "electron-24.8.6"
-        # "electron-25.9.0"
+        "electron-25.9.0"
       ];
       allowUnfree = true;
       allowBroken = false;
@@ -321,7 +322,7 @@
     nixos.enable = false;
   };
 
-# Nix
+  # Nix
   # Collect garbage and delete generation every 6 day. Will help to get some storage space.
   # Better to atleast keep it for few days, as you do major update (unstable), if something breaks you can roll back.
   nix = {
@@ -372,5 +373,5 @@
     };
   };
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "23.11";
 }

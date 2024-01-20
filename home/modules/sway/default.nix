@@ -85,7 +85,7 @@ in
       window.titlebar = false;
 
       modifier = "Mod4";
-      terminal = "alacritty";
+      terminal = "systemd-run-app alacritty";
       startup = [
         # {command = "kitty";}
         { command = "firefox"; }
@@ -100,6 +100,20 @@ in
         "2" = [{ app_id = "org.telegram.desktop"; }];
         "3" = [{ app_id = "Alacritty"; }];
       };
+      window.commands = [
+        {
+          criteria = { app_id = "(?i)mpv"; };
+          command = "floating enable, resize set 900 800, move position center";
+        }
+        {
+          criteria = { app_id = ".scrcpy-wrapped"; };
+          command = "floating enable";
+        }
+        {
+          criteria = { app_id = "(?i)thunar"; };
+          command = "floating enable, resize set 900 800, move position center";
+        }
+      ];
       gaps = {
         inner = 1;
         outer = 1;
@@ -131,10 +145,9 @@ in
           "${modifier}+v" = "splitv";
           "${modifier}+w" = "layout tabbed";
           "${modifier}+e" = "layout toggle split";
-          # "${modifier}+d" = "exec ${pkgs.rofi-wayland}/bin/rofi -show run -run-command '{cmd}'";
-          "${modifier}+d" = "exec ${pkgs.rofi-wayland}/bin/rofi -show run -run-command 'systemd-run-app {cmd}'";
+          "${modifier}+d" = "exec ${lib.getExe pkgs.rofi-wayland} -show run -run-command 'systemd-run-app {cmd}'";
 
-          "${modifier}+Shift+l" = "exec loginctl lock-session";
+          "${modifier}+Shift+c" = "reload";
           "${modifier}+space" = "focus mode_toggle";
           "${modifier}+a" = "focus parent";
 

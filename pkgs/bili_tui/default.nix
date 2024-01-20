@@ -5,7 +5,7 @@
 }:
 
 buildGoModule {
-  inherit (source) pname version src ;
+  inherit (source) pname version src;
   vendorHash = "sha256-eoLVLAzbw9BxbSgHWxmaxVmlV6RhIscwSAJrv2OpU+k=";
 
 

@@ -1,7 +1,4 @@
 { pkgs
-, config
-, lib
-, user
 , ...
 }: {
   home = {
@@ -81,7 +78,7 @@
       # RPC监听端口, 端口被占用时可以修改, 默认:6800
       rpc-listen-port = "6800";
       # 保存上传的种子文件
-      rpc-save-upload-metadata = false;
+      rpc-save-upload-metadata = true;
 
       ## BT/PT下载相关 ##
 
@@ -106,11 +103,11 @@
       # 继续之前的BT任务时, 无需再次校验, 默认:false
       bt-seed-unverified = true;
       # 保存磁力链接元数据为种子文件(.torrent文件), 默认:false
-      bt-save-metadata=true;
+      bt-save-metadata = false;
       # 加载已保存的元数据文件(.torrent)，默认:false
-      bt-load-saved-metadata=true;
+      bt-load-saved-metadata = false;
       #仅下载种子文件
-      bt-metadata-only = true;
+      # bt-metadata-only = true;
       #通过网上的种子文件下载，种子保存在内存
       follow-torrent = "mem";
 

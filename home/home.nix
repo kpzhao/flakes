@@ -53,6 +53,7 @@
     wayland
     wayland-protocols
     fcitx5-pinyin-zhwiki
+    fd
     ffmpeg
     fzf
     imv
@@ -72,12 +73,14 @@
     mpv
     ncmpcpp
     nil
+    nmap
     nodejs
     nvfetcher
     p7zip
     qq
     #rustdesk
     rclone
+    scrcpy
     spotify
     swappy
     telegram-desktop
@@ -93,7 +96,8 @@
     xorg.xrdb
     xorg.xeyes
     xray
-    git-repo tree
+    git-repo
+    tree
     #bili_tui
     graphviz
     btop

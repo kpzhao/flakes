@@ -3,7 +3,7 @@
     ./app-git
     ./aria2
     # ./bili_live
-    # ./fcitx5
+    ./fcitx5
     ./fish
     ./firefox
     ./lf
@@ -18,5 +18,6 @@
     ./waybar
     ./xdg
     ./xray
+    ./yazi
   ];
 }
