@@ -3,7 +3,7 @@
   imports = [
     ./hardware-configuration.nix
     ./persistence.nix
-    ./xray.nix
+    ./network.nix
   ];
 
   boot = {
@@ -77,47 +77,24 @@
       noto-fonts-cjk-serif
       noto-fonts-emoji
       font-awesome
-      sarasa-gothic
+      twemoji-color-font
+      # jetbrains-mono
+      # (nerdfonts.override { fonts = [ "JetBrainsMono" "RobotoMono" ]; })
     ];
-    fontconfig = {
-      enable = true;
-      defaultFonts = {
-        serif = [ "Noto Serif" "Noto Serif CJK SC" ];
-        sansSerif = [ "Noto Sans" "Noto Sans CJK SC" ];
-        monospace = [ "Sarasa Term SC" ];
-        emoji = [ "Noto Color Emoji" ];
-      };
+    fontconfig.defaultFonts = pkgs.lib.mkForce {
+      serif = [ "Noto Serif" "Noto Serif CJK SC" ];
+      sansSerif = [ "Noto Sans" "Noto Sans CJK SC" ];
+      monospace = [
+        # "JetBrains Mono" 
+        # "Noto Color Emoji" 
+      ];
+      emoji = [
+        "Twemoji"
+        # "Noto Color Emoji" 
+      ];
     };
 
   };
-
-  # Network
-  networking = {
-    hostName = "nixos";
-    # dns
-    networkmanager = {
-      enable = true;
-      unmanaged = [ "docker0" "rndis0" ];
-      wifi.macAddress = "random";
-    };
-
-    # Configure network proxy if necessary
-    # proxy = {
-    #   default = "socks5h://127.0.0.1:10808/";
-    #   noProxy = "127.0.0.1,localhost,internal.domain";
-    # };
-
-
-    # Firewall uses iptables underthehood
-    # Rules are for syncthing
-    nftables = {
-      enable = true;
-      # ruleset = nftablesRuleset;
-    };
-  };
-  # Avoid slow boot time
-  systemd.services.NetworkManager-wait-online.enable = false;
-
 
   # Secure core
   security.rtkit.enable = true;
@@ -200,22 +177,6 @@
       wantedBy = [ "multi-user.target" ];
     };
 
-    xray = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      description = "xray service";
-      serviceConfig = {
-        Type = "simple";
-        User = "xray";
-        ExecStart = ''${pkgs.xray}/bin/xray -c /nix/persist/etc/config-nft.json'';
-        # ExecStop = ''${pkgs.screen}/bin/screen -S irc -X quit'';
-        Restart = "always";
-        RestartSec = "1";
-        CapabilityBoundingSet = "CAP_NET_BIND_SERVICE CAP_NET_RAW";
-        AmbientCapabilities = "CAP_NET_BIND_SERVICE CAP_NET_RAW";
-      };
-    };
-
     # Move TMPDIR to /var/cache/nix
     nix-daemon = {
       environment = {
@@ -241,6 +202,7 @@
     neovim
     xray
     dig
+    vulkan-validation-layers
   ];
 
   # ENV
@@ -284,19 +246,6 @@
   };
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
-
-  users.users.xray = {
-    isSystemUser = true;
-    # uid = ;
-    group = "xray";
-    extraGroups = [ "proxy" ];
-    packages = with pkgs; [
-      xray
-    ];
-  };
-  users.groups = {
-    xray.gid = 23333;
-  };
 
   # Nixpkgs
   # As name implies, allows Unfree packages. You can enable in case you wanna install non-free tools (eg: some fonts lol)

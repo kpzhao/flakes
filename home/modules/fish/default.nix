@@ -17,11 +17,16 @@
       rebuild = "doas nix-store --verify; pushd ~/Documents/flakes && doas nixos-rebuild switch --flake .#Tim && notify-send \"Done\"&& bat cache --build; popd";
       cleanup = "doas nix-collect-garbage --delete-older-than 7d";
       fcd = "cd $(find -type d | fzf)";
-      ls = "${lib.getExe eza} -h --git --icons --color=auto --group-directories-first -s extension";
-      l = "ls -lF --time-style=long-iso --icons";
+      ls = "${lib.getExe eza} -h --git --color=auto --group-directories-first -s extension";
+      l = "ls -lF --time-style=long-iso";
       la = "${lib.getExe eza} -lah --tree";
-      tree = "${lib.getExe eza} --tree --icons --tree";
+      tree = "${lib.getExe eza} --tree";
       ps = lib.getExe procs;
+      cp = "cp -iv";
+      mv = "mv -iv";
+      rm = "rm -vI";
+      gc = "git clone --depth=1";
+
     };
 
     functions = {

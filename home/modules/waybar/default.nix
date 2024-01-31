@@ -15,12 +15,15 @@
     };
     settings = [
       {
-        #"spacing" = 4;
+        "spacing" = 1;
         "modules-left" = [ "sway/workspaces" "idle_inhibitor" "sway/mode" "sway/window" ];
         #"modules-center"= [""];
         "modules-right" = [ "wireplumber" "network" "battery" "backlight" "clock" "tray" ];
         "backlight" = {
-          "format" = "{percent}% {icon}";
+          "device" = "intel_backlight";
+          "on-scroll-up" = "light -A 5";
+          "on-scroll-down" = "light -U 5";
+          "format" = "{icon} {percent}%";
           "format-icons" = [ "" "" ];
         };
         "battery" = {
@@ -74,69 +77,11 @@
         };
         "wireplumber" = {
           "format" = "{volume}%";
-          "format-muted" = "";
+          "format-muted" = " Muted";
         };
       }
     ];
+    style = builtins.readFile ./waybar.css;
 
-    # style = ''
-    #               * {
-    #   border: none;
-    #           border-radius: 0;
-    #           font-family: Noto Sans CJK SC;
-    #           font-size: 13px;
-    #           text-shadow: none;
-    #           box-shadow:    none;
-    #           transition-duration: 0s;
-    #   color: #c0caf5;
-    #               }
-    #
-    #           window {
-    #               font-weight:    bold;
-    #   color:          #D8DEE9;
-    #   background:     #666666;
-    #           }
-    #
-    #   #workspaces button {
-    #   padding: 0 5px;
-    #   background: #1a1b26;
-    #   min-width: 0;
-    #   }
-    #
-    #   #workspaces button.visible {
-    #   background: #414868;
-    #   }
-    #
-    #   #workspaces button.focused {
-    #   background: #414868;
-    #   }
-    #
-    #   #pulseaudio, #cpu, #network, #clock, #battery{
-    #   padding: 0px 10px;
-    #   }
-    #
-    #   #network{
-    #   }
-    #
-    #   #network.disconnected {
-    #   color: red;
-    #   }
-    #
-    #   #battery {
-    #   color: #c0caf5;
-    #   }
-    #
-    #   #battery.critical {
-    #   color: red;
-    #   }
-    #
-    #   #battery.good {
-    #   color: #c0caf5;
-    #   }
-    #
-    #   #battery.charging {
-    #   color: #c0caf5;
-    #   }
-    # '';
   };
 }

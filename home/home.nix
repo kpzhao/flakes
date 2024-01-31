@@ -29,6 +29,20 @@
   #   enable = true;
   #   platformTheme = "gtk";
   # };
+  programs = {
+    eza = {
+      enable = true;
+      extraOptions = [ "--group-directories-first" "--header" ];
+      # icons = true;
+    };
+    bat = {
+      enable = true;
+      extraPackages = with pkgs.bat-extras; [ batdiff batman batgrep batwatch ];
+      config = {
+        theme = "gruvbox-dark";
+      };
+    };
+  };
 
   home.packages = with pkgs; [
     age
@@ -58,6 +72,7 @@
     fzf
     imv
     intel-gpu-tools
+    iwgtk
     helix
     neofetch
     git
@@ -77,8 +92,9 @@
     nodejs
     nvfetcher
     p7zip
+    procs
     qq
-    #rustdesk
+    rustdesk
     rclone
     scrcpy
     spotify
