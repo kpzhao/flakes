@@ -311,6 +311,7 @@
       max-jobs = "auto";
       # use binary cache, its not gentoo
       substituters = [
+        "https://mirror.sjtu.edu.cn/nix-channels/store"
         "https://cache.nixos.org"
         "https://nix-community.cachix.org"
       ];
