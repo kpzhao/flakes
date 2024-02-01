@@ -123,6 +123,7 @@
     automount = true;
     notify = true;
   };
+  # config.my.xray.enable =true;
 
   systemd.user.startServices = "sd-switch";
 

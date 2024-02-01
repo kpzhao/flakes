@@ -22,8 +22,8 @@
       lib = nixpkgs.lib;
       this = import ./pkgs;
     in
-    {
-
+    rec {
+      nixosModules = (import ./modules { inherit lib; });
       nixosConfigurations = {
 
         Tim = lib.nixosSystem {
@@ -33,6 +33,7 @@
             ./host/configuration.nix
             inputs.impermanence.nixosModules.impermanence
             sops-nix.nixosModules.sops
+            nixosModules.xray
 
             {
               nixpkgs.overlays = [

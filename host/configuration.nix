@@ -3,7 +3,7 @@
   imports = [
     ./hardware-configuration.nix
     ./persistence.nix
-    ./network.nix
+    # ./network.nix
   ];
 
   boot = {
@@ -195,6 +195,7 @@
     dconf.enable = true;
     command-not-found.enable = false;
   };
+  my.xray.enable = true;
 
   # System packages
   environment.systemPackages = with pkgs; [

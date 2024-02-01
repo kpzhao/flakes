@@ -72,9 +72,8 @@ in
 {
   users.users.xray = {
     isSystemUser = true;
-    # uid = ;
+    uid = 23333;
     group = "xray";
-    # extraGroups = [ "proxy" ];
     packages = with pkgs; [
       xray
     ];
