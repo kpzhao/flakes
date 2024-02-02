@@ -5,7 +5,7 @@ let
   cfg = config.my.xray;
   inherit (cfg) xrayUserName;
   nft_file = builtins.toFile "xray.nft" ''
-      # 保留 IP 参考 https://en.wikipedia.org/wiki/Reserved_IP_addresses
+    # 保留 IP 参考 https://en.wikipedia.org/wiki/Reserved_IP_addresses
     define LANv4 = {
         0.0.0.0/8,
         10.0.0.0/8,
@@ -73,7 +73,6 @@ let
     }
   '';
 
-
   xrayModule = types.submodule {
     options = {
       enable = mkOption {
@@ -139,7 +138,9 @@ in
       isSystemUser = true;
       group = "xray";
     };
-    users.groups.xray = { };
+    users.groups.xray = {
+      gid = 23333;
+    };
 
     networking = {
       hostName = "frame";
@@ -172,19 +173,7 @@ in
     # This priority is higher than mkDefault (1000), but less than manual definition
     # services.resolved.enable = mkOverride 999 false;
     systemd.network.networks = {
-      "10-wlan0" = {
-        name = "wlan0";
-        DHCP = "yes";
-        dhcpV4Config.RouteMetric = 2048;
-        dhcpV6Config.RouteMetric = 2048;
-      };
-      "10-ether" = {
-        name = "en*";
-        DHCP = "yes";
-      };
-
       lo = {
-
         # equivalent to matchConfig.Name = "lo";
         name = "lo";
         routingPolicyRules = [{
@@ -200,21 +189,10 @@ in
       };
     };
 
-    # If the user doesn't have any other interface managed by networkd, then there will be no interface managed (lo is ignored by default)
-    # This makes networkd-wait-online impossible to succeed.
-    # Thus let's disable on default
-    systemd.services.systemd-networkd-wait-online = {
-      enable = mkDefault false;
-      restartIfChanged = mkDefault false;
-    };
-
     systemd.services.xray =
-
-
-
       {
-        path = with pkgs; [ gnugrep iptables xray ];
-        description = "Clash networking service";
+        path = with pkgs; [ xray ];
+        description = "xray networking service";
         after = [ "network.target" ] ++ cfg.beforeUnits;
         before = cfg.afterUnits;
         requires = cfg.requireUnits;

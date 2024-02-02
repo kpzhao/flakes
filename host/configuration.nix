@@ -3,7 +3,7 @@
   imports = [
     ./hardware-configuration.nix
     ./persistence.nix
-    # ./network.nix
+    ./network.nix
   ];
 
   boot = {
@@ -201,7 +201,6 @@
   environment.systemPackages = with pkgs; [
     gitFull
     neovim
-    xray
     dig
     vulkan-validation-layers
   ];
