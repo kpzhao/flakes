@@ -42,6 +42,7 @@
         theme = "gruvbox-dark";
       };
     };
+    yt-dlp.enable = true;
   };
 
   home.packages = with pkgs; [

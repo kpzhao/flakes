@@ -128,16 +128,16 @@
     udisks2.enable = true;
     # gnome.at-spi2-core.enable = true;
 
-    # tlp.enable = true;     # TLP and auto-cpufreq for power management
-    auto-cpufreq.enable = true;
+    tlp.enable = true;     # TLP and auto-cpufreq for power management
+    # auto-cpufreq.enable = true;
 
     # For Laptop, make lid close and power buttom click to suspend
-    logind = {
-      lidSwitch = "suspend";
-      extraConfig = ''
-        HandlePowerKey = suspend
-      '';
-    };
+    # logind = {
+    #   lidSwitch = "suspend";
+    #   extraConfig = ''
+    #     HandlePowerKey = suspend
+    #   '';
+    # };
 
     atd.enable = true;
     fstrim.enable = true;
