@@ -98,6 +98,7 @@
     rustdesk
     rclone
     scrcpy
+    socat
     spotify
     swappy
     telegram-desktop
