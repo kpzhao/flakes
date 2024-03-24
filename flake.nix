@@ -1,7 +1,8 @@
 {
   description = "Tim's NixOS configuration";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -11,7 +12,7 @@
     sops-nix.url = "github:Mic92/sops-nix";
   };
 
-  outputs = inputs @ { self, home-manager, sops-nix, nixpkgs, ... }:
+  outputs = inputs @ { self, home-manager, sops-nix, nixpkgs, nixpkgs-unstable, ... }:
     let
       # You might check on darwin for macos
       system = "x86_64-linux";
@@ -19,6 +20,14 @@
         inherit system;
         config.allowUnfree = true;
       };
+                pkgs-unstable = import nixpkgs-unstable {
+            # 这里递归引用了外部的 system 属性
+            system = system;
+            # 为了拉取 chrome 等软件包，
+            # 这里我们需要允许安装非自由软件
+            config.allowUnfree = true;
+          };
+
       lib = nixpkgs.lib;
       this = import ./pkgs;
     in
@@ -48,12 +57,16 @@
               home-manager.extraSpecialArgs = {
                 inherit inputs;
                 inherit self;
+                inherit pkgs-unstable;
               };
 
               home-manager.users.Tim = ./home;
             }
           ];
-          specialArgs = { inherit inputs; };
+          specialArgs = { 
+            inherit inputs; 
+            inherit pkgs-unstable;
+          };
         };
       };
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;

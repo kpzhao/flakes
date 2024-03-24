@@ -256,6 +256,7 @@
         # "openssl-1.1.1u"
         # "electron-24.8.6"
         "electron-25.9.0"
+        "freeimage-unstable-2021-11-01"
       ];
       allowUnfree = true;
       allowBroken = false;

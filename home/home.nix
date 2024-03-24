@@ -56,6 +56,8 @@
     # (my-dwl.override({ conf = ./pkgs/my-dwl/dwl-config.h;}))
     # dwl-bar
     bat
+    bookworm
+    calibre
     du-dust
     foot
     # (dwl-git.overrideAttrs (drv: rev {conf = ./pkgs/dwl-git/dwl-config.h};))
@@ -95,7 +97,7 @@
     p7zip
     procs
     qq
-    rustdesk
+    # rustdesk
     rclone
     scrcpy
     socat

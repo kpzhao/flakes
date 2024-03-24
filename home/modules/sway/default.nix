@@ -1,6 +1,7 @@
 { config
 , lib
 , pkgs
+, pkgs-unstable
 , ...
 }:
 let
@@ -75,7 +76,7 @@ in
 
   wayland.windowManager.sway = {
     enable = true;
-    # package = pkgs.sway-git;
+    package = pkgs-unstable.sway;
     systemd = {
       enable = true;
       xdgAutostart = true;
