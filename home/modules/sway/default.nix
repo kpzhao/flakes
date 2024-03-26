@@ -93,8 +93,8 @@ in
         { command = "mako"; }
         { command = "dbus-sway-environment"; }
         # { command = "configure-gtk"; }
-        { command = "xprop -root -format _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2"; }
-        { command = "xrdb -merge <<< 'Xft.dpi: 192'"; }
+        # { command = "xprop -root -format _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2"; }
+        # { command = "xrdb -merge <<< 'Xft.dpi: 192'"; }
       ];
       assigns = {
         "1" = [{ app_id = "firefox"; }];

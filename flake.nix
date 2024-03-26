@@ -25,7 +25,20 @@
             system = system;
             # 为了拉取 chrome 等软件包，
             # 这里我们需要允许安装非自由软件
-            config.allowUnfree = true;
+            # config.allowUnfree = true;
+                config = {
+      # keep a check and remove it asap
+      permittedInsecurePackages = [
+        "openssl-1.1.1w"
+        # "openssl-1.1.1u"
+        # "electron-24.8.6"
+        "electron-25.9.0"
+        "freeimage-unstable-2021-11-01"
+      ];
+      allowUnfree = true;
+      allowBroken = false;
+    };
+
           };
 
       lib = nixpkgs.lib;

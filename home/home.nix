@@ -1,5 +1,6 @@
 { config
 , pkgs
+, pkgs-unstable
 , ...
 }: {
   imports = [
@@ -49,7 +50,7 @@
     age
     sops
     android-tools
-    # (callPackage ./../pkgs/materia.nix {})
+    # (callPackage ./../pkgs/wechat-uos.nix {})
     # (callPackage ./../pkgs/alacritty-1/default.nix{})
     alacritty
     # (dwl-git.override ({ conf = ./pkgs/dwl-git/dwl-config.h; }))
@@ -97,7 +98,7 @@
     p7zip
     procs
     qq
-    # rustdesk
+    rustdesk
     rclone
     scrcpy
     socat

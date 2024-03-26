@@ -16,6 +16,8 @@
     ./sway
     # ./theme
     ./waybar
+    ./wechat
+    ./wine
     ./xdg
     ./xray
     ./yazi

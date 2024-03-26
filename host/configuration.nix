@@ -253,6 +253,7 @@
     config = {
       # keep a check and remove it asap
       permittedInsecurePackages = [
+        "openssl-1.1.1w"
         # "openssl-1.1.1u"
         # "electron-24.8.6"
         "electron-25.9.0"
